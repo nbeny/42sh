@@ -1,0 +1,28 @@
+#include "globing.h"
+#include <libft.h>
+
+t_new	*get_no_ascii(t_new *s, char *str, int *i)
+{
+	while (str[*i] != '\0')
+	{
+		if (str[i + 1] == '-')
+		{
+			if (str[i + 1] == '-' && str[i + 2] != '\0')
+			{
+				s_izi = sb_not_ascii_posjoin(s, (int)str[i], (int)str[i + 2], s_izi);
+				i += 3;
+			}
+			else
+			{
+				s_izi = sb_not_ascii_posjoin(s, (int)str[i], ((int)str[i] + 1), s_izi);
+				i++;
+			}
+		}
+		else
+		{
+			s_izi = sb_not_ascii_posjoin(s, (int)str[i], ((int)str[i] + 1), s_izi);
+			i++;
+		}
+	}
+	return (s_izi);
+}

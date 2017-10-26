@@ -154,25 +154,73 @@ t_new	*sb_ascii_posdup(t_new *new, int c1, int c2)
 	return (s);
 }
 
-t_new	*sb_not_this_ascii(t_new *new, int c1, int c2)
+t_new	*sb_not_this_ascii_posdup(t_new *new, int c1, int c2)
 {
 	t_new	*s;
 	char	*w;
 	int		i;
 
-	if (c1 < c2)
+	if (c1 > c2)
+	{
 		i = c1;
-	else if (c1 > c2)
-	{
-		i = c2;
-		c2 = c1;
+		c1 = c2;
+		c2 = i;
 	}
-	else
-		return (izi);
-	while (i < c2)
+	i = 32;
+	while (i < c1)
 	{
-		
+		s->next = add_new(new);
+		s = s->next;
+		w = creat_bracket(i);
+		s->str = ft_strdup(w);
+		ft_strdel(&w);
+		i++;
 	}
+	while (i <= c2)
+		i++;
+	while (i < 127)
+	{
+		s->next = add_new(new);
+		s = s->next;
+		w = creat_bracket(i);
+		s->str = ft_strdup(w);
+		ft_strdel(&w);
+		i++;
+	}
+	return (new);
+}
+
+t_new	*sb_not_this_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
+{
+	char	*w;
+	int		i;
+
+	if (c1 > c2)
+	{
+		i = c1;
+		c1 = c2;
+		c2 = i;
+	}
+	i = 32;
+	while (i < c1)
+	{
+		izi->next = add_new(izi);
+		w = creat_bracket(i);
+		izi->str = ft_strjoin(s->str, w);
+		ft_strdel(&w);
+		i++;
+	}
+	while (i <= c2)
+		i++;
+	while (i < 127)
+	{
+		izi->next = add_new(izi);
+		w = creat_bracket(i);
+		izi->str = ft_strjoin(s->str, w);
+		ft_strdel(&w);
+		i++;
+	}
+	return (new);
 }
 
 t_new	*add_square_bracket(t_new *new, char *str)
@@ -200,27 +248,16 @@ t_new	*add_square_bracket(t_new *new, char *str)
 			{
 				if (str[i] == '^' || str[i] == '!')
 				{
-					
-				}
-				if (str[i + 1] == '-')
-				{
-					if (str[i + 1] == '-' && str[i + 2] != '\0')
-					{
-						s_izi = sb_ascii_posjoin(s, (int)str[i], (int)str[i + 2], s_izi);
-						i += 3;
-					}
-					else
-					{
-						s_izi = sb_ascii_posjoin(s, (int)str[i], ((int)str[i] + 1), s_izi);
-						i++;
-					}
-				}
-				else
-				else
-				{
-					s_izi = sb_ascii_posjoin(s, (int)str[i], ((int)str[i] + 1), s_izi);
 					i++;
+					s_izi = get_not_ascii(s, str, *i, s_izi);
 				}
+				else if (str[i] == '[')
+				{
+					i++;
+					s_izi = get_class_posix(s, str, *i, s_izi);
+				}
+				else
+					s_izi = get_ascii(s, str, *i, s_izi);
 			}
 			s = s->next;
 		}
