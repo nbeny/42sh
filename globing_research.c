@@ -1,4 +1,5 @@
 #include "globing.h"
+#include <libft.h>
 
 t_glob	*init_glob()
 {
@@ -13,7 +14,7 @@ t_glob	*init_glob()
 	return (g);
 }
 
-t_arg	*init_arg(char *line)
+t_arg	*init_argument()
 {
 	t_arg		*arg;
 
@@ -34,16 +35,16 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 	{
 		while (s->next != NULL)
 			s = s->next;
-		s->next = init_arg();
+		s->next = init_argument();
 		s = s->next;
 		s->str = ft_strsub(line, g->p[0], g->p[1]);
 		s->id = a;
 	}
 	else
 	{
-		s = init_arg();
-		s->str = ft_strsub(line, g->p[0], g->p[1]);
-		s->id = a;
+		g->arg = init_argument();
+		g->arg->str = ft_strsub(line, g->p[0], g->p[1]);
+		g->arg->id = a;
 	}
 	return (g);
 }
@@ -74,4 +75,5 @@ t_glob	*globing_research(char **cmd)
 		g->new = do_we_match(g->arg, g->new);
 		j++;
 	}
+	return (g);
 }

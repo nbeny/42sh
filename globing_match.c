@@ -1,4 +1,7 @@
 #include "globing.h"
+#include <libft.h>
+#include <sys/types.h>
+#include <sys/dir.h>
 
 t_new	*init_new()
 {
@@ -16,7 +19,7 @@ t_new	*add_new(t_new *new)
 	t_new	*s;
 
 	s = new;
-	if (s = NULL)
+	if (s == NULL)
 	{
 		while (s != NULL)
 			s = s->next;
@@ -28,6 +31,19 @@ t_new	*add_new(t_new *new)
 		s = init_new();
 	}
 	return (new);
+}
+
+int		nmatch(char *s1, char *s2)
+{
+	if (*s1 != '\0' && *s2 == '*')
+		return (nmatch(s1 + 1, s2) + nmatch(s1, s2 + 1));
+	if (*s1 == '\0' && *s2 == '*')
+		return (nmatch(s1, s2 + 1));
+	if (*s1 == *s2 && *s1 != '\0' && *s2 != '\0')
+		return (nmatch(s1 + 1, s2 + 1));
+	if (*s1 == *s2 && *s1 == '\0' && *s2 == '\0')
+		return (1);
+	return (0);
 }
 
 t_new	*check_walcards(t_new *new)
@@ -46,9 +62,9 @@ t_new	*check_walcards(t_new *new)
 		dir = opendir(path);
 		izi = add_new(izi);
 		s_izi = izi;
-		while (d = readdir(dir) != NULL)
+		while ((d = readdir(dir)) != NULL)
 		{
-			if (nmatch(str, d->d_name) != 0)
+			if (nmatch(s->str, d->d_name) != 0)
 			{
 				s_izi->next = add_new(izi);
 				s_izi = s_izi->next;
@@ -58,7 +74,7 @@ t_new	*check_walcards(t_new *new)
 		closedir(dir);
 		s = s->next;
 	}
-	globing_free_new(new);
+//	globing_free_new(new);
 	return (izi);
 }
 

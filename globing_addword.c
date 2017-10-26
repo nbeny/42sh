@@ -1,4 +1,5 @@
 #include "globing.h"
+#include <libft.h>
 
 char	*creat_bracket(int c)
 {
@@ -8,10 +9,15 @@ char	*creat_bracket(int c)
 		return(NULL);
 	s[0] = c;
 	s[1] = '\0';
+	return (s);
 }
 
 t_new	*add_accolade(t_new *new, char *str)
 {
+	t_new	*izi;
+
+	izi = new;
+	ft_putstr(str);
 	return (izi);
 }
 
@@ -20,7 +26,6 @@ t_new	*add_interogation(t_new *new)
 	t_new	*s;
 	t_new	*izi;
 	t_new	*s_izi;
-	char	*tmp;
 	char	*w;
 	int		i;
 
@@ -33,7 +38,7 @@ t_new	*add_interogation(t_new *new)
 			i = 32;
 			izi = add_new(izi);
 			s_izi = izi;
-			w = creat_bracket(str[i]);
+			w = creat_bracket(i);
 			s_izi->str = ft_strjoin(s->str, w);
 			ft_strdel(&w);
 			i++;
@@ -47,7 +52,7 @@ t_new	*add_interogation(t_new *new)
 			}
 			s = s->next;
 		}
-		globing_free_new(new);
+//		globing_free_new(new);
 		new = izi;
 	}
 	else
@@ -97,12 +102,84 @@ t_new	*add_word(t_new *new, char *str)
 	return (new);
 }
 
+t_new	*sb_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
+{
+	char	*w;
+	int		i;
+
+	if (c1 < c2)
+		i = c1;
+	else if (c1 > c2)
+	{
+		i = c2;
+		c2 = c1;
+	}
+	else
+		return (izi);
+	while (i < c2)
+	{
+		izi->next = add_new(izi);
+		w = creat_bracket(i);
+		izi->str = ft_strjoin(s->str, w);
+		ft_strdel(&w);
+		i++;
+	}
+	return (izi);
+}
+
+t_new	*sb_ascii_posdup(t_new *new, int c1, int c2)
+{
+	t_new	*s;
+	char	*w;
+	int		i;
+
+	if (c1 < c2)
+		i = c1;
+	else if (c1 > c2)
+	{
+		i = c2;
+		c2 = c1;
+	}
+	else
+		return (izi);
+	while (i < c2)
+	{
+		s->next = add_new(new);
+		s = s->next;
+		w = creat_bracket(i);
+		s->str = ft_strdup(w);
+		ft_strdel(&w);
+		i++;
+	}
+	return (s);
+}
+
+t_new	*sb_not_this_ascii(t_new *new, int c1, int c2)
+{
+	t_new	*s;
+	char	*w;
+	int		i;
+
+	if (c1 < c2)
+		i = c1;
+	else if (c1 > c2)
+	{
+		i = c2;
+		c2 = c1;
+	}
+	else
+		return (izi);
+	while (i < c2)
+	{
+		
+	}
+}
+
 t_new	*add_square_bracket(t_new *new, char *str)
 {
 	t_new	*s;
 	t_new	*izi;
 	t_new	*s_izi;
-	char	*tmp;
 	char	*w;
 	int		i;
 
@@ -121,15 +198,33 @@ t_new	*add_square_bracket(t_new *new, char *str)
 			i++;
 			while (str && str[i])
 			{
-				s_izi->next = add_new(izi);
-				w = creat_bracket(str[i]);
-				s_izi->str = ft_strjoin(s->str, w);
-				ft_strdel(&w);
-				i++;
+				if (str[i] == '^' || str[i] == '!')
+				{
+					
+				}
+				if (str[i + 1] == '-')
+				{
+					if (str[i + 1] == '-' && str[i + 2] != '\0')
+					{
+						s_izi = sb_ascii_posjoin(s, (int)str[i], (int)str[i + 2], s_izi);
+						i += 3;
+					}
+					else
+					{
+						s_izi = sb_ascii_posjoin(s, (int)str[i], ((int)str[i] + 1), s_izi);
+						i++;
+					}
+				}
+				else
+				else
+				{
+					s_izi = sb_ascii_posjoin(s, (int)str[i], ((int)str[i] + 1), s_izi);
+					i++;
+				}
 			}
 			s = s->next;
 		}
-		globing_free_new(new);
+//		globing_free_new(new);
 		new = izi;
 	}
 	else
@@ -143,12 +238,24 @@ t_new	*add_square_bracket(t_new *new, char *str)
 		i++;
 		while (str && str[i])
 		{
-			s->next = add_new(new);
-			s = s->next;
-			w = creat_bracket(str[i]);
-			s->str = ft_strdup(w);
-			ft_strdel(&w);
-			i++;
+			if (str[i + 1] == '-')
+			{
+				if (str[i + 1] == '-' && str[i + 2] != '\0')
+				{
+					s_izi = sb_ascii_posdup(s_izi, (int)str[i], (int)str[i + 2]);
+					i += 3;
+				}
+				else
+				{
+					s_izi = sb_ascii_posdup(s_izi, (int)str[i], ((int)str[i] + 1));
+					i++;
+				}
+			}
+			else
+			{
+				s_izi = sb_ascii_posdup(s_izi, (int)str[i], ((int)str[i] + 1));
+				i++;
+			}
 		}
 	}
 	return (new);

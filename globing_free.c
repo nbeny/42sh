@@ -1,4 +1,5 @@
 #include "globing.h"
+#include <libft.h>
 
 void	globing_free_new(t_new *new)
 {
