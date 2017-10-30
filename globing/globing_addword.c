@@ -133,6 +133,7 @@ t_new	*sb_ascii_posdup(t_new *new, int c1, int c2)
 	char	*w;
 	int		i;
 
+	s = new;
 	if (c1 < c2)
 		i = c1;
 	else if (c1 > c2)
@@ -141,7 +142,7 @@ t_new	*sb_ascii_posdup(t_new *new, int c1, int c2)
 		c2 = c1;
 	}
 	else
-		return (izi);
+		return (new);
 	while (i < c2)
 	{
 		s->next = add_new(new);
@@ -190,7 +191,7 @@ t_new	*sb_not_this_ascii_posdup(t_new *new, int c1, int c2)
 	return (new);
 }
 
-t_new	*sb_not_this_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
+t_new	*sb_not_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
 {
 	char	*w;
 	int		i;
@@ -220,7 +221,7 @@ t_new	*sb_not_this_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
 		ft_strdel(&w);
 		i++;
 	}
-	return (new);
+	return (izi);
 }
 
 t_new	*add_square_bracket(t_new *new, char *str)
@@ -249,15 +250,15 @@ t_new	*add_square_bracket(t_new *new, char *str)
 				if (str[i] == '^' || str[i] == '!')
 				{
 					i++;
-					s_izi = get_not_ascii(s, str, *i, s_izi);
+					s_izi = get_no_ascii(s, str, &i, s_izi);
 				}
 				else if (str[i] == '[')
 				{
 					i++;
-					s_izi = get_class_posix(s, str, *i, s_izi);
+					s_izi = get_class_posix(s, str, &i, s_izi);
 				}
 				else
-					s_izi = get_ascii(s, str, *i, s_izi);
+					s_izi = get_ascii(s, str, &i, s_izi);
 			}
 			s = s->next;
 		}

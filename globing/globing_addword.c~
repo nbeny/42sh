@@ -116,7 +116,7 @@ t_new	*sb_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
 	}
 	else
 		return (izi);
-	while (i < c2)
+	while (i <= c2)
 	{
 		izi->next = add_new(izi);
 		w = creat_bracket(i);
@@ -190,7 +190,7 @@ t_new	*sb_not_this_ascii_posdup(t_new *new, int c1, int c2)
 	return (new);
 }
 
-t_new	*sb_not_this_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
+t_new	*sb_not_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi)
 {
 	char	*w;
 	int		i;

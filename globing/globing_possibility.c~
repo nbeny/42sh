@@ -1,5 +1,5 @@
 #include "globing.h"
-#include <stdlib.h>
+#include <libft.h>
 
 t_glob	*accolade(t_glob *g, char *line, int *i)
 {
