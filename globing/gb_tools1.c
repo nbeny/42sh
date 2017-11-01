@@ -1,5 +1,5 @@
 #include "globing.h"
-#include <libft.h>
+//gg
 
 t_new	*get_not_ascii_dup(char *str, int *i, t_new *s_izi)
 {
@@ -13,13 +13,13 @@ t_new	*get_not_ascii_dup(char *str, int *i, t_new *s_izi)
 		else
 		{
 			s_izi = sb_not_this_ascii_posdup(s_izi, (int)str[*i], (int)str[*i]);
-			i++;
+			(*i)++;
 		}
 	}
 	else
 	{
 		s_izi = sb_not_this_ascii_posdup(s_izi, (int)str[*i], (int)str[*i]);
-		i++;
+		(*i)++;
 	}
 	return (s_izi);
 }
@@ -36,13 +36,13 @@ t_new	*get_ascii_dup(char *str, int *i, t_new *s_izi)
 		else
 		{
 			s_izi = sb_ascii_posdup(s_izi, (int)str[*i], (int)str[*i]);
-			i++;
+			(*i)++;
 		}
 	}
 	else
 	{
 		s_izi = sb_ascii_posdup(s_izi, (int)str[*i], (int)str[*i]);
-		i++;
+		(*i)++;
 	}
 	return (s_izi);
 }
@@ -91,10 +91,10 @@ t_new	*get_class_posix_dup(char *str, int *i, t_new *s_izi)
 
 	if (str[*i] == ':')
 	{
-		i++;
+		(*i)++;
 		p[0] = *i;
 		while (str[*i] != '\0' && str[*i] != ':' && str[*i] != ']')
-			i++;
+			(*i)++;
 		p[1] = *i;
 		if (str[*i] == '\0' || str[*i] == ']')
 			return (s_izi);

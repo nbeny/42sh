@@ -1,5 +1,5 @@
 #include "globing.h"
-#include <libft.h>
+//gg
 
 t_glob	*init_glob()
 {
@@ -91,8 +91,11 @@ t_glob	*zoom_research(t_glob *g, char *line)
 
 	i = 0;
 	s = g;
+	if (line == NULL)
+		return (NULL);
 	while (line[i])
 	{
+		ft_putnbr(i);
 		if (line[i] == '/')
 			s = slash_gestion(s, line, &i);
 		if (line[i] == '[')
@@ -105,6 +108,7 @@ t_glob	*zoom_research(t_glob *g, char *line)
 			s = part_arg(s, line, &i);
 	}
 	s->new = do_we_match(s->arg, s->new);
+	ft_putendl("return zoom search");
 	return (g);
 }
 
@@ -117,10 +121,10 @@ int		check_isglob(char *line)
 	{
 		if (line[i] == '*' || line[i] == '?' ||\
 			line[i] == '[' || line[i] == '{')
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 t_glob	*globing_research(char **cmd)
@@ -141,6 +145,25 @@ t_glob	*globing_research(char **cmd)
 			s = s->next;
 		}
 		j++;
+	}ft_putendl("start print ");
+	if (g == NULL)
+	ft_putendl("g == NULL");
+	else
+	{
+		if (g->new == NULL)
+			ft_putendl("g->new == NULL");
+		else
+			while (g->new != NULL)
+			{
+				if (g->new->str)
+//					ft_putendl("NULL");
+//				else
+				
+					ft_putendl(g->new->str);
+				g->new = g->new->next;
+
+	}
+		g = g->next;
 	}
 	return (g);
 }

@@ -1,5 +1,5 @@
 #include "globing.h"
-#include <libft.h>
+//gg
 
 t_glob	*init_glob()
 {
@@ -91,8 +91,11 @@ t_glob	*zoom_research(t_glob *g, char *line)
 
 	i = 0;
 	s = g;
+	if (line == NULL)
+		return (NULL);
 	while (line[i])
 	{
+		ft_putnbr(i);
 		if (line[i] == '/')
 			s = slash_gestion(s, line, &i);
 		if (line[i] == '[')
@@ -126,11 +129,9 @@ int		check_isglob(char *line)
 t_glob	*globing_research(char **cmd)
 {
 	int			j;
-	int			count;
 	t_glob		*g;
 	t_glob		*s;
 
-	count = 0;
 	j = 0;
 	g = NULL;
 	g = init_glob();
@@ -141,10 +142,8 @@ t_glob	*globing_research(char **cmd)
 		{
 			s = zoom_research(s, cmd[j]);
 			s = s->next;
-			count++;
 		}
 		j++;
 	}
-	j = count_match(g);
 	return (g);
 }

@@ -1,9 +1,9 @@
 #include "globing.h"
-#include <libft.h>
+//gg
 
-int		ft_listsize(t_env *e)
+int		ft_listsize(t_new *e)
 {
-	t_env	*s;
+	t_new	*s;
 	int		i;
 
 	i = 0;
@@ -36,7 +36,7 @@ void	globing_free_new(t_new *new)
 			f = NULL;
 		}
 }
-
+/*
 char	**ft_magic_list_to_tab(t_new *new)
 {
 	char	**tstr;
@@ -56,7 +56,7 @@ char	**ft_magic_list_to_tab(t_new *new)
 		stock = ft_strjoin(s->name, "=");
 		tstr[i] = ft_strjoin(stock, s->value);
 		ft_strdel(&stock);
-		i++;
+		(*i)++;
 		s = s->next;
 	}
 	tstr[i] = NULL;
@@ -84,8 +84,9 @@ t_new	*ft_magic_tab_to_list(char **env)
 		s = s->next;
 		s->name = ft_strsub(env[i], 0, (ft_equal(env[i]) - 1));
 		s->value = ft_strdup(&env[i][ft_equal(env[i])]);
-		i++;
+		(*i)++;
 	}
 	s->next = NULL;
 	return (e);
 }
+*/

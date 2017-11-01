@@ -1,5 +1,5 @@
 #include "globing.h"
-#include <libft.h>
+//gg
 #include <sys/types.h>
 #include <sys/dir.h>
 
@@ -18,18 +18,26 @@ t_new	*add_new(t_new *new)
 {
 	t_new	*s;
 
+	ft_putendl("ft_add_new()");
 	s = new;
-	if (s == NULL)
+	if (s != NULL)
 	{
-		while (s != NULL)
-			s = s->next;
+		while (s->next != NULL)
+		{
+//			if (s->str != NULL)
+//				ft_putendl(s->str);
+
+				s = s->next;
+		}
 		s->next = init_new();
 		s = s->next;
 	}
 	else
 	{
 		s = init_new();
+		return (s);
 	}
+	ft_putendl("return ft_add_new()");
 	return (new);
 }
 
@@ -55,28 +63,53 @@ t_new	*check_walcards(t_new *new)
 	struct dirent	*d;
 	DIR				*dir;
 
+	izi = NULL;
+	ft_putendl("chECK_WAlcard");
 	s = new;
 	while (s != NULL)
 	{
 		path = getcwd(NULL, 1024);
 		dir = opendir(path);
+		//LEAAAKS
 		izi = add_new(izi);
 		s_izi = izi;
 		while ((d = readdir(dir)) != NULL)
 		{
-			if (nmatch(s->str, d->d_name) != 0)
+			if (d->d_name[0] != '.')
 			{
-				s_izi->next = add_new(izi);
-				s_izi = s_izi->next;
-				s_izi->str = ft_strdup(d->d_name);
+				ft_putendl(d->d_name);
+				ft_putendl(s->str);
+				if (nmatch(d->d_name, s->str) != 0)
+				{
+					ft_putendl("\nnmatch found");
+					s_izi = add_new(s_izi);
+					s_izi = s_izi->next;
+					s_izi->str = ft_strdup(d->d_name);
+				}
+				else
+					ft_putendl("no natch found");
 			}
 		}
 		closedir(dir);
 		s = s->next;
 	}
+	// MAYBE WRONG
+//	if (izi->str == NULL)
+//		free(izi);
+	ft_putendl("return chECK_WAlcard");
+	s_izi = izi;
+	if (izi->str == NULL)
+		ft_putendl("ASDASDAS");
+	while (s_izi != NULL)
+	{
+		ft_putendl(s_izi->str);
+		s_izi = s_izi->next;
+	}
 //	globing_free_new(new);
 	return (izi);
 }
+
+#include <stdio.h>
 
 t_new	*do_we_match(t_arg *arg, t_new *new)
 {
@@ -84,15 +117,19 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 	t_arg	*s;
 	char	*str;
 	char	*tmp;
-
+	ft_putendl("DOWEMATCH()");
 	s = arg;
 	str = NULL;
 	tmp = NULL;
 	i = 0;
 	if (arg == NULL)
 		return (NULL);
+	if (s != NULL)
+		ft_putendl("s non null;");
 	while (s != NULL)
 	{
+		ft_putendl("while in dowee");
+		printf("\n{[-%p-]}\n", new);fflush(stdout);
 		if (s->id == 0)
 			new = add_word(new, s->str);
 		else if (s->id == 1)
@@ -103,6 +140,7 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 			new = add_accolade(new, s->str);
 		s = s->next;
 	}
+	ft_putendl("end while dowee");
 	new = check_walcards(new);
 	return (new);
 }

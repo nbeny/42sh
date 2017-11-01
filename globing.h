@@ -1,5 +1,8 @@
-#ifndef GROBING_H
+#ifndef GLOBING_H
 # define GLOBING_H
+
+#include <stdlib.h>
+#include "globing/libft/include/libft.h"
 typedef struct	s_arg
 {
 	int				id;
@@ -42,6 +45,7 @@ t_new   *add_new(t_new *new);
 int     nmatch(char *s1, char *s2);
 t_new   *check_walcards(t_new *new);
 t_new   *do_we_match(t_arg *arg, t_new *new);
+
 /*
 **gb_research
 */
@@ -49,6 +53,9 @@ t_glob  *init_glob();
 t_arg   *init_argument();
 t_glob  *add_arg(t_glob *g, char *line, int a);
 t_glob  *globing_research(char **cmd);
+t_glob	*add_glob_next(t_glob *g);
+t_glob	*add_glob_slash(t_glob *g);
+t_glob  *zoom_research(t_glob *g, char *line);
 /*
 **gb_possibility
 */
@@ -56,6 +63,7 @@ t_glob  *accolade(t_glob *g, char *line, int *i);
 t_glob  *square_bracket(t_glob *g, char *line, int *i);
 t_glob  *interogation(t_glob *g, char *line, int *i);
 t_glob  *part_arg(t_glob *g, char *line, int *i);
+t_glob  *slash_gestion(t_glob *g, char *line, int *i);
 /*
 **gb_addword
 */
