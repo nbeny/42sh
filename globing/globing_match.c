@@ -89,6 +89,8 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 	str = NULL;
 	tmp = NULL;
 	i = 0;
+	if (arg == NULL)
+		return (NULL);
 	while (s != NULL)
 	{
 		if (s->id == 0)

@@ -1,0 +1,24 @@
+#include "globing.h"
+
+int		count_match(t_glob *g)
+{
+	int		i;
+	t_glob	*s;
+	t_arg	*s_arg;
+
+	i = 0;
+	s = g;
+	if (s == NULL)
+		return (0);
+	while (s != NULL)
+	{
+		s_arg = s->arg;
+		while (s_arg != NULL)
+		{
+			i++;
+			s_arg = s_arg->next;
+		}
+		s = s->next;
+	}
+	return (i);
+}

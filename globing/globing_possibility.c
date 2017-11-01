@@ -57,10 +57,7 @@ t_glob	*interogation(t_glob *g, char *line, int *i)
 		i++;
 	g->p[1] = *i;
 	if (line[*i] != '\0')
-	{
 		g = add_arg(g, line, 1);
-		i++;
-	}
 /*
 **	else
 **		ft_putstr_fd(2, "error parse '}'\n");
@@ -81,13 +78,14 @@ t_glob	*part_arg(t_glob *g, char *line, int *i)
 
 t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 {
-	t_glob	*s;
+	char	*tmp;
 
+	tmp = NULL;
 	while (line[*i] != '\0' && line[*i] == '/')
 		i++;
-	if (g->new != NULL)
-	{
-		
-	}
+	g->isrep = 1;
+	s->new = do_we_match(s->arg, s->new);
+	g = add_glob(g);
+	g = g->slash;
 	return (g);
 }
