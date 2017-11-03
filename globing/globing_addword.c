@@ -21,6 +21,29 @@ t_new	*add_accolade(t_new *new, char *str)
 	return (izi);
 }
 
+t_new	*add_interro(t_new *new)
+{
+	t_new	*s;
+	char	*tmp;
+
+	tmp = NULL;
+	s = new;
+	if (s != NULL)
+		while (s != NULL)
+		{
+			tmp = ft_strdup(s->str);
+			ft_strdel(&(s->str));
+			s->str = ft_strjoin(tmp, "?");
+			s = s->next;
+		}
+	else
+	{
+		new = add_new(new);
+		new->str = ft_strdup("?");
+	}
+	return (new);
+}
+
 t_new	*add_interogation(t_new *new)
 {
 	t_new	*s;
@@ -35,29 +58,27 @@ t_new	*add_interogation(t_new *new)
 	if (s != NULL)
 	{
 		ft_putendl("s != NULL");
-		if (s->str != NULL)
-			ft_putendl("s->str is true");
-		else
-			ft_putendl("s->str pu");
 		izi = add_new(izi);
 		s_izi = izi;
 		while (s != NULL)
 		{
+			ft_putstr("ifaddint");
 			i = 32;
 			while (i != 127)
 			{
 				s_izi = add_new(izi);
-				w = creat_bracket(i);
+				if (i == 42)
+					w = creat_bracket(-42);
+				else
+					w = creat_bracket(i);
 				s_izi->str = ft_strjoin(s->str, w);
 				ft_strdel(&w);
-				if (i == 41)
-					i++;
 				i++;
 			}
 			s = s->next;
 		}
-		globing_free_new(new);
-		new = izi;
+//		globing_free_new(new);
+		return (izi);
 	}
 	else
 	{
@@ -73,15 +94,16 @@ t_new	*add_interogation(t_new *new)
 		i++;
 		while (i != 127)
 		{
-				ft_putendl("3");
+			ft_putendl("3");
 			s = add_new(s);
-				ft_putendl("4");
+			ft_putendl("4");
 			s = s->next;
-			w = creat_bracket(i);
+			if (i == 42)
+				w = creat_bracket(-42);
+			else
+				w = creat_bracket(i);
 			s->str = ft_strdup(w);
 			ft_strdel(&w);
-			if (i == 41)
-				i++;
 			i++;
 		}
 	}
@@ -90,9 +112,6 @@ t_new	*add_interogation(t_new *new)
 	{
 		if (s->str != NULL)
 			ft_putendl(s->str);
-		else
-			ft_putendl("s->str pu");
-
 		s = s->next;
 	}
 	ft_putendl("end add interrogation");

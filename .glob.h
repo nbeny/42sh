@@ -1,8 +1,5 @@
 #ifndef GLOBING_H
 # define GLOBING_H
-
-#include <stdlib.h>
-#include "globing/libft/include/libft.h"
 typedef struct	s_arg
 {
 	int				id;
@@ -45,7 +42,6 @@ t_new   *add_new(t_new *new);
 int     nmatch(char *s1, char *s2);
 t_new   *check_walcards(t_new *new);
 t_new   *do_we_match(t_arg *arg, t_new *new);
-
 /*
 **gb_research
 */
@@ -53,9 +49,6 @@ t_glob  *init_glob();
 t_arg   *init_argument();
 t_glob  *add_arg(t_glob *g, char *line, int a);
 t_glob  *globing_research(char **cmd);
-t_glob	*add_glob_next(t_glob *g);
-t_glob	*add_glob_slash(t_glob *g);
-t_glob  *zoom_research(t_glob *g, char *line);
 /*
 **gb_possibility
 */
@@ -63,13 +56,11 @@ t_glob  *accolade(t_glob *g, char *line, int *i);
 t_glob  *square_bracket(t_glob *g, char *line, int *i);
 t_glob  *interogation(t_glob *g, char *line, int *i);
 t_glob  *part_arg(t_glob *g, char *line, int *i);
-t_glob  *slash_gestion(t_glob *g, char *line, int *i);
 /*
 **gb_addword
 */
 char    *creat_bracket(int c);
 t_new   *add_accolade(t_new *new, char *str);
-t_new	*add_interro(t_new *new);
 t_new   *add_interogation(t_new *new);
 t_new   *add_word(t_new *new, char *str);
 t_new   *sb_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi);
@@ -129,10 +120,4 @@ t_new   *class_xdigit_posix_dup(t_new *s_izi);
 void	globing_free_new(t_new *new);
 char    **ft_magic_list_to_tab(t_new *e);
 t_new   *ft_magic_tab_to_list(char **env);
-/*
-**gb_recupchartab
-*/
-int     check_char42(char *s);
-void    reverse_char42(char *s);
-void    get_char42(char *s);
 #endif

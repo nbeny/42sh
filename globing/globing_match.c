@@ -18,7 +18,7 @@ t_new	*add_new(t_new *new)
 {
 	t_new	*s;
 
-	ft_putendl("ft_add_new()");
+	ft_putstr("new()");
 	s = new;
 	if (s != NULL)
 	{
@@ -37,19 +37,35 @@ t_new	*add_new(t_new *new)
 		s = init_new();
 		return (s);
 	}
-	ft_putendl("return ft_add_new()");
+//	ft_putendl("return ft_add_new()");
 	return (new);
 }
-
+/*int nmatch(char *s1, char *s2)
+{
+	if (!*s1 && !*s2)
+		return (1);
+	else if (*s1 == *s2 && *s1 != '*')
+		return (nmatch(s1 + 1, s2 + 1));
+	else if (*s1 == '*' && *s2 == '*')
+		return (nmatch(s1 + 1, s2));
+	else if (*s2 == '*' && !*s1)
+		return (nmatch(s1, s2 + 1));
+	else if (*s2 == '*' && *s2 && *s1)
+		return (nmatch(s1, s2 + 1) + nmatch(s1 + 1, s2));
+	else
+		return (0);
+		}*/
 int		nmatch(char *s1, char *s2)
 {
+	if (s2 == NULL && s1 == NULL)
+		return (1);
 	if (*s1 != '\0' && *s2 == '*')
 		return (nmatch(s1 + 1, s2) + nmatch(s1, s2 + 1));
 	if (*s1 == '\0' && *s2 == '*')
 		return (nmatch(s1, s2 + 1));
-	if (*s1 == *s2 && *s1 != '\0' && *s2 != '\0')
+	if ((*s1 == *s2 || *s2 == '?') && *s1 != '\0' && *s2 != '\0')
 		return (nmatch(s1 + 1, s2 + 1));
-	if (*s1 == *s2 && *s1 == '\0' && *s2 == '\0')
+	if ((*s1 == *s2 || *s2 == '?') && *s1 == '\0' && *s2 == '\0')
 		return (1);
 	return (0);
 }
@@ -66,21 +82,31 @@ t_new	*check_walcards(t_new *new)
 	izi = NULL;
 	ft_putendl("chECK_WAlcard");
 	s = new;
+	izi = add_new(izi);
+	s_izi = izi;
 	while (s != NULL)
 	{
 		path = getcwd(NULL, 1024);
 		dir = opendir(path);
+		
 		//LEAAAKS
-		izi = add_new(izi);
-		s_izi = izi;
 		while ((d = readdir(dir)) != NULL)
 		{
 			if (d->d_name[0] != '.')
 			{
 				ft_putendl(d->d_name);
 				ft_putendl(s->str);
+/*				if (check_char42(s->str))
+				{
+					ft_putstr("OUI");
+					reverse_char42(d->d_name);
+					ft_putchar('\t');
+					ft_putendl(d->d_name);
+					ft_putchar('\t');
+					}*/
 				if (nmatch(d->d_name, s->str) != 0)
 				{
+//					get_char42(d->d_name);
 					ft_putendl("\nnmatch found");
 					s_izi = add_new(s_izi);
 					s_izi = s_izi->next;
@@ -98,6 +124,7 @@ t_new	*check_walcards(t_new *new)
 //		free(izi);
 	ft_putendl("return chECK_WAlcard");
 	s_izi = izi;
+	s_izi = s_izi->next;
 	if (izi->str == NULL)
 		ft_putendl("ASDASDAS");
 	while (s_izi != NULL)
@@ -133,7 +160,8 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 		if (s->id == 0)
 			new = add_word(new, s->str);
 		else if (s->id == 1)
-			new = add_interogation(new);
+			new = add_interro(new);
+//			new = add_interogation(new);
 		else if (s->id == 2)
 			new = add_square_bracket(new, s->str);
 		else if (s->id == 3)

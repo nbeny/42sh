@@ -92,7 +92,10 @@ t_glob	*zoom_research(t_glob *g, char *line)
 	i = 0;
 	s = g;
 	if (line == NULL)
+	{
+		ft_putstr("zoom reasearch null return ");
 		return (NULL);
+	}
 	while (line[i])
 	{
 		ft_putnbr(i);

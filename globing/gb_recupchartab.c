@@ -18,3 +18,45 @@ int		count_match(t_glob *g)
 	return (i);
 }
 
+int		check_char42(char *s)
+{
+	int		i;
+
+	i = 0;
+	if (s != NULL)
+		while (s[i] != '\0')
+		{
+			if (s[i] == -42)
+				return (1);
+			i++;
+		}
+	return (0);
+}
+
+void	reverse_char42(char *s)
+{
+	int		i;
+
+	i = 0;
+	if (s != NULL)
+		while (s[i] != '\0')
+		{
+			if (s[i] == 42)
+				s[i] = -42;
+			i++;
+		}
+}
+
+void	get_char42(char *s)
+{
+	int		i;
+
+	i = 0;
+	if (s != NULL)
+		while (s[i] != '\0')
+		{
+			if (s[i] == -42)
+				s[i] = 42;
+			i++;
+		}
+}

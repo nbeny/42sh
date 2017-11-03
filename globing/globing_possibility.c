@@ -58,7 +58,7 @@ t_glob	*interogation(t_glob *g, char *line, int *i)
 	if (line && line[*i] != '\0')
 		(*i)++;
 	g->p[1] = *i;
-	if (line[*i] != '\0')
+//	if (line[*i] != '\0')
 		g = add_arg(g, line, 1);
 /*
 **	else
