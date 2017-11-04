@@ -14,11 +14,27 @@ char	*creat_bracket(int c)
 
 t_new	*add_accolade(t_new *new, char *str)
 {
-	t_new	*izi;
+	t_new	*s;
+	char	*tmp;
+	int		i;
 
-	izi = new;
-	ft_putstr(str);
-	return (izi);
+	i = 0;
+	s = new;
+	if (ft_strlen(str) == 4)
+	{
+		if (ft_isalnum(str[i]) && str[i + 1] == '.'\
+			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
+			new = make_pointpoint(new, str);
+		else if (check_comma(str))
+			new = make_comma(new, str);
+		else
+			new = make_accoarg(new, str);
+	}
+	else if (check_comma(str))
+		make_comma(new, str);
+	else
+		new = make_accoarg(new, str);
+	return (new);
 }
 
 t_new	*add_interro(t_new *new)
