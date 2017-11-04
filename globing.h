@@ -12,6 +12,7 @@ typedef struct	s_arg
 typedef struct	s_new
 {
 	char			*str;
+	struct s_new	*sb;
 	struct s_new	*next;
 }				t_new;
 typedef struct	s_glob
@@ -38,13 +39,35 @@ t_new   *get_ascii_dup(char *str, int *i, t_new *s_izi);
 t_new   *check_class_dup(char *class, t_new *s_izi);
 t_new   *get_class_posix_dup(char *str, int *i, t_new *s_izi);
 /*
+**gb_match_pos
+*/
+int     sb_exclammatch(int c, char *str, int *i);
+int     sb_lessmatch(int c, char *str, int *i);
+int     sb_classmatch(int c, char *str, int *i);
+int     sb__match(int c, char *str, int *i);
+int     sb__match_no(int c, char *str, int *i);
+/*
+** tools_match
+*/
+int		ft_isupper(int c);
+int		ft_islower(int c);
+int		ft_isword(int c);
+int		ft_ispunct(int c);
+int		ft_iscntrl(int c);
+int		ft_isprint(int c);
+int		ft_isgraph(int c);
+int		ft_isblank(int c);
+int		ft_isxdigit(int c);
+int		ft_isspace(int c);
+/*
 **gb_match
 */
 t_new   *init_new();
 t_new   *add_new(t_new *new);
-int     nmatch(char *s1, char *s2);
+int     nmatch(char *s1, char *s2, t_new *sb);
 t_new   *check_walcards(t_new *new);
 t_new   *do_we_match(t_arg *arg, t_new *new);
+int     check_sbmatch(char *s1, t_new *sb);
 
 /*
 **gb_research
@@ -64,6 +87,9 @@ t_glob  *square_bracket(t_glob *g, char *line, int *i);
 t_glob  *interogation(t_glob *g, char *line, int *i);
 t_glob  *part_arg(t_glob *g, char *line, int *i);
 t_glob  *slash_gestion(t_glob *g, char *line, int *i);
+int		check_is_posix(char *str, int *i);
+int     check_sbmatch(char *s1, t_new *sb);
+int		check_name_pos(char *str);
 /*
 **gb_addword
 */
@@ -77,6 +103,8 @@ t_new   *sb_ascii_posdup(t_new *new, int c1, int c2);
 t_new   *sb_not_this_ascii_posdup(t_new *new, int c1, int c2);
 t_new   *sb_not_ascii_posjoin(t_new *s, int c1, int c2, t_new *izi);
 t_new   *add_square_bracket(t_new *new, char *str);
+t_new   *add_sb(t_new *new, char *str);
+t_new   *add_sbplease(t_new *sb, char *str);
 /*
 **globing_class.c
 */
@@ -135,4 +163,6 @@ t_new   *ft_magic_tab_to_list(char **env);
 int     check_char42(char *s);
 void    reverse_char42(char *s);
 void    get_char42(char *s);
+
+
 #endif

@@ -1,0 +1,19 @@
+#include "globing.h"
+
+int		sb_interromatch()
+{
+}
+
+int		sb__match(int c, char *str)
+{
+	int		i;
+
+	i = 1;
+	while (str && str[i])
+	{
+		if (c == str[i])
+			return (1);
+		i++;
+	}
+	return (0);
+}

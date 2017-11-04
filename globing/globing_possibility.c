@@ -22,28 +22,58 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 	return (g);
 }
 
+int check_name_pos(char *str)
+{
+	if (ft_strncmp(str, "[:blank:]", 10) == 0 ||\
+		ft_strncmp(str, "[:alnum:]", 10) == 0 ||\
+		ft_strncmp(str, "[:alpha:]", 10) == 0 ||\
+		ft_strncmp(str, "[:ascii:]", 10) == 0 ||\
+		ft_strncmp(str, "[:cntrl:]", 10) == 0 ||\
+		ft_strncmp(str, "[:digit:]", 10) == 0 ||\
+		ft_strncmp(str, "[:graph:]", 10) == 0 ||\
+		ft_strncmp(str, "[:lower:]", 10) == 0 ||\
+		ft_strncmp(str, "[:print:]", 10) == 0 ||\
+		ft_strncmp(str, "[:punct:]", 10) == 0 ||\
+		ft_strncmp(str, "[:space:]", 10) == 0 ||\
+		ft_strncmp(str, "[:upper:]", 10) == 0 ||\
+		ft_strncmp(str, "[:word:]", 9) == 0 ||\
+		ft_strncmp(str, "[:xdigit:]", 11) == 0)
+		return (1);
+	return (0);
+}
+int check_is_posix(char *str, int *i)
+{
+	int j[2];
+	char *class;
+
+	class = NULL;
+	j[0] = *i;
+	while (str[*i] != ']')
+	{
+		(*i)++;
+	}
+	j[1] = ++(*i);
+	class = ft_strsub(str, j[0], j[1]);
+	if (check_name_pos(class) == 1)
+	{
+		ft_strdel(&class);
+		return (1);
+	}
+	ft_strdel(&class);
+	return (0);
+
+}
 t_glob	*square_bracket(t_glob *g, char *line, int *i)
 {
-	int		nb;
-	ft_putendl("square bracket");
-	nb = 1;
-	if (line && line[*i] != '\0')
-		(*i)++;
-	g->p[0] = *i;
-	while (line[*i] != '\0' && nb != 0)
+	while (line && line[*i] != '\0' && line[*i] != ']')
 	{
 		if (line[*i] == '[')
-			nb++;
-		else if (line[*i] == ']')
-			nb--;
-		(*i)++;
+			check_is_posix(line, i);
+		else
+			(*i)++;
 	}
-	g->p[1] = *i;
-	if (line[*i] != '\0' && nb == 0)
-	{
-		g = add_arg(g, line, 2);
-		(*i)++;
-	}
+	g = add_arg(g, line, 2);
+	return (g);
 /*
 **	else
 **		ft_putstr_fd(2, "error parse ']'\n");

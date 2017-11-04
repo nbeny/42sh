@@ -1,52 +1,6 @@
 #include "globing.h"
 //gg
 
-t_new	*get_no_ascii(t_new *s, char *str, int *i, t_new *s_izi)
-{
-	if (str[*i + 1] == '-')
-	{
-		if (str[*i + 1] == '-' && str[*i + 2] != '\0')
-		{
-			s_izi = sb_not_ascii_posjoin(s, (int)str[*i], (int)str[*i + 2], s_izi);
-			i += 3;
-		}
-		else
-		{
-			s_izi = sb_not_ascii_posjoin(s, (int)str[*i], ((int)str[*i] + 1), s_izi);
-			(*i)++;
-		}
-	}
-	else
-	{
-		s_izi = sb_not_ascii_posjoin(s, (int)str[*i], ((int)str[*i] + 1), s_izi);
-		(*i)++;
-	}
-	return (s_izi);
-}
-
-t_new	*get_ascii(t_new *s, char *str, int *i, t_new *s_izi)
-{
-	if (str[*i + 1] == '-')
-	{
-		if (str[*i + 1] == '-' && str[*i + 2] != '\0')
-		{
-			s_izi = sb_ascii_posjoin(s, (int)str[*i], (int)str[*i + 2], s_izi);
-			i += 3;
-		}
-		else
-		{
-			s_izi = sb_ascii_posjoin(s, (int)str[*i], (int)str[*i], s_izi);
-			(*i)++;
-		}
-	}
-	else
-	{
-		s_izi = sb_ascii_posjoin(s, (int)str[*i], (int)str[*i], s_izi);
-		(*i)++;
-	}
-	return (s_izi);
-}
-
 t_new	*check_class(t_new *s, char *class, t_new *s_izi)
 {
 	if (!ft_strncmp(class, "alnum\0", 6))
