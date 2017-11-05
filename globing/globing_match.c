@@ -59,6 +59,7 @@ t_new	*add_new(t_new *new)
 */
 int		check_sbmatch(char *s1, t_new *sb)
 {
+	ft_putstr("check_sbmatch");
 	t_new	*s;
 	int		i;
 	int		ret;
@@ -66,17 +67,20 @@ int		check_sbmatch(char *s1, t_new *sb)
 	ret = -1;
 	s = sb;
 	i = 0;
+	if (sb->str == NULL)
+		ft_putendl("&&&&&&&&&&&&&&&&&&&&&");
+	ft_putendl(sb->str);
 	if (sb)
 		while (sb->str && sb->str[i])
 		{
 			if (i == 0 && sb->str[0] == '!' && sb->str[i + 1] != '\0')
 			{
-				if (!sb_exclammatch(*s1, sb->str, &i))
+				if (!(ret = sb_exclammatch(*s1, sb->str, &i)))
 					return (0);
 			}
 			else if (i == 0 && sb->str[0] == '^' && sb->str[i + 1] != '\0')
 			{
-				if (!sb_exclammatch(*s1, sb->str, &i))
+				if (!(ret = sb_exclammatch(*s1, sb->str, &i)))
 					return (0);
 			}
 			else if (i > 0 && sb->str[i] == '-' && sb->str[i + 1] != '\0')
@@ -93,6 +97,7 @@ int		check_sbmatch(char *s1, t_new *sb)
 			if (ret == 1)
 				return (1);
 		}
+		ft_putendl("END check_sbmatch");
 	return (0);
 }
 
@@ -101,6 +106,7 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	int		i;
 
 	i = -1;
+	ft_putstr("---->>>>> namtch");
 	if (s2 == NULL && s1 == NULL)
 		return (1);
 	if (*s1 != '\0' && *s2 == '*')
@@ -109,6 +115,7 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 		return (nmatch(s1, s2 + 1, sb));
 	if (sb && *s2 == -42 && *s1 != '\0' && *s2 != '\0')
 	{
+		ft_putstr("\t NAMATCH condition");
 		i = check_sbmatch(s1, sb);
 		if (i == 0)
 			return(0);
@@ -127,24 +134,39 @@ t_new	*check_walcards(t_new *new)
 	t_new			*s;
 	t_new			*izi;
 	t_new			*s_izi;
+	t_new			*weed;
 	char			*path;
 	struct dirent	*d;
 	DIR				*dir;
 
+	weed = new->sb;
+				ft_putendl("\t\t***************\t\t.");
+	if (weed == NULL)
+			ft_putendl("WEED NULL JK");
+	while (weed != NULL)
+	{
+		ft_putendl(weed->str);
+		weed = weed->next;
+	}
 	path = NULL;
 	izi = NULL;
-	ft_putendl("chECK_WAlcard");
-	s = new;
+	ft_putendl("chECK_WAlcard !1!@!@!@!@");
+
+				ft_putstr("LEAAAKS");
+				s = new;
 	izi = add_new(izi);
 	s_izi = izi;
+	if (s == NULL)
+		ft_putstr("BOUUUUHHHHH");
 	while (s != NULL)
 	{
 		path = getcwd(NULL, 1024);
 		dir = opendir(path);
-		
-		//LEAAAKS
+
+		//
 		while ((d = readdir(dir)) != NULL)
 		{
+
 			if (d->d_name[0] != '.')
 			{
 				path = s->str;
@@ -160,6 +182,7 @@ t_new	*check_walcards(t_new *new)
   ft_putchar('\t');
   }
 */
+				ft_putendl("KKKKKKKKKKKKKKKKKK");
 				if (nmatch(d->d_name, path, new->sb) != 0)
 				{
 //					get_char42(d->d_name);
@@ -221,7 +244,8 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 		else if (s->id == 2)
 			new = add_sb(new, s->str);
 		else if (s->id == 3)
-			new = add_accolade(new, s->str);
+			;
+		//new = add_accolade(new, s->str);
 		s = s->next;
 	}
 	ft_putendl("end while dowee");

@@ -73,9 +73,7 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 		s->next = init_argument();
 		s = s->next;
 		s->str = ft_strsub(line, g->p[0], g->p[1]);
-		ft_putstr(s->str);
 		s->id = a;
-//		return (s);
 	}
 	else
 	{
@@ -86,7 +84,7 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 	return (g);
 }
 
-t_glob	*remake_arg(t_glob *g, char *line)
+void	remake_arg(t_glob *g, char *line)
 {
 	t_arg	*s;
 	char	*tmp1;
@@ -102,15 +100,14 @@ t_glob	*remake_arg(t_glob *g, char *line)
 		tmp1 = ft_strdup(s->str);
 		tmp2 = ft_strsub(line, g->p[0], g->p[1]);
 		ft_strdel(&(s->str));
-		s->str = ft_strjoin(tmp1, tmp2);
+		ft_strjoin(tmp1, tmp2);
 		ft_strdel(&tmp1);
 		ft_strdel(&tmp2);
 	}
 	else
 	{
-		g = add_arg(g, line, 0);
+		g = 
 	}
-	return (g);
 }
 
 t_glob	*zoom_research(t_glob *g, char *line)

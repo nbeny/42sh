@@ -14,7 +14,7 @@ t_new	*make_pointpoint(t_new *new, char *str)
 		{
 			while (c <= str[3])
 			{
-				izi = 
+				izi = NULL;
 				c++;
 			}
 		}

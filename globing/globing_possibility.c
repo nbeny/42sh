@@ -14,7 +14,7 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 	{
 		g = add_arg(g, line, 3);
 	   (*i)++;
-	}
+	   }
 /*
 **	else
 **		ft_putstr_fd(2, "error parse '}'\n");
@@ -24,55 +24,83 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 
 int check_name_pos(char *str)
 {
-	if (ft_strncmp(str, "[:blank:]", 10) == 0 ||\
-		ft_strncmp(str, "[:alnum:]", 10) == 0 ||\
-		ft_strncmp(str, "[:alpha:]", 10) == 0 ||\
-		ft_strncmp(str, "[:ascii:]", 10) == 0 ||\
-		ft_strncmp(str, "[:cntrl:]", 10) == 0 ||\
-		ft_strncmp(str, "[:digit:]", 10) == 0 ||\
-		ft_strncmp(str, "[:graph:]", 10) == 0 ||\
-		ft_strncmp(str, "[:lower:]", 10) == 0 ||\
-		ft_strncmp(str, "[:print:]", 10) == 0 ||\
-		ft_strncmp(str, "[:punct:]", 10) == 0 ||\
-		ft_strncmp(str, "[:space:]", 10) == 0 ||\
-		ft_strncmp(str, "[:upper:]", 10) == 0 ||\
-		ft_strncmp(str, "[:word:]", 9) == 0 ||\
-		ft_strncmp(str, "[:xdigit:]", 11) == 0)
+	if (ft_strncmp(str, "[:blank:]", 9) == 0 ||\
+		ft_strncmp(str, "[:alnum:]", 9) == 0 ||\
+		ft_strncmp(str, "[:alpha:]", 9) == 0 ||\
+		ft_strncmp(str, "[:ascii:]", 9) == 0 ||\
+		ft_strncmp(str, "[:cntrl:]", 9) == 0 ||\
+		ft_strncmp(str, "[:digit:]", 9) == 0 ||\
+		ft_strncmp(str, "[:graph:]", 9) == 0 ||\
+		ft_strncmp(str, "[:lower:]", 9) == 0 ||\
+		ft_strncmp(str, "[:print:]", 9) == 0 ||\
+		ft_strncmp(str, "[:punct:]", 9) == 0 ||\
+		ft_strncmp(str, "[:space:]", 9) == 0 ||\
+		ft_strncmp(str, "[:upper:]", 9) == 0 ||\
+		ft_strncmp(str, "[:word:]", 8) == 0 ||\
+		ft_strncmp(str, "[:xdigit:]", 10) == 0)
 		return (1);
 	return (0);
 }
-int check_is_posix(char *str, int *i)
-{
-	int j[2];
-	char *class;
 
+int		check_is_posix(char *str, int *i)
+{
+	int		j[2];
+	int		save;
+	char	*class;
+
+	ft_putstr("check is posix");
+		ft_putstr(str);
 	class = NULL;
+	save = *i;
 	j[0] = *i;
-	while (str[*i] != ']')
+	while (str[*i] && str[*i] != ']')
 	{
 		(*i)++;
 	}
 	j[1] = ++(*i);
 	class = ft_strsub(str, j[0], j[1]);
+	ft_putstr(class);
 	if (check_name_pos(class) == 1)
 	{
 		ft_strdel(&class);
-		return (1);
+		return (*i);
 	}
 	ft_strdel(&class);
-	return (0);
-
+	return (++save);
 }
+
 t_glob	*square_bracket(t_glob *g, char *line, int *i)
 {
+	char	*tmp;
+
+	ft_putstr("sqare");
+	g->p[0] = ++(*i);
 	while (line && line[*i] != '\0' && line[*i] != ']')
 	{
-		if (line[*i] == '[')
-			check_is_posix(line, i);
+		if (line[*i] && line[*i] == '[')
+			(*i) = check_is_posix(line, i);
 		else
 			(*i)++;
 	}
-	g = add_arg(g, line, 2);
+	g->p[1] = (*i);
+	if (line[*i] == '\0')
+	{
+		g->p[0]--;
+		g = remake_arg(g, line);
+	}
+	else
+	{
+		(*i)++;
+		g = add_arg(g, line, 2);
+	}
+	
+//	while ()
+	ft_putendl("\n\nHEEEEREEEEE\n\n");
+//	while (g->arg != NULL)
+//	{
+//		ft_putendl(g->arg->str);
+//		g->arg = g->arg->next;
+//	}
 	return (g);
 /*
 **	else

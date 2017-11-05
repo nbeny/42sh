@@ -11,7 +11,7 @@ char	*creat_bracket(int c)
 	s[1] = '\0';
 	return (s);
 }
-
+/*
 t_new	*add_accolade(t_new *new, char *str)
 {
 	t_new	*s;
@@ -22,7 +22,7 @@ t_new	*add_accolade(t_new *new, char *str)
 	s = new;
 	if (ft_strlen(str) == 4)
 	{
-		if (ft_isalnum(str[i]) && str[i + 1] == '.'\
+		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \
 			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
 			new = make_pointpoint(new, str);
 		else if (check_comma(str))
@@ -36,7 +36,7 @@ t_new	*add_accolade(t_new *new, char *str)
 		new = make_accoarg(new, str);
 	return (new);
 }
-
+*/
 t_new	*add_interro(t_new *new)
 {
 	t_new	*s;
@@ -428,3 +428,4 @@ t_new	*add_sb(t_new *new, char *str)
 	}
 	return (new);
 }
+

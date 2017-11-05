@@ -75,6 +75,7 @@ int     check_sbmatch(char *s1, t_new *sb);
 t_glob  *init_glob();
 t_arg   *init_argument();
 t_glob  *add_arg(t_glob *g, char *line, int a);
+t_glob	*remake_arg(t_glob *g, char *line);
 t_glob  *globing_research(char **cmd);
 t_glob	*add_glob_next(t_glob *g);
 t_glob	*add_glob_slash(t_glob *g);
