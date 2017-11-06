@@ -25,10 +25,10 @@ t_new	*add_accolade(t_new *new, char *str)
 		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \
 			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
 			new = make_pointpoint(new, str);
-		else if (check_comma(str))
+		else
 			new = make_comma(new, str);
 	}
-	else if (check_comma(str))
+	else
 		make_comma(new, str);
 	return (new);
 }

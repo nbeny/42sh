@@ -164,6 +164,13 @@ t_new   *ft_magic_tab_to_list(char **env);
 int     check_char42(char *s);
 void    reverse_char42(char *s);
 void    get_char42(char *s);
-
-
+/*
+**gb_accolade
+*/
+int     check_pointpoint(char *line, int i);
+int     check_comma(char *line, int i);
+t_new   *add_joinaccolade(t_new *new, char *s1, char *s2);
+t_new   *add_dupaccolade(t_new *new, char *str);
+t_new   *make_pointpoint(t_new *new, char *str);
+t_new   *make_comma(t_new *new, char *str);
 #endif

@@ -65,7 +65,7 @@ t_new	*add_dupaccolade(t_new *new, char *str)
 	else
 	{
 		new = init_new();
-		new->str = ft_strjoin(str);
+		new->str = ft_strdup(str);
 	}
 	return (new);
 }

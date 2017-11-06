@@ -9,7 +9,7 @@ t_new	*make_comma(t_new *new, char *str)
 
 	izi = NULL;
 	s = new;
-	split = ft_strsplit(str);
+	split = ft_strsplit(str, ',');
 	if (split == NULL)
 		return (new);
 	if (s != NULL)
@@ -19,7 +19,7 @@ t_new	*make_comma(t_new *new, char *str)
 			i = 0;
 			while (split && split[i])
 			{
-				izi = add_joinaccolade(s, split[i]);
+				izi = add_joinaccolade(s, s->str, split[i]);
 				i++;
 			}
 			s = s->next;
@@ -32,6 +32,12 @@ t_new	*make_comma(t_new *new, char *str)
 			izi = add_dupaccolade(s, split[i]);
 			i++;
 		}
+	}
+	s = izi;
+	while (s != NULL)
+	{
+		ft_putendl(s->str);
+		s = s->next;
 	}
 	return (izi);
 }
