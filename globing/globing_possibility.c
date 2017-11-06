@@ -3,18 +3,26 @@
 
 t_glob	*accolade(t_glob *g, char *line, int *i)
 {
+	int		save;
+
+	save = (*i);
 		ft_putendl("accolade");
-	if (line && line[*i] != '\0')
-		(*i)++;
-	g->p[0] = *i;
+	g->p[0] = ++(*i);
 	while (line[*i] != '\0' && line[*i] != '}')
 		(*i)++;
-	g->p[1] = *i;
-	if (line[*i] != '\0')
+	g->p[1] = (*i);
+	if (line[*i] != '\0' && check_pointpoint(line, save) && check_comma(line, save))
 	{
+		(*i)++;
 		g = add_arg(g, line, 3);
-	   (*i)++;
-	   }
+	}
+	else
+	{
+		g->p[0] = g->p[0] - 1;
+		if (line[*i] == '}')
+			g->p[1] = g->p[1] + 1;
+		g = remake_arg(g, line);
+	}
 /*
 **	else
 **		ft_putstr_fd(2, "error parse '}'\n");

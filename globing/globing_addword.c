@@ -11,7 +11,7 @@ char	*creat_bracket(int c)
 	s[1] = '\0';
 	return (s);
 }
-/*
+
 t_new	*add_accolade(t_new *new, char *str)
 {
 	t_new	*s;
@@ -27,16 +27,12 @@ t_new	*add_accolade(t_new *new, char *str)
 			new = make_pointpoint(new, str);
 		else if (check_comma(str))
 			new = make_comma(new, str);
-		else
-			new = make_accoarg(new, str);
 	}
 	else if (check_comma(str))
 		make_comma(new, str);
-	else
-		new = make_accoarg(new, str);
 	return (new);
 }
-*/
+
 t_new	*add_interro(t_new *new)
 {
 	t_new	*s;
