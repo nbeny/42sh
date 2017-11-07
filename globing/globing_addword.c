@@ -20,6 +20,8 @@ t_new	*add_accolade(t_new *new, char *str)
 
 	i = 0;
 	s = new;
+	ft_putendl("add_accolade");
+	ft_putendl(str);
 	if (ft_strlen(str) == 4)
 	{
 		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \

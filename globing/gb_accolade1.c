@@ -34,6 +34,7 @@ t_new	*make_comma(t_new *new, char *str)
 		}
 	}
 	s = izi;
+	ft_putendl("GGPFPPF");
 	while (s != NULL)
 	{
 		ft_putendl(s->str);

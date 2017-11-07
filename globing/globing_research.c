@@ -133,7 +133,10 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		if (line[i] == '[')
 			s = square_bracket(s, line, &i);
 		else if (line[i] == '{')
+		{
+			ft_putchar('q');
 			s = accolade(s, line, &i);
+		}
 		else if (line[i] == '?')
 			s = interogation(s, line, &i);
 		else

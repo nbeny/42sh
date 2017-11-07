@@ -244,8 +244,7 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 		else if (s->id == 2)
 			new = add_sb(new, s->str);
 		else if (s->id == 3)
-			;
-		//new = add_accolade(new, s->str);
+			new = add_accolade(new, s->str);
 		s = s->next;
 	}
 	ft_putendl("end while dowee");

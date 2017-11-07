@@ -4,23 +4,28 @@
 t_glob	*accolade(t_glob *g, char *line, int *i)
 {
 	int		save;
-
+	ft_putstr("accolade");
 	save = (*i);
 		ft_putendl("accolade");
 	g->p[0] = ++(*i);
 	while (line[*i] != '\0' && line[*i] != '}')
 		(*i)++;
 	g->p[1] = (*i);
-	if (line[*i] != '\0' && check_pointpoint(line, save) && check_comma(line, save))
+	ft_putendl("/n**/n**\n\t");
+	ft_putchar(line[*i]);
+	if (line[*i] != '\0' && (check_pointpoint(line, save) || check_comma(line, save)))
 	{
+		ft_putstr("if in accolade");
 		(*i)++;
 		g = add_arg(g, line, 3);
 	}
+//	else if (line[*i] != '\0' && check_comma(line, save))
 	else
 	{
+		ft_putstr("else in accolade");
 		g->p[0] = g->p[0] - 1;
 		if (line[*i] == '}')
-			g->p[1] = g->p[1] + 1;
+			g->p[1] = g->p[1];
 		g = remake_arg(g, line);
 	}
 /*

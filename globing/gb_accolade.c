@@ -13,16 +13,23 @@ int		check_pointpoint(char *line, int i)
 
 int		check_comma(char *line, int i)
 {
+	int	count;
+
+	count = 0;
 	i++;
-	while (line[i] != '}' && line[i] != '\0')
+
+	ft_putendl("HEREEEEE CHECK COMMMA");
+	ft_putendl(line);
+	ft_putchar(line[i]);
+	while ( line[i] != '\0')
 	{
 		if (line[i] == ',')
-			while (line[i] == '}' && line[i] != '\0')
-			{
-				if (line[i] == '}')
-					return (1);
-				i++;
-			}
+			count = 1;
+		if (line[i] == '}' && count == 1)
+		{
+			ft_putstr("YYYYYYYYYYYEEEEEEESSSSS");
+			return (1);
+		}
 		i++;
 	}
 	return (0);
@@ -86,14 +93,14 @@ t_new	*make_pointpoint(t_new *new, char *str)
 	s = new;
 	if (new != NULL)
 	{
-		w = creat_bracket(str[0]);
+		w = creat_bracket(c);
 		izi = add_joinaccolade(izi, s->str, w);
 		ft_strdel(&w);
 		while (s != NULL)
 		{
 			while (c <= str[3])
 			{
-				w = creat_bracket(str[0]);
+				w = creat_bracket(c);
 				izi = add_joinaccolade(izi, s->str, w);
 				ft_strdel(&w);
 				c++;
@@ -103,12 +110,12 @@ t_new	*make_pointpoint(t_new *new, char *str)
 	}
 	else
 	{
-		w = creat_bracket(str[3]);
+		w = creat_bracket(c);
 		izi = add_dupaccolade(izi, w);
 		ft_strdel(&w);
 		while (c <= str[3])
 		{
-			w = creat_bracket(str[3]);
+			w = creat_bracket(c);
 			izi = add_dupaccolade(izi, w);
 			ft_strdel(&w);
 			c++;
