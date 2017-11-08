@@ -31,7 +31,12 @@ t_new	*add_accolade(t_new *new, char *str)
 			new = make_comma(new, str);
 	}
 	else
-		make_comma(new, str);
+		new = make_comma(new, str);
+	
+	ft_putstr("start print in add_accolade");
+//	while (new->str != NULL)
+//		ft_putendl(new->str);
+	ft_putstr("end print in add_accolade");
 	return (new);
 }
 

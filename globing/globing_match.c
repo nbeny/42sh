@@ -11,6 +11,7 @@ t_new	*init_new()
 		return (NULL);
 	new->str = NULL;
 	new->sb = NULL;
+	new->sb = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -106,7 +107,7 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	int		i;
 
 	i = -1;
-	ft_putstr("---->>>>> namtch");
+//	ft_putstr("---->>>>> namtch");
 	if (s2 == NULL && s1 == NULL)
 		return (1);
 	if (*s1 != '\0' && *s2 == '*')
@@ -134,12 +135,12 @@ t_new	*check_walcards(t_new *new)
 	t_new			*s;
 	t_new			*izi;
 	t_new			*s_izi;
-	t_new			*weed;
+//	t_new			*weed;
 	char			*path;
 	struct dirent	*d;
 	DIR				*dir;
-
-	weed = new->sb;
+	int note =  0;
+/*	weed = new->sb;
 				ft_putendl("\t\t***************\t\t.");
 	if (weed == NULL)
 			ft_putendl("WEED NULL JK");
@@ -147,13 +148,11 @@ t_new	*check_walcards(t_new *new)
 	{
 		ft_putendl(weed->str);
 		weed = weed->next;
-	}
+		}*/
 	path = NULL;
 	izi = NULL;
 	ft_putendl("chECK_WAlcard !1!@!@!@!@");
-
-				ft_putstr("LEAAAKS");
-				s = new;
+	s = new;
 	izi = add_new(izi);
 	s_izi = izi;
 	if (s == NULL)
@@ -162,8 +161,19 @@ t_new	*check_walcards(t_new *new)
 	{
 		path = getcwd(NULL, 1024);
 		dir = opendir(path);
-
-		//
+		note = 0;
+/*		if (s->acc == 1)
+		{
+					ft_putendl("\nnmatch found ACC = 1");
+					ft_putstr(s->str);
+					s_izi = add_new(s_izi);
+					s_izi = s_izi->next;
+					s_izi->str = s->str;
+		}
+*/
+//		else
+		{
+			ft_putendl("ELSE acc = 0");
 		while ((d = readdir(dir)) != NULL)
 		{
 
@@ -182,18 +192,28 @@ t_new	*check_walcards(t_new *new)
   ft_putchar('\t');
   }
 */
+				
 				ft_putendl("KKKKKKKKKKKKKKKKKK");
 				if (nmatch(d->d_name, path, new->sb) != 0)
 				{
+					note = 1;
 //					get_char42(d->d_name);
 					ft_putendl("\nnmatch found");
 					s_izi = add_new(s_izi);
 					s_izi = s_izi->next;
-					s_izi->str = ft_strdup(d->d_name);
+					s_izi->str = ft_strdup(d->d_name);				
 				}
 				else
 					ft_putendl("no natch found");
 			}
+		}
+		if (note == 0 && s->acc == 1)
+		{
+			ft_putendl("\n\n**\t**  nomatchfound but acc");
+			s_izi = add_new(s_izi);
+			s_izi = s_izi->next;
+			s_izi->str = s->str;
+		}
 		}
 		closedir(dir);
 		s = s->next;
@@ -214,8 +234,6 @@ t_new	*check_walcards(t_new *new)
 //	globing_free_new(new);
 	return (izi);
 }
-
-#include <stdio.h>
 
 t_new	*do_we_match(t_arg *arg, t_new *new)
 {
@@ -246,6 +264,7 @@ t_new	*do_we_match(t_arg *arg, t_new *new)
 		else if (s->id == 3)
 			new = add_accolade(new, s->str);
 		s = s->next;
+//		sleep(1);
 	}
 	ft_putendl("end while dowee");
 	new = check_walcards(new);

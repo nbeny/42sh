@@ -12,6 +12,7 @@ typedef struct	s_arg
 typedef struct	s_new
 {
 	char			*str;
+	int				acc;
 	struct s_new	*sb;
 	struct s_new	*next;
 }				t_new;

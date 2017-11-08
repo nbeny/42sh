@@ -39,6 +39,7 @@ t_new	*add_joinaccolade(t_new *new, char *s1, char *s2)
 {
 	t_new	*s;
 
+	ft_putendl("ADD_JOIACCOLADE");
 	s = new;
 	if (new != NULL)
 	{
@@ -47,11 +48,13 @@ t_new	*add_joinaccolade(t_new *new, char *s1, char *s2)
 		s->next = init_new();
 		s = s->next;
 		s->str = ft_strjoin(s1, s2);
+		s->acc = 1;
 	}
 	else
 	{
 		new = init_new();
 		new->str = ft_strjoin(s1, s2);
+		new->acc = 1;
 	}
 	return (new);
 }
@@ -60,20 +63,33 @@ t_new	*add_dupaccolade(t_new *new, char *str)
 {
 	t_new	*s;
 
+	ft_putendl("add_dupaccolade");
 	s = new;
 	if (new != NULL)
 	{
+		ft_putendl("if");
 		while (s->next != NULL)
 			s = s->next;
 		s->next = init_new();
 		s = s->next;
+		if (str == NULL)
+			ft_putendl("ddd");
 		s->str = ft_strdup(str);
+		s->acc = 1;
 	}
 	else
 	{
+				ft_putendl("else");
+				if (str == NULL)
+			ft_putendl("ddd");
 		new = init_new();
+					ft_putendl("ddd1");
+//					ft_putendl(str);
 		new->str = ft_strdup(str);
+					ft_putendl("2ddd");
+						new->acc = 1;
 	}
+
 	return (new);
 }
 
