@@ -142,7 +142,7 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		else
 			s = part_arg(s, line, &i);
 	}
-	s->new = do_we_match(s->arg, s->new);
+	s = do_we_match(s);
 	ft_putendl("return zoom search");
 	return (g);
 }

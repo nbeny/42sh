@@ -114,7 +114,6 @@ t_glob	*square_bracket(t_glob *g, char *line, int *i)
 //		ft_putendl(g->arg->str);
 //		g->arg = g->arg->next;
 //	}
-	return (g);
 /*
 **	else
 **		ft_putstr_fd(2, "error parse ']'\n");
@@ -162,7 +161,7 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 		ft_putnbr(*i);
 		ft_putendl(".");
 	g->isrep = 1;
-	g->new = do_we_match(g->arg, g->new);
+	g-> = do_we_match(g);
 	g = add_glob_slash(g);
 	g = g->slash;
 	return (g);

@@ -1,5 +1,5 @@
 #include "globing.h"
-#include <libft.h>
+//gg
 
 t_glob	*init_glob()
 {
@@ -7,10 +7,45 @@ t_glob	*init_glob()
 
 	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
 		return (NULL);
+	g->isrep = 0;
 	g->new = NULL;
 	g->arg = NULL;
 	g->p[0] = 0;
 	g->p[1] = 0;
+	g->slash = NULL;
+	g->next = NULL;
+	return (g);
+}
+
+t_glob	*add_glob_next(t_glob *g)
+{
+	t_glob	*s;
+
+	s = g;
+	if (g != NULL)
+	{
+		while (s->next != NULL)
+			s = s->next;
+		s->next = init_glob();
+	}
+	else
+		g = init_glob();
+	return (g);
+}
+
+t_glob	*add_glob_slash(t_glob *g)
+{
+	t_glob	*s;
+
+	s = g;
+	if (g != NULL)
+	{
+		while (s->slash != NULL)
+			s = s->slash;
+		s->slash = init_glob();
+	}
+	else
+		g = init_glob();
 	return (g);
 }
 
@@ -38,7 +73,9 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 		s->next = init_argument();
 		s = s->next;
 		s->str = ft_strsub(line, g->p[0], g->p[1]);
+		ft_putstr(s->str);
 		s->id = a;
+//		return (s);
 	}
 	else
 	{
@@ -49,31 +86,119 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 	return (g);
 }
 
+t_glob	*remake_arg(t_glob *g, char *line)
+{
+	t_arg	*s;
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = NULL;
+	tmp2 = NULL;
+	s = g->arg;
+	if (s != NULL)
+	{
+		while (s->next != NULL)
+			s = s->next;
+		tmp1 = ft_strdup(s->str);
+		tmp2 = ft_strsub(line, g->p[0], g->p[1]);
+		ft_strdel(&(s->str));
+		s->str = ft_strjoin(tmp1, tmp2);
+		ft_strdel(&tmp1);
+		ft_strdel(&tmp2);
+	}
+	else
+	{
+		g = add_arg(g, line, 0);
+	}
+	return (g);
+}
+
+t_glob	*zoom_research(t_glob *g, char *line)
+{
+	t_glob	*s;
+	int		i;
+
+	i = 0;
+	s = g;
+	if (line == NULL)
+	{
+		ft_putstr("zoom reasearch null return ");
+		return (NULL);
+	}
+	while (line[i])
+	{
+		ft_putnbr(i);
+		if (line[i] == '/')
+			s = slash_gestion(s, line, &i);
+		if (line[i] == '[')
+			s = square_bracket(s, line, &i);
+		else if (line[i] == '{')
+		{
+			ft_putchar('q');
+			s = accolade(s, line, &i);
+		}
+		else if (line[i] == '?')
+			s = interogation(s, line, &i);
+		else
+			s = part_arg(s, line, &i);
+	}
+	s->new = do_we_match(s->arg, s->new);
+	ft_putendl("return zoom search");
+	return (g);
+}
+
+int		check_isglob(char *line)
+{
+	int		i;
+
+	i = 0;
+	while (line[i] != '\0')
+	{
+		if (line[i] == '*' || line[i] == '?' ||\
+			line[i] == '[' || line[i] == '{')
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
 t_glob	*globing_research(char **cmd)
 {
-	int			i;
 	int			j;
 	t_glob		*g;
+	t_glob		*s;
 
 	j = 0;
 	g = NULL;
 	g = init_glob();
+	s = g;
 	while (cmd && cmd[j])
 	{
-		i = 0;
-		while (cmd[j][i])
+		if (check_isglob(cmd[j]))
 		{
-			if (cmd[j][i] == '[')
-				g = square_bracket(g, cmd[j], &i);
-			else if (cmd[j][i] == '{')
-				g = accolade(g, cmd[j], &i);
-			else if (cmd[j][i] == '?')
-				g = interogation(g, cmd[j], &i);
-			else
-				g = part_arg(g, cmd[j], &i);
+			s = zoom_research(s, cmd[j]);
+			s = s->next;
 		}
-		g->new = do_we_match(g->arg, g->new);
 		j++;
+	}ft_putendl("start print ");
+	if (g == NULL)
+	ft_putendl("g == NULL");
+	else
+	{
+		if (g->new == NULL)
+			ft_putendl("g->new == NULL");
+		else
+			while (g->new != NULL)
+			{
+				if (g->new->str)
+//					ft_putendl("NULL");
+//				else
+				
+					ft_putendl(g->new->str);
+				g->new = g->new->next;
+
+	}
+		g = g->next;
 	}
 	return (g);
 }

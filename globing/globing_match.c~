@@ -15,7 +15,7 @@ t_new	*init_new()
 	return (new);
 }
 
-t_new	*add_new(t_new *new, char *str)
+t_new	*add_new(t_new *new)
 {
 	t_new	*s;
 
@@ -97,7 +97,7 @@ int		check_sbmatch(char *s1, t_new *sb)
 			if (ret == 1)
 				return (1);
 		}
-	ft_putendl("END check_sbmatch");
+		ft_putendl("END check_sbmatch");
 	return (0);
 }
 
@@ -129,38 +129,8 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	return (0);
 }
 
-t_glob	*check_slash(t_glob *g, t_new *st_path)
+t_new	*check_walcards(t_new *new)
 {
-	t_izi				*izi;
-	char				*path;
-	t_new				*rec_path;
-
-	rec_path = NULL;
-	izi = NULL;
-	path = NULL;
-	while (st_path != NULL)
-	{
-		if (g->slash != NULL)
-		{
-			if ((rec_path = match_rep(g, st_path)))
-				g = check_slash(g->slash, rec_path);
-			else
-				return (g);
-		}
-		else
-		{
-			izi = match_file(g, st_path);
-		}
-		st_path = st_path->next;
-	}
-}
-return (g);
-}
-
-t_glob	*check_walcards(t_glob *g)
-{
-	t_glob			*save;
-	t_new			*new;
 	t_new			*s;
 	t_new			*izi;
 	t_new			*s_izi;
@@ -169,8 +139,10 @@ t_glob	*check_walcards(t_glob *g)
 	struct dirent	*d;
 	DIR				*dir;
 
-	new = g->new;
 	weed = new->sb;
+				ft_putendl("\t\t***************\t\t.");
+	if (weed == NULL)
+			ft_putendl("WEED NULL JK");
 	while (weed != NULL)
 	{
 		ft_putendl(weed->str);
@@ -179,70 +151,55 @@ t_glob	*check_walcards(t_glob *g)
 	path = NULL;
 	izi = NULL;
 	ft_putendl("chECK_WAlcard !1!@!@!@!@");
-	s = new;
+				ft_putstr("LEAAAKS");
+				s = new;
 	izi = add_new(izi);
 	s_izi = izi;
 	if (s == NULL)
 		ft_putstr("BOUUUUHHHHH");
-	while (save != NULL)
+	while (s != NULL)
 	{
-		s = save->new;
 		path = getcwd(NULL, 1024);
-		while (s != NULL)
+		dir = opendir(path);
+
+		//
+		while ((d = readdir(dir)) != NULL)
 		{
-			path = 
-				dir = opendir(path);
-			while ((d = readdir(dir)) != NULL)
+
+			if (d->d_name[0] != '.')
 			{
-				if (save->slash != NULL)
+				path = s->str;
+				ft_putendl(d->d_name);
+				ft_putendl(path);
+/*
+  if (check_char42(s->str))
+  {
+  ft_putstr("OUI");
+  reverse_char42(d->d_name);
+  ft_putchar('\t');
+  ft_putendl(d->d_name);
+  ft_putchar('\t');
+  }
+*/
+				ft_putendl("KKKKKKKKKKKKKKKKKK");
+				if (nmatch(d->d_name, path, new->sb) != 0)
 				{
-					path = s->str;
-					if (nmatch(d->d_name, path) != 0)
-					{
-						if (d->d_type == 4)
-						{
-							
-						}
-					}
+//					get_char42(d->d_name);
+					ft_putendl("\nnmatch found");
+					s_izi = add_new(s_izi);
+					s_izi = s_izi->next;
+					s_izi->str = ft_strdup(d->d_name);
 				}
 				else
-				{
-					if (s->str[0] == '.')
-					{
-						path = s->str;
-						if (nmatch(d->d_name, path, new->sb) != 0)
-						{
-							ft_putendl("\nnmatch found");
-							s_izi = add_new(s_izi);
-							s_izi = s_izi->next;
-							s_izi->str = ft_strdup(d->d_name);
-						}
-						else
-							ft_putendl("no natch found");
-					}
-					else if (d->d_name[0] != '.')
-					{
-						path = s->str;
-						ft_putendl(d->d_name);
-						ft_putendl(path);
-						ft_putendl("KKKKKKKKKKKKKKKKKK");
-						if (nmatch(d->d_name, path, new->sb) != 0)
-						{
-							ft_putendl("\nnmatch found");
-							s_izi = add_new(s_izi);
-							s_izi = s_izi->next;
-							s_izi->str = ft_strdup(d->d_name);
-						}
-						else
-							ft_putendl("no natch found");
-					}
-				}
+					ft_putendl("no natch found");
 			}
-			closedir(dir);
-			s = s->next;
 		}
-		save = save->slash;
+		closedir(dir);
+		s = s->next;
 	}
+	// MAYBE WRONG
+//	if (izi->str == NULL)
+//		free(izi);
 	ft_putendl("return chECK_WAlcard");
 	s_izi = izi;
 	s_izi = s_izi->next;
@@ -266,9 +223,7 @@ t_glob	*do_we_match(t_glob	*g)
 	t_arg	*s;
 	char	*str;
 	char	*tmp;
-	t_new	*st_path;
 
-	st_path = NULL;
 	ft_putendl("DOWEMATCH()");
 	s = g->arg;
 	new = g->new;
@@ -296,9 +251,6 @@ t_glob	*do_we_match(t_glob	*g)
 	}
 	g->new = new;
 	ft_putendl("end while dowee");
-	tmp = getcwd(NULL, 1024);
-	st_path = add_path(st_path, tmp);
-	ft_strdel(&tmp);
-	g = check_walcards(g, st_path);
+	g = check_walcards(g);
 	return (g);
 }

@@ -66,7 +66,7 @@ t_new   *init_new();
 t_new   *add_new(t_new *new);
 int     nmatch(char *s1, char *s2, t_new *sb);
 t_new   *check_walcards(t_new *new);
-t_glob   *do_we_match(t_glob *g);
+t_new   *do_we_match(t_arg *arg, t_new *new);
 int     check_sbmatch(char *s1, t_new *sb);
 
 /*
