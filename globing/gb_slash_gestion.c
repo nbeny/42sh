@@ -20,5 +20,3 @@ t_new	*add_path(t_new *st_path, char *path)
 	}
 	return (st_path);
 }
-
-t_new	*

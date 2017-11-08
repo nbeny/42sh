@@ -58,6 +58,7 @@ t_new	*add_interro(t_new *new)
 	return (new);
 }
 
+/*
 t_new	*add_interogation(t_new *new)
 {
 	t_new	*s;
@@ -131,6 +132,7 @@ t_new	*add_interogation(t_new *new)
 	ft_putendl("end add interrogation");
 	return (new);
 }
+*/
 
 t_new	*add_word(t_new *new, char *str)
 {
@@ -158,14 +160,8 @@ t_new	*add_word(t_new *new, char *str)
 	else
 	{
 		ft_putendl("else");
-		s = add_new(s);
-		s->str = ft_strdup(str);
-		if (s->str == NULL)
-			ft_putstr("gg");
-		else
-			ft_putstr(s->str);
-		
-		return (s);
+		new = add_new(new);
+		new->str = ft_strdup(str);
 	}
 	ft_putendl("return add_word()");
 	return (new);

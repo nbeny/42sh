@@ -20,20 +20,18 @@ t_new	*add_accolade(t_new *new, char *str)
 
 	i = 0;
 	s = new;
+	ft_putendl("add_accolade");
+	ft_putendl(str);
 	if (ft_strlen(str) == 4)
 	{
 		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \
 			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
 			new = make_pointpoint(new, str);
-		else if (check_comma(str))
-			new = make_comma(new, str);
 		else
-			new = make_accoarg(new, str);
+			new = make_comma(new, str);
 	}
-	else if (check_comma(str))
-		make_comma(new, str);
 	else
-		new = make_accoarg(new, str);
+		make_comma(new, str);
 	return (new);
 }
 

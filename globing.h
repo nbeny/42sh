@@ -65,7 +65,7 @@ int		ft_isspace(int c);
 t_new   *init_new();
 t_new   *add_new(t_new *new);
 int     nmatch(char *s1, char *s2, t_new *sb);
-t_new   *check_walcards(t_new *new);
+//t_glob   *check_walcards(t_glob *g);
 t_glob   *do_we_match(t_glob *g);
 int     check_sbmatch(char *s1, t_new *sb);
 
@@ -76,6 +76,7 @@ t_glob  *init_glob();
 t_arg   *init_argument();
 t_glob  *add_arg(t_glob *g, char *line, int a);
 t_glob	*remake_arg(t_glob *g, char *line);
+t_glob	*check_slash(t_glob *g, t_new *st_path);
 t_glob  *globing_research(char **cmd);
 t_glob	*add_glob_next(t_glob *g);
 t_glob	*add_glob_slash(t_glob *g);
@@ -173,4 +174,12 @@ t_new   *add_joinaccolade(t_new *new, char *s1, char *s2);
 t_new   *add_dupaccolade(t_new *new, char *str);
 t_new   *make_pointpoint(t_new *new, char *str);
 t_new   *make_comma(t_new *new, char *str);
+/*
+**sb_matchrep
+*/
+char    *tri_join(char *path, char *str);
+t_new   *match_rep(t_glob *g, char *path);
+char    *found_path(char *path, char *path);
+t_new   *match_file(t_glob *g, char *path);
+t_new   *add_path(t_new *st_path, char *path);
 #endif

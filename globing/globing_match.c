@@ -1,7 +1,5 @@
 #include "globing.h"
 //gg
-#include <sys/types.h>
-#include <sys/dir.h>
 
 t_new	*init_new()
 {
@@ -15,7 +13,7 @@ t_new	*init_new()
 	return (new);
 }
 
-t_new	*add_new(t_new *new, char *str)
+t_new	*add_new(t_new *new)
 {
 	t_new	*s;
 
@@ -131,32 +129,33 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 
 t_glob	*check_slash(t_glob *g, t_new *st_path)
 {
-	t_izi				*izi;
+	t_new				*izi;
 	char				*path;
 	t_new				*rec_path;
 
 	rec_path = NULL;
 	izi = NULL;
 	path = NULL;
+	ft_putstr("---check_slash >>>recurisif<<<\n");
 	while (st_path != NULL)
 	{
+		ft_putstr("<*>");
 		if (g->slash != NULL)
 		{
-			if ((rec_path = match_rep(g, st_path)))
+			ft_putstr("pas null!\n");
+			if ((rec_path = match_rep(g, st_path->str)))
 				g = check_slash(g->slash, rec_path);
-			else
-				return (g);
 		}
 		else
 		{
-			izi = match_file(g, st_path);
+			ft_putstr("null!\n");
+			izi = match_file(g, st_path->str);
 		}
 		st_path = st_path->next;
 	}
+	return (g);
 }
-return (g);
-}
-
+/*
 t_glob	*check_walcards(t_glob *g)
 {
 	t_glob			*save;
@@ -190,8 +189,7 @@ t_glob	*check_walcards(t_glob *g)
 		path = getcwd(NULL, 1024);
 		while (s != NULL)
 		{
-			path = 
-				dir = opendir(path);
+			dir = opendir(path);
 			while ((d = readdir(dir)) != NULL)
 			{
 				if (save->slash != NULL)
@@ -240,7 +238,7 @@ t_glob	*check_walcards(t_glob *g)
 			}
 			closedir(dir);
 			s = s->next;
-		}
+			x		}
 		save = save->slash;
 	}
 	ft_putendl("return chECK_WAlcard");
@@ -258,7 +256,7 @@ t_glob	*check_walcards(t_glob *g)
 }
 
 #include <stdio.h>
-
+*/
 t_glob	*do_we_match(t_glob	*g)
 {
 	int		i;
@@ -287,7 +285,6 @@ t_glob	*do_we_match(t_glob	*g)
 			new = add_word(new, s->str);
 		else if (s->id == 1)
 			new = add_interro(new);
-//			new = add_interogation(new);
 		else if (s->id == 2)
 			new = add_sb(new, s->str);
 		else if (s->id == 3)
@@ -299,6 +296,6 @@ t_glob	*do_we_match(t_glob	*g)
 	tmp = getcwd(NULL, 1024);
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
-	g = check_walcards(g, st_path);
+	g = check_slash(g, st_path);
 	return (g);
 }
