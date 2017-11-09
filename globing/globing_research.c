@@ -7,7 +7,7 @@ t_glob	*init_glob()
 
 	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
 		return (NULL);
-	g->isrep = 0;
+	g->slashzero = 0;
 	g->new = NULL;
 	g->arg = NULL;
 	g->p[0] = 0;
@@ -38,14 +38,14 @@ t_glob	*add_glob_slash(t_glob *g)
 	t_glob	*s;
 
 	s = g;
-	if (g != NULL)
+	if (g != NULL && g->slash != NULL)
 	{
 		while (s->slash != NULL)
 			s = s->slash;
 		s->slash = init_glob();
 	}
-	else
-		g = init_glob();
+	else if (g != NULL)
+		g->slash = init_glob();
 	return (g);
 }
 
@@ -113,7 +113,25 @@ t_glob	*remake_arg(t_glob *g, char *line)
 	return (g);
 }
 
-t_glob	*zoom_research(t_glob *g, char *line)
+void ft_printgg(t_glob *g)
+{
+	ft_putendl("----------->HERE");
+	while (g)
+	{
+		while (g->arg)
+		{
+			if (g->arg->str)
+				ft_putendl(g->arg->str);
+			else 
+				ft_putstr("NULL");
+			g->arg = g->arg->next;
+		}
+		g = g->slash;
+	}
+	ft_putendl("----------->HERE");
+}
+
+	t_glob	*zoom_research(t_glob *g, char *line)
 {
 	t_glob	*s;
 	int		i;
@@ -125,6 +143,7 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		ft_putstr("zoom reasearch null return ");
 		return (NULL);
 	}
+
 	while (line[i])
 	{
 		ft_putnbr(i);
@@ -142,7 +161,9 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		else
 			s = part_arg(s, line, &i);
 	}
-	s = do_we_match(s);
+//	ft_printgg(g);
+//HH
+	g = do_we_match(g);
 	ft_putendl("return zoom search");
 	return (g);
 }
@@ -180,25 +201,22 @@ t_glob	*globing_research(char **cmd)
 			s = s->next;
 		}
 		j++;
-	}ft_putendl("start print ");
-	if (g == NULL)
-	ft_putendl("g == NULL");
-	else
-	{
-		if (g->new == NULL)
-			ft_putendl("g->new == NULL");
-		else
-			while (g->new != NULL)
-			{
-				if (g->new->str)
-//					ft_putendl("NULL");
-//				else
-				
-					ft_putendl(g->new->str);
-				g->new = g->new->next;
-
 	}
-		g = g->next;
+	t_glob *hh;
+
+	hh = g->slash;
+
+
+	ft_putendl("start print ");
+	while (hh)
+	{
+		hh = hh->slash;
+	}
+	while (hh->new)
+	{
+		if (hh->new->str)
+			ft_putendl(hh->new->str);
+		hh->new = hh->new->next;
 	}
 	return (g);
 }

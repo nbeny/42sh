@@ -133,130 +133,39 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 	char				*path;
 	t_new				*rec_path;
 
+	if (g->slashzero == 1)
+	{
+		g->slashzero = 0;
+		g = g->slash;
+		g->slashzero = 1;
+	}
 	rec_path = NULL;
 	izi = NULL;
 	path = NULL;
 	ft_putstr("---check_slash >>>recurisif<<<\n");
+	if (st_path->str)
+		ft_putstr(st_path->str);
 	while (st_path != NULL)
 	{
 		ft_putstr("<*>");
 		if (g->slash != NULL)
 		{
-			ft_putstr("pas null!\n");
 			if ((rec_path = match_rep(g, st_path->str)))
+			{
+				ft_putstr(">>before recu ... ");
 				g = check_slash(g->slash, rec_path);
+			}
 		}
 		else
 		{
-			ft_putstr("null!\n");
 			izi = match_file(g, st_path->str);
+			g->new = izi;
 		}
 		st_path = st_path->next;
 	}
 	return (g);
 }
-/*
-t_glob	*check_walcards(t_glob *g)
-{
-	t_glob			*save;
-	t_new			*new;
-	t_new			*s;
-	t_new			*izi;
-	t_new			*s_izi;
-	t_new			*weed;
-	char			*path;
-	struct dirent	*d;
-	DIR				*dir;
 
-	new = g->new;
-	weed = new->sb;
-	while (weed != NULL)
-	{
-		ft_putendl(weed->str);
-		weed = weed->next;
-	}
-	path = NULL;
-	izi = NULL;
-	ft_putendl("chECK_WAlcard !1!@!@!@!@");
-	s = new;
-	izi = add_new(izi);
-	s_izi = izi;
-	if (s == NULL)
-		ft_putstr("BOUUUUHHHHH");
-	while (save != NULL)
-	{
-		s = save->new;
-		path = getcwd(NULL, 1024);
-		while (s != NULL)
-		{
-			dir = opendir(path);
-			while ((d = readdir(dir)) != NULL)
-			{
-				if (save->slash != NULL)
-				{
-					path = s->str;
-					if (nmatch(d->d_name, path) != 0)
-					{
-						if (d->d_type == 4)
-						{
-							
-						}
-					}
-				}
-				else
-				{
-					if (s->str[0] == '.')
-					{
-						path = s->str;
-						if (nmatch(d->d_name, path, new->sb) != 0)
-						{
-							ft_putendl("\nnmatch found");
-							s_izi = add_new(s_izi);
-							s_izi = s_izi->next;
-							s_izi->str = ft_strdup(d->d_name);
-						}
-						else
-							ft_putendl("no natch found");
-					}
-					else if (d->d_name[0] != '.')
-					{
-						path = s->str;
-						ft_putendl(d->d_name);
-						ft_putendl(path);
-						ft_putendl("KKKKKKKKKKKKKKKKKK");
-						if (nmatch(d->d_name, path, new->sb) != 0)
-						{
-							ft_putendl("\nnmatch found");
-							s_izi = add_new(s_izi);
-							s_izi = s_izi->next;
-							s_izi->str = ft_strdup(d->d_name);
-						}
-						else
-							ft_putendl("no natch found");
-					}
-				}
-			}
-			closedir(dir);
-			s = s->next;
-			x		}
-		save = save->slash;
-	}
-	ft_putendl("return chECK_WAlcard");
-	s_izi = izi;
-	s_izi = s_izi->next;
-	if (izi->str == NULL)
-		ft_putendl("ASDASDAS");
-	while (s_izi != NULL)
-	{
-		ft_putendl(s_izi->str);
-		s_izi = s_izi->next;
-	}
-//	globing_free_new(new);
-	return (izi);
-}
-
-#include <stdio.h>
-*/
 t_glob	*do_we_match(t_glob	*g)
 {
 	int		i;
@@ -265,37 +174,60 @@ t_glob	*do_we_match(t_glob	*g)
 	char	*str;
 	char	*tmp;
 	t_new	*st_path;
-
+	t_glob	*gs;
 	st_path = NULL;
 	ft_putendl("DOWEMATCH()");
+	gs = g;
 	s = g->arg;
 	new = g->new;
 	str = NULL;
 	tmp = NULL;
 	i = 0;
 	if (s == NULL)
-		return (g);
+	{
+		ft_putstr("qwerqwerqwerqwerqwerqwerqwer\n");
+//		return (g);
+	}
 	if (s != NULL)
 		ft_putendl("s non null;");
-	while (s != NULL)
+	while (gs != NULL)
 	{
-		ft_putendl("while in dowee");
-		printf("\n{[-%p-]}\n", new);fflush(stdout);
-		if (s->id == 0)
-			new = add_word(new, s->str);
-		else if (s->id == 1)
-			new = add_interro(new);
-		else if (s->id == 2)
-			new = add_sb(new, s->str);
-		else if (s->id == 3)
-			new = add_accolade(new, s->str);
-		s = s->next;
+		s = gs->arg;
+		while (s != NULL)
+		{
+			ft_putendl("while in dowee");
+			ft_putstr(s->str);
+			printf("\n{[-%p-]}\n", new);fflush(stdout);
+			if (s->id == 0)
+				new = add_word(new, s->str);
+			else if (s->id == 1)
+				new = add_interro(new);
+			else if (s->id == 2)
+				new = add_sb(new, s->str);
+			else if (s->id == 3)
+				new = add_accolade(new, s->str);
+			s = s->next;
+		}
+//		ft_putstr(new->str);
+		gs->new = new;
+		new = NULL;
+		gs = gs->slash;
 	}
-	g->new = new;
+//	g->new = new;
+
+
 	ft_putendl("end while dowee");
-	tmp = getcwd(NULL, 1024);
+	if (g->slashzero == 0)
+		tmp = getcwd(NULL, 1024);
+	else
+		tmp = ft_strdup("/");
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
-	g = check_slash(g, st_path);
+
+	if (g->slashzero == 0)
+		g = check_slash(g, st_path);
+	else
+		g->slash = check_slash(g, st_path);
+
 	return (g);
 }

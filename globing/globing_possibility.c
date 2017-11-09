@@ -155,14 +155,18 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 
 	ft_putendl("slash_gestion(1)");
 	tmp = NULL;
+	if (line[0] == '/')
+	{
+//		*i++;
+		g->slashzero = 1;
+	}
 	while (line[*i] != '\0' && line[*i] == '/')
 		(*i)++;
 		ft_putstr("end while i =");
 		ft_putnbr(*i);
 		ft_putendl(".");
-	g->isrep = 1;
-	g = do_we_match(g);
 	g = add_glob_slash(g);
+//	g = do_we_match(g);
 	g = g->slash;
 	return (g);
 }
