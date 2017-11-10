@@ -48,11 +48,10 @@ t_new	*match_rep(t_glob *g, char *path)
 				ft_putendl("stat: failed !");
 				neg = -1;
 			}
-			ft_strdel(&str);
-			if (d->d_type == 4 && d->d_name[0] != '.' &&\
-				nmatch(d->d_name, s->str, s->sb) != 0 && neg != -1 &&\
-				stat.st_mode & S_IRUSR)
+			if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.' && \
+				nmatch(d->d_name, s->str, s->sb) != 0)
 			{
+				ft_strdel(&str);
 				ft_putstr("<<<<<<<<<match_repfound>>>>>>>>>>\n");
 				str = tri_join(g->slashzero, path, d->d_name);
 				new_path = add_path(new_path, str);
@@ -118,7 +117,7 @@ t_new	*match_file(t_glob *g, char *path)
 	char				*tmp;
 
 	tmp = NULL;
-	izi = NULL;
+	izi = g->resforever;
 	s = g->new;
 	ft_putstr("?<match_file>?\n");
 //	if (!s->str)

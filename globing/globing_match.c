@@ -129,9 +129,9 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 
 t_glob	*check_slash(t_glob *g, t_new *st_path)
 {
-	t_new				*izi;
 	char				*path;
 	t_new				*rec_path;
+	t_new				*izi;
 
 	if (g->slashzero == 1 && g->new == NULL)
 	{
@@ -140,8 +140,8 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		g->slashzero = 1;
 	}
 	rec_path = NULL;
-	izi = NULL;
 	path = NULL;
+	izi = NULL;
 	ft_putstr("---check_slash >>>recurisif<<<\n");
 	if (st_path->str)
 		ft_putstr(st_path->str);
@@ -157,6 +157,14 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		else
 		{
 			izi = match_file(g, st_path->str);
+			t_new				*ssss = izi;
+			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			while (ssss)
+			{
+				ft_putendl(ssss->str);
+				ssss = ssss->next;
+			}
+			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			g->resforever = izi;
 		}
 		st_path = st_path->next;

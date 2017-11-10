@@ -9,6 +9,7 @@ t_glob	*init_glob()
 		return (NULL);
 	g->slashzero = 0;
 	g->new = NULL;
+	g->resforever = NULL;
 	g->arg = NULL;
 	g->p[0] = 0;
 	g->p[1] = 0;
