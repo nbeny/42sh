@@ -131,7 +131,7 @@ void ft_printgg(t_glob *g)
 	ft_putendl("----------->HERE");
 }
 
-	t_glob	*zoom_research(t_glob *g, char *line)
+t_glob	*zoom_research(t_glob *g, char *line)
 {
 	t_glob	*s;
 	int		i;
@@ -210,13 +210,13 @@ t_glob	*globing_research(char **cmd)
 	ft_putendl("start print ");
 	while (hh->slash)
 	{
+		while (hh->resforever)
+		{
+			if (hh->resforever && hh->resforever->str)
+				ft_putendl(hh->resforever->str);
+			hh->resforever = hh->resforever->next;
+		}
 		hh = hh->slash;
-	}
-	while (hh->new)
-	{
-		if (hh->new->str)
-			ft_putendl(hh->new->str);
-		hh->new = hh->new->next;
 	}
 	return (g);
 }

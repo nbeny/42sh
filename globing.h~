@@ -17,7 +17,7 @@ typedef struct	s_new
 }				t_new;
 typedef struct	s_glob
 {
-	int				isrep;
+	int				slashzero;
 	struct s_arg	*arg;
 	struct s_new	*new;
 	int				p[2];
@@ -177,9 +177,15 @@ t_new   *make_comma(t_new *new, char *str);
 /*
 **sb_matchrep
 */
-char    *tri_join(char *path, char *str);
+char    *tri_join(int zero, char *path, char *str);
 t_new   *match_rep(t_glob *g, char *path);
-char    *found_path(char *path, struct dirent *d);
+char    *found_path(int zero, char *path, char *dname);
 t_new   *match_file(t_glob *g, char *path);
 t_new   *add_path(t_new *st_path, char *path);
+
+/*
+** check wal.c
+ */
+t_new	*check_walcards(t_new *new);
+
 #endif

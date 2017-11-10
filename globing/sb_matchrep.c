@@ -42,11 +42,13 @@ t_new	*match_rep(t_glob *g, char *path)
 		while ((d = readdir(dir)) != NULL)
 		{
 			ft_putstr("<?>");
+			str = tri_join(g->slashzero, path, d->d_name);
 			if (lstat(str, &stat) == -1)
 			{
 				ft_putendl("stat: failed !");
 				neg = -1;
 			}
+			ft_strdel(&str);
 			if (d->d_type == 4 && d->d_name[0] != '.' &&\
 				nmatch(d->d_name, s->str, s->sb) != 0 && neg != -1 &&\
 				stat.st_mode & S_IRUSR)
@@ -80,9 +82,9 @@ char	*found_path(int zero, char *path, char *dname)
 		tmp = getcwd(NULL, 1024);
 		len[0] = ft_strlen(tmp);
 		len[1] = ft_strlen(path);
-//		ft_putendl(tmp);
-//		ft_putendl("/ ****************************************** /");
-//		ft_putendl(path);
+		ft_putendl(tmp);
+		ft_putendl("/ ****************************************** /");
+		ft_putendl(path);
 		ft_strdel(&tmp);
 		if (len[0] < len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
 		{
@@ -130,6 +132,12 @@ t_new	*match_file(t_glob *g, char *path)
 		ft_putstr(path);
 	else
 		ft_putstr("NULL");
+	t_new		*ssss = g->new;
+	while (ssss)
+	{
+		ft_putendl(ssss->str);
+		ssss = ssss->next;
+	}
 	while (s != NULL)
 	{
 		dir = opendir(path);

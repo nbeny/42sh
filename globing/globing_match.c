@@ -145,6 +145,8 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 	ft_putstr("---check_slash >>>recurisif<<<\n");
 	if (st_path->str)
 		ft_putstr(st_path->str);
+	if (g->new)
+		ft_putendl(g->new->str);
 	while (st_path != NULL)
 	{
 		ft_putstr("<*>");
@@ -155,7 +157,7 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		else
 		{
 			izi = match_file(g, st_path->str);
-			g->new = izi;
+			g->resforever = izi;
 		}
 		st_path = st_path->next;
 	}
@@ -173,6 +175,7 @@ t_glob	*do_we_match(t_glob	*g)
 	char	*tmp;
 	t_new	*st_path;
 	t_glob	*gs;
+	t_new		*ssss;
 	st_path = NULL;
 	ft_putendl("DOWEMATCH()");
 	gs = g;
@@ -209,6 +212,13 @@ t_glob	*do_we_match(t_glob	*g)
 //		ft_putstr(new->str);
 		gs->new = new;
 		new = NULL;
+		ssss = gs->new;
+		ft_putendl("/****************************************????????????????????***********************************/");
+		while (ssss)
+		{
+			ft_putendl(ssss->str);
+			ssss = ssss->next;
+		}
 		gs = gs->slash;
 	}
 //	g->new = new;

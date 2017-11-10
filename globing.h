@@ -20,6 +20,7 @@ typedef struct	s_glob
 	int				slashzero;
 	struct s_arg	*arg;
 	struct s_new	*new;
+	struct s_new	*resforever;
 	int				p[2];
 	struct s_glob	*slash;
 	struct s_glob	*next;
