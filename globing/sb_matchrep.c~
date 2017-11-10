@@ -49,7 +49,7 @@ t_new	*match_rep(t_glob *g, char *path)
 			}
 			if (d->d_type == 4 && d->d_name[0] != '.' &&\
 				nmatch(d->d_name, s->str, s->sb) != 0 && neg != -1 &&\
-				stat.st_mode & S_IRUSR)
+				stat.st_mode & S_IFDIR)
 			{
 				ft_putstr("<<<<<<<<<match_repfound>>>>>>>>>>\n");
 				str = tri_join(g->slashzero, path, d->d_name);

@@ -204,11 +204,11 @@ t_glob	*globing_research(char **cmd)
 	}
 	t_glob *hh;
 
-	hh = g->slash;
+	hh = g;
 
 
 	ft_putendl("start print ");
-	while (hh)
+	while (hh->slash)
 	{
 		hh = hh->slash;
 	}

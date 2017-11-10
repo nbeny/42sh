@@ -1,4 +1,4 @@
-#include "globing.h"
+e#include "globing.h"
 //gg
 
 t_new	*init_new()

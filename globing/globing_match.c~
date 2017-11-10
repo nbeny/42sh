@@ -224,6 +224,6 @@ t_glob	*do_we_match(t_glob	*g)
 	if (g->slashzero == 0)
 		g = check_slash(g, st_path);
 	else
-		g->slash = check_slash(g, st_path);
+		g = check_slash(g, st_path);
 	return (g);
 }
