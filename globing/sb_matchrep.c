@@ -30,6 +30,7 @@ t_new	*match_rep(t_glob *g, char *path)
 	int					neg;
 
 	ft_putstr("<<<<<<<<<match_rep>>>>>>>>>>\n");
+	sleep(1);
 	s = g->new;
 	ft_putstr("<?>");
 	new_path = NULL;
@@ -58,6 +59,7 @@ t_new	*match_rep(t_glob *g, char *path)
 				ft_strdel(&str);
 			}
 		}
+		sleep(1);
 		closedir(dir);
 		s = s->next;
 	}
@@ -132,11 +134,13 @@ t_new	*match_file(t_glob *g, char *path)
 	else
 		ft_putstr("NULL");
 	t_new		*ssss = g->new;
+	ft_putendl("\nprint g->new:");
 	while (ssss)
 	{
 		ft_putendl(ssss->str);
 		ssss = ssss->next;
 	}
+	ft_putendl("end print");
 	while (s != NULL)
 	{
 		dir = opendir(path);
@@ -150,6 +154,7 @@ t_new	*match_file(t_glob *g, char *path)
 				nmatch(d->d_name, s->str, s->sb) != 0)
 			{
 				ft_putstr("FOUND<match_file>FOUND\n");
+				ft_putnbr(g->slashzero);
 				tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
 				ft_putstr("DONEtmpDONE\n");
 				ft_putstr(tmp);

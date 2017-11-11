@@ -127,18 +127,36 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	return (0);
 }
 
-t_glob	*check_slash(t_glob *g, t_new *st_path)
+t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 {
 	char				*path;
 	t_new				*rec_path;
 	t_new				*izi;
+	t_glob *sg;
 
-	if (g->slashzero == 1 && g->new == NULL)
+	(void)i;
+	sg = g ;
+	ft_putendl("ft_check_slash");
+	if (i == 1)
+		g->slashzero = 1;
+	else if (g->slashzero == 1)
 	{
+		ft_putstr("oui");
 		g->slashzero = 0;
 		g = g->slash;
 		g->slashzero = 1;
 	}
+//	else if (i == 1)
+//	{
+//		g->slash->slashzero = 1;
+//		ft_putstr("peut_etre");
+//	}
+	else
+	{
+		ft_putstr("non");
+	}
+//	g = g->slash;
+//	sleep(1);
 	rec_path = NULL;
 	path = NULL;
 	izi = NULL;
@@ -149,13 +167,16 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		ft_putendl(g->new->str);
 	while (st_path != NULL)
 	{
-		ft_putstr("<*>");
+		ft_putstr("/n<*>/n");
+//		sleep(1);
 		if (g->slash != NULL)
 		{
+			ft_putendl("g->slash == NULL go to match_rep");
 			rec_path = match_rep(g, st_path->str);
 		}
 		else
 		{
+			ft_putendl("g->slash != NULL go to match_file");
 			izi = match_file(g, st_path->str);
 			t_new				*ssss = izi;
 			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
@@ -165,12 +186,18 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 				ssss = ssss->next;
 			}
 			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+			sleep(1);
 			g->resforever = izi;
 		}
 		st_path = st_path->next;
 	}
+	ft_putstr("before go recu ckeck_slash rec_path == ");
+	if (rec_path && rec_path->str)
+		ft_putendl(rec_path->str);
+	ft_putnbr(g->slashzero);
+//	g->slash->slashzero = 1;
 	if (rec_path != NULL)
-		g = check_slash(g->slash, rec_path);
+		g = check_slash(g->slash, rec_path, g->slashzero);
 	return (g);
 }
 
@@ -185,6 +212,7 @@ t_glob	*do_we_match(t_glob	*g)
 	t_glob	*gs;
 	t_new		*ssss;
 	st_path = NULL;
+	sleep(5);
 	ft_putendl("DOWEMATCH()");
 	gs = g;
 	s = g->arg;
@@ -229,6 +257,7 @@ t_glob	*do_we_match(t_glob	*g)
 		}
 		gs = gs->slash;
 	}
+//	sleep(3);
 //	g->new = new;
 
 
@@ -237,11 +266,20 @@ t_glob	*do_we_match(t_glob	*g)
 		tmp = getcwd(NULL, 1024);
 	else
 		tmp = ft_strdup("/");
+
+	
+	ft_putstr(tmp);
+	if (g->slash == NULL)
+		ft_putendl("g->s NULL");
+	else
+		ft_putendl("g->slash");
+//	sleep(4);
+
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
 	if (g->slashzero == 0)
-		g = check_slash(g, st_path);
+		g = check_slash(g, st_path, 0);
 	else
-		g->slash = check_slash(g, st_path);
+		g->slash = check_slash(g, st_path, 0);
 	return (g);
 }
