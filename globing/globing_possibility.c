@@ -157,7 +157,7 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 	tmp = NULL;
 	ft_putendl(line);
 	ft_putnbr(*i);
-	sleep(1);
+//	sleep(1);
 	if (line[0] == '/' )
 	{
 //		*i++;

@@ -12,7 +12,12 @@ char	*tri_join(int zero, char *path, char *str)
 	if (zero == 0)
 		tmp = ft_strjoin(path, "/");
 	else
+	{
+		ft_putendl("tri_join :::");
+		ft_putstr(path);
 		tmp = ft_strdup(path);
+
+	}
 //	ft_strdel(&path);
 	path = ft_strjoin(tmp, str);
 	ft_strdel(&tmp);
@@ -44,6 +49,7 @@ t_new	*match_rep(t_glob *g, char *path)
 		{
 			ft_putstr("<?>");
 			str = tri_join(g->slashzero, path, d->d_name);
+			ft_putendl(str);
 			if (lstat(str, &stat) == -1)
 			{
 				ft_putendl("stat: failed !");
@@ -101,7 +107,7 @@ char	*found_path(int zero, char *path, char *dname)
 	{
 		ft_putendl("\n\nHERE IN FOUND PATH WE ARE GOOD VERY GOOD YOLO");
 		ft_putendl(path);
-		tmp = ft_strdup(path);
+		tmp = ft_strjoin(path, "/");
 		new_path = ft_strjoin(tmp, dname);
 		ft_strdel(&tmp);
 		ft_strdel(&dname);

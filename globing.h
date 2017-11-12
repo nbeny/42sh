@@ -77,7 +77,7 @@ t_glob  *init_glob();
 t_arg   *init_argument();
 t_glob  *add_arg(t_glob *g, char *line, int a);
 t_glob	*remake_arg(t_glob *g, char *line);
-t_glob	*check_slash(t_glob *g, t_new *st_path, int i);
+t_glob	*check_slash(t_glob *g, t_new *st_path, int i, int ret);
 t_glob  *globing_research(char **cmd);
 t_glob	*add_glob_next(t_glob *g);
 t_glob	*add_glob_slash(t_glob *g);

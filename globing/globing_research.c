@@ -210,14 +210,13 @@ t_glob	*globing_research(char **cmd)
 
 	ft_putendl("start print ");
 	while (hh->slash)
-	{
+		hh = hh->slash;
 		while (hh->resforever)
 		{
-			if (hh->resforever && hh->resforever->str)
+			if ( hh->resforever->str)
 				ft_putendl(hh->resforever->str);
 			hh->resforever = hh->resforever->next;
+
 		}
-		hh = hh->slash;
-	}
-	return (g);
+		return (g);
 }

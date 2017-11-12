@@ -126,8 +126,30 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 		return (1);
 	return (0);
 }
+t_new *ft_add_end(t_new *gres, t_new *n)
+{
+	t_new *s;
 
-t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
+	if (gres)
+	{
+		s = gres;				
+		while (gres)
+		{
+
+			if (gres->next == NULL)
+			{
+				gres->next = n;
+				break ;
+			}
+						gres = gres->next;
+		}
+		return (s);
+	}
+	else
+		return (n);
+}
+
+t_glob	*check_slash(t_glob *g, t_new *st_path, int i, int ret)
 {
 	char				*path;
 	t_new				*rec_path;
@@ -176,9 +198,10 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 		}
 		else
 		{
+			i = 1;
 			ft_putendl("g->slash != NULL go to match_file");
-			izi = match_file(g, st_path->str);
-			t_new				*ssss = izi;
+			g->resforever = match_file(g, st_path->str);
+			t_new				*ssss = g->resforever;
 			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			while (ssss)
 			{
@@ -186,9 +209,11 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 				ssss = ssss->next;
 			}
 			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			sleep(1);
-			g->resforever = izi;
-		}
+//			sleep(3);
+//			g->resforever = ft_add_end(g->resforever, izi);
+//			g->resforever = izi;
+			
+				}
 		st_path = st_path->next;
 	}
 	ft_putstr("before go recu ckeck_slash rec_path == ");
@@ -197,8 +222,22 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 	ft_putnbr(g->slashzero);
 //	g->slash->slashzero = 1;
 	if (rec_path != NULL)
-		g = check_slash(g->slash, rec_path, g->slashzero);
-	return (g);
+		return(check_slash(g->slash, rec_path, g->slashzero, i++));
+	else
+		return (g);
+	t_glob *hh;
+	hh = g;
+	ft_putstr("heeeeere");
+	while (hh->slash)
+		hh = hh->slash;
+	
+	while (hh->resforever)
+	{
+		if (hh->resforever->str)
+			ft_putendl(hh->resforever->str);
+		hh->resforever = hh->resforever->next;
+	}
+//	return (sg);
 }
 
 t_glob	*do_we_match(t_glob	*g)
@@ -278,8 +317,9 @@ t_glob	*do_we_match(t_glob	*g)
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
 	if (g->slashzero == 0)
-		g = check_slash(g, st_path, 0);
+		g = check_slash(g, st_path, 0, 0);
 	else
-		g->slash = check_slash(g, st_path, 0);
+		g->slash = check_slash(g, st_path, 0, 0);
 	return (g);
 }
+
