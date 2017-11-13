@@ -149,15 +149,15 @@ t_new *ft_add_end(t_new *gres, t_new *n)
 		return (n);
 }
 
-t_glob	*check_slash(t_glob *g, t_new *st_path, int i, int ret)
+t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 {
 	char				*path;
 	t_new				*rec_path;
 	t_new				*izi;
-	t_glob *sg;
+	t_glob				*sg;
 
 	(void)i;
-	sg = g ;
+	sg = g;
 	ft_putendl("ft_check_slash");
 	if (i == 1)
 		g->slashzero = 1;
@@ -194,13 +194,21 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i, int ret)
 		if (g->slash != NULL)
 		{
 			ft_putendl("g->slash == NULL go to match_rep");
+//			if (rec_path == NULL)
+//			{
+//				rec_path = match_rep(g, rec_path, st_path->str);
+//				izi = rec_path;
+//			}
+//			else
+//			{
 			rec_path = match_rep(g, st_path->str);
+			izi = join_list(izi, rec_path);
+//			}
 		}
 		else
 		{
-			i = 1;
 			ft_putendl("g->slash != NULL go to match_file");
-			g->resforever = match_file(g, st_path->str);
+			g = match_file(g, st_path->str);
 			t_new				*ssss = g->resforever;
 			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 			while (ssss)
@@ -221,10 +229,12 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i, int ret)
 		ft_putendl(rec_path->str);
 	ft_putnbr(g->slashzero);
 //	g->slash->slashzero = 1;
-	if (rec_path != NULL)
-		return(check_slash(g->slash, rec_path, g->slashzero, i++));
+	if (izi != NULL)
+		return(check_slash(g->slash, izi, g->slashzero));
 	else
+	{
 		return (g);
+	}
 	t_glob *hh;
 	hh = g;
 	ft_putstr("heeeeere");
@@ -251,7 +261,7 @@ t_glob	*do_we_match(t_glob	*g)
 	t_glob	*gs;
 	t_new		*ssss;
 	st_path = NULL;
-	sleep(5);
+//	sleep(5);
 	ft_putendl("DOWEMATCH()");
 	gs = g;
 	s = g->arg;
@@ -317,9 +327,9 @@ t_glob	*do_we_match(t_glob	*g)
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
 	if (g->slashzero == 0)
-		g = check_slash(g, st_path, 0, 0);
+		g = check_slash(g, st_path, 0);
 	else
-		g->slash = check_slash(g, st_path, 0, 0);
+		g->slash = check_slash(g, st_path, 0);
 	return (g);
 }
 

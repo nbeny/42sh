@@ -8,6 +8,7 @@ t_glob	*init_glob()
 	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
 		return (NULL);
 	g->slashzero = 0;
+	g->isrep = 0;
 	g->new = NULL;
 	g->resforever = NULL;
 	g->arg = NULL;
@@ -210,7 +211,9 @@ t_glob	*globing_research(char **cmd)
 
 	ft_putendl("start print ");
 	while (hh->slash)
-		hh = hh->slash;
+	{
+			hh = hh->slash;
+	}
 		while (hh->resforever)
 		{
 			if ( hh->resforever->str)

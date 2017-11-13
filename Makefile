@@ -2,4 +2,4 @@
 
 
 $all:
-	gcc globing/*.c -L globing/libft -lft -I .
+	gcc globing/*.c -L globing/libft -lft -I . -g

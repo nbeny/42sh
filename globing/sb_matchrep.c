@@ -9,18 +9,19 @@ char	*tri_join(int zero, char *path, char *str)
 	char	*tmp;
 
 
-	if (zero == 0)
+//	if (zero == 0)
 		tmp = ft_strjoin(path, "/");
-	else
-	{
-		ft_putendl("tri_join :::");
-		ft_putstr(path);
-		tmp = ft_strdup(path);
+//	else
+//	{
 
-	}
-//	ft_strdel(&path);
+//		tmp = ft_strdup(path);
+//		tmp = ft_strjoin(tmp, "/");
+
+//	}
+//	if (path != NULL)
+//		ft_strdel(&path);
+
 	path = ft_strjoin(tmp, str);
-	ft_strdel(&tmp);
 	return (path);
 }
 
@@ -33,9 +34,15 @@ t_new	*match_rep(t_glob *g, char *path)
 	char				*str;
 	struct stat			stat;
 	int					neg;
+//	t_new				*save_rec;
 
+//	save_rec = rec_path;
+//	if (rec_path)
+//	while (rec_path->next)
+//		rec_path = rec_path->next;
+	str = NULL;
 	ft_putstr("<<<<<<<<<match_rep>>>>>>>>>>\n");
-	sleep(1);
+//	sleep(1);
 	s = g->new;
 	ft_putstr("<?>");
 	new_path = NULL;
@@ -48,6 +55,7 @@ t_new	*match_rep(t_glob *g, char *path)
 		while ((d = readdir(dir)) != NULL)
 		{
 			ft_putstr("<?>");
+			ft_putendl(path);
 			str = tri_join(g->slashzero, path, d->d_name);
 			ft_putendl(str);
 			if (lstat(str, &stat) == -1)
@@ -55,24 +63,27 @@ t_new	*match_rep(t_glob *g, char *path)
 				ft_putendl("stat: failed !");
 				neg = -1;
 			}
-			if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.' && \
-				nmatch(d->d_name, s->str, s->sb) != 0)
+			//if (!access(str, R_OK) &&
+				if (!access(str, R_OK) && d->d_type == 4 &&\
+					d->d_name[0] != '.' && nmatch(d->d_name, s->str, s->sb) != 0)
 			{
 				ft_strdel(&str);
 				ft_putstr("<<<<<<<<<match_repfound>>>>>>>>>>\n");
 				str = tri_join(g->slashzero, path, d->d_name);
 				new_path = add_path(new_path, str);
-				ft_strdel(&str);
 			}
+				ft_strdel(&str);
 		}
-		sleep(1);
+//		sleep(1);
 		closedir(dir);
 		s = s->next;
 	}
 	ft_putendl(path);
 //	ft_putendl(new_path->str);
 	ft_putstr("\n\n<<<<<<<<<ENDmatch_repEND>>>>>>>>>>\n");
-
+//	rec_path->next = new_path;
+//	if (save_rec != NULL)
+//			return (save_rec);
 	return (new_path);
 }
 
@@ -116,16 +127,14 @@ char	*found_path(int zero, char *path, char *dname)
 	return (new_path);
 }
 
-t_new	*match_file(t_glob *g, char *path)
+t_glob	*match_file(t_glob *g, char *path)
 {
-	t_new				*izi;
 	t_new				*s;
 	struct dirent		*d;
 	DIR					*dir;
 	char				*tmp;
 
 	tmp = NULL;
-	izi = g->resforever;
 	s = g->new;
 	ft_putstr("?<match_file>?\n");
 //	if (!s->str)
@@ -164,9 +173,9 @@ t_new	*match_file(t_glob *g, char *path)
 				tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
 				ft_putstr("DONEtmpDONE\n");
 				ft_putstr(tmp);
-				izi = add_path(izi, tmp);
+				g->resforever = add_path(g->resforever, tmp);
 //				s = izi
-//				ft_strdel(&tmp);
+				ft_strdel(&tmp);
 				ft_putstr("endif");
 			}
 			else
@@ -176,11 +185,14 @@ t_new	*match_file(t_glob *g, char *path)
 		closedir(dir);
 		s = s->next;
 	}
-/*	while (izi)
+	t_new	*izi = g->resforever;
+	ft_putendl("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
+	while (izi)
 	{
 		ft_putendl(izi->str);
 		izi = izi->next;
-		}*/
+		}
+	ft_putendl("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	ft_putstr("?<RETmatch_fileRET>?\n");
-	return (izi);
+	return (g);
 }

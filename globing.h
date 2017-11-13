@@ -18,6 +18,7 @@ typedef struct	s_new
 typedef struct	s_glob
 {
 	int				slashzero;
+	int				isrep;
 	struct s_arg	*arg;
 	struct s_new	*new;
 	struct s_new	*resforever;
@@ -77,7 +78,7 @@ t_glob  *init_glob();
 t_arg   *init_argument();
 t_glob  *add_arg(t_glob *g, char *line, int a);
 t_glob	*remake_arg(t_glob *g, char *line);
-t_glob	*check_slash(t_glob *g, t_new *st_path, int i, int ret);
+t_glob	*check_slash(t_glob *g, t_new *st_path, int i);
 t_glob  *globing_research(char **cmd);
 t_glob	*add_glob_next(t_glob *g);
 t_glob	*add_glob_slash(t_glob *g);
@@ -181,12 +182,12 @@ t_new   *make_comma(t_new *new, char *str);
 char    *tri_join(int zero, char *path, char *str);
 t_new   *match_rep(t_glob *g, char *path);
 char    *found_path(int zero, char *path, char *dname);
-t_new   *match_file(t_glob *g, char *path);
+t_glob   *match_file(t_glob *g, char *path);
 t_new   *add_path(t_new *st_path, char *path);
 
 /*
-** check wal.c
+** check_wal.c
  */
 t_new	*check_walcards(t_new *new);
-
+t_new	*join_list(t_new *izi, t_new *rec_path);
 #endif
