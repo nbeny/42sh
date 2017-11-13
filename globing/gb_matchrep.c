@@ -9,18 +9,7 @@ char	*tri_join(int zero, char *path, char *str)
 	char	*tmp;
 
 
-//	if (zero == 0)
-		tmp = ft_strjoin(path, "/");
-//	else
-//	{
-
-//		tmp = ft_strdup(path);
-//		tmp = ft_strjoin(tmp, "/");
-
-//	}
-//	if (path != NULL)
-//		ft_strdel(&path);
-
+	tmp = ft_strjoin(path, "/");
 	path = ft_strjoin(tmp, str);
 	return (path);
 }

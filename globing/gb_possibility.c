@@ -1,5 +1,4 @@
 #include "globing.h"
-//gg
 
 t_glob	*accolade(t_glob *g, char *line, int *i)
 {

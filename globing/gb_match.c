@@ -22,12 +22,7 @@ t_new	*add_new(t_new *new)
 	if (s != NULL)
 	{
 		while (s->next != NULL)
-		{
-//			if (s->str != NULL)
-//				ft_putendl(s->str);
-
 			s = s->next;
-		}
 		s->next = init_new();
 		s = s->next;
 	}
@@ -36,25 +31,9 @@ t_new	*add_new(t_new *new)
 		s = init_new();
 		return (s);
 	}
-//	ft_putendl("return ft_add_new()");
 	return (new);
 }
-/*int nmatch(char *s1, char *s2)
-  {
-  if (!*s1 && !*s2)
-  return (1);
-  else if (*s1 == *s2 && *s1 != '*')
-  return (nmatch(s1 + 1, s2 + 1));
-  else if (*s1 == '*' && *s2 == '*')
-  return (nmatch(s1 + 1, s2));
-  else if (*s2 == '*' && !*s1)
-  return (nmatch(s1, s2 + 1));
-  else if (*s2 == '*' && *s2 && *s1)
-  return (nmatch(s1, s2 + 1) + nmatch(s1 + 1, s2));
-  else
-  return (0);
-  }
-*/
+
 int		check_sbmatch(char *s1, t_new *sb)
 {
 	ft_putstr("check_sbmatch");
@@ -126,28 +105,6 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 		return (1);
 	return (0);
 }
-t_new *ft_add_end(t_new *gres, t_new *n)
-{
-	t_new *s;
-
-	if (gres)
-	{
-		s = gres;				
-		while (gres)
-		{
-
-			if (gres->next == NULL)
-			{
-				gres->next = n;
-				break ;
-			}
-						gres = gres->next;
-		}
-		return (s);
-	}
-	else
-		return (n);
-}
 
 t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 {
@@ -168,16 +125,10 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 		g = g->slash;
 		g->slashzero = 1;
 	}
-//	else if (i == 1)
-//	{
-//		g->slash->slashzero = 1;
-//		ft_putstr("peut_etre");
-//	}
 	else
 	{
 		ft_putstr("non");
 	}
-//	g = g->slash;
 //	sleep(1);
 	rec_path = NULL;
 	path = NULL;
@@ -194,16 +145,8 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 		if (g->slash != NULL)
 		{
 			ft_putendl("g->slash == NULL go to match_rep");
-//			if (rec_path == NULL)
-//			{
-//				rec_path = match_rep(g, rec_path, st_path->str);
-//				izi = rec_path;
-//			}
-//			else
-//			{
 			rec_path = match_rep(g, st_path->str);
 			izi = join_list(izi, rec_path);
-//			}
 		}
 		else
 		{
@@ -218,10 +161,7 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 			}
 			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
 //			sleep(3);
-//			g->resforever = ft_add_end(g->resforever, izi);
-//			g->resforever = izi;
-			
-				}
+		}
 		st_path = st_path->next;
 	}
 	ft_putstr("before go recu ckeck_slash rec_path == ");
@@ -235,19 +175,6 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 	{
 		return (g);
 	}
-	t_glob *hh;
-	hh = g;
-	ft_putstr("heeeeere");
-	while (hh->slash)
-		hh = hh->slash;
-	
-	while (hh->resforever)
-	{
-		if (hh->resforever->str)
-			ft_putendl(hh->resforever->str);
-		hh->resforever = hh->resforever->next;
-	}
-//	return (sg);
 }
 
 t_glob	*do_we_match(t_glob	*g)
