@@ -82,7 +82,11 @@ t_glob	*globing_research(char **cmd)
 	int			j;
 	t_glob		*g;
 	t_glob		*s;
+	char		**split_acc;
+	int			k;
 
+	k = 0;
+	split_acc = NULL;
 	j = 1;
 	g = NULL;
 	g = init_glob();
@@ -91,11 +95,24 @@ t_glob	*globing_research(char **cmd)
 	{
 		if (check_isglob(cmd[j]))
 		{
-			s = zoom_research(s, cmd[j]);
-			s = s->next;
+/*			if (check_is_acc(cmd[j]))
+			{
+				split_acc = ft_split_acc(cmd[j]);
+				while (split_acc[k])
+				{
+					s = zoom_research(s, cmd[j]);
+					s = s->next
+						k++;
+				}
+			}
+			else
+			{
+				s = zoom_research(s, cmd[j]);
+				s = s->next;
+			}
 		}
 		else
-		{
+		{*/
 			if (!g->slash)
 			{
 				if (!g->resforever)
