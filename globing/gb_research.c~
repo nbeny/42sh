@@ -83,7 +83,7 @@ t_glob	*globing_research(char **cmd)
 	t_glob		*g;
 	t_glob		*s;
 
-	j = 1;
+	j = 0;
 	g = NULL;
 	g = init_glob();
 	s = g;
@@ -93,16 +93,6 @@ t_glob	*globing_research(char **cmd)
 		{
 			s = zoom_research(s, cmd[j]);
 			s = s->next;
-		}
-		else
-		{
-			if (!g->slash)
-			{
-				if (!g->resforever)
-				{
-					g->resforever = add_path(g->resforever, cmd[j]);
-				}
-			}
 		}
 		j++;
 	}

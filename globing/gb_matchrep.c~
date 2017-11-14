@@ -83,7 +83,6 @@ char	*found_path(int zero, char *path, char *dname)
 	char		*tmp;
 	int			len[2];
 	ft_putendl("ENTER PATH FOUND ");
-	new_path = NULL;
 	if (zero == 0)
 	{
 		ft_putendl("IIIFFFF   IF IF PATH FOUND ");
@@ -94,19 +93,14 @@ char	*found_path(int zero, char *path, char *dname)
 		ft_putendl("/ ****************************************** /");
 		ft_putendl(path);
 		ft_strdel(&tmp);
-		if (len[0] <= len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
+		if (len[0] < len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
 		{
-			ft_putendl("Tu me fais bug POV' MERDE");
 			tmp = ft_strsub(path, (len[0] + 1), len[1]);
 			found = ft_strjoin(tmp, "/");
 			ft_strdel(&tmp);
 			new_path = ft_strjoin(found, dname);
 			ft_strdel(&dname);
 			ft_strdel(&found);
-		}
-		else
-		{
-			new_path = ft_strdup(dname);
 		}
 	}
 	else
@@ -128,7 +122,6 @@ t_glob	*match_file(t_glob *g, char *path)
 	struct dirent		*d;
 	DIR					*dir;
 	char				*tmp;
-	int					i;
 
 	tmp = NULL;
 	s = g->new;
@@ -154,7 +147,6 @@ t_glob	*match_file(t_glob *g, char *path)
 	ft_putendl("end print");
 	while (s != NULL)
 	{
-		i = 0;
 		dir = opendir(path);
 		ft_putstr(path);
 		while ((d = readdir(dir)) != NULL)
@@ -165,7 +157,6 @@ t_glob	*match_file(t_glob *g, char *path)
 			if (d->d_name[0] != '.' &&\
 				nmatch(d->d_name, s->str, s->sb) != 0)
 			{
-				i = 1;
 				ft_putstr("FOUND<match_file>FOUND\n");
 				ft_putnbr(g->slashzero);
 				tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
@@ -173,20 +164,11 @@ t_glob	*match_file(t_glob *g, char *path)
 				ft_putstr(tmp);
 				g->resforever = add_path(g->resforever, tmp);
 //				s = izi
-//				ft_strdel(&tmp);
+				ft_strdel(&tmp);
 				ft_putstr("endif");
 			}
 			else
 				ft_putendl("not__fpund");
-		}
-		if (i == 0 && s && s->str && s->str[0] != '\0')
-		{
-			ft_putendl("seg");
-			if (s->sb == NULL)
-				ft_putendl("NULL");
-			if (check_rebuild_path(s->str))
-				s->str = rebuild_path(s->sb, s->str);
-			g->resforever = add_path(g->resforever, s->str);
 		}
 		ft_putstr("coucou");
 		closedir(dir);

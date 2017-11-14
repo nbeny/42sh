@@ -84,7 +84,8 @@ char	*rebuild_path(t_new *sb, char *str)
 			new = ft_strjoin(tmp2, "]");
 			ft_strdel(&tmp1);
 			ft_strdel(&tmp2);
-			s = s->next;
+			if (sb && sb->next)
+				sb = sb->next;
 		}
 		else
 		{
