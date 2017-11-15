@@ -193,4 +193,10 @@ t_new	*check_walcards(t_new *new);
 t_new	*join_list(t_new *izi, t_new *rec_path);
 int		check_rebuild_path(char *str);
 char	*rebuild_path(t_new *sb, char *str);
+
+/*
+** acc.c
+*/
+int		check_is_acc(char *str);
+char 	**ft_split_acc(char *str);
 #endif

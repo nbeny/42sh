@@ -97,27 +97,40 @@ t_glob	*globing_research(char **cmd)
 		{
 /*			if (check_is_acc(cmd[j]))
 			{
+				if (check_is_acc(cmd[j]))
+					ft_putendl("chack acc OK");
 				split_acc = ft_split_acc(cmd[j]);
 				while (split_acc[k])
 				{
-					s = zoom_research(s, cmd[j]);
-					s = s->next
-						k++;
+					ft_putendl("go zoom research");
+					s = zoom_research(s, split_acc[k]);
+					s->next = add_glob_next(s);
+					s = s->next;
+					
+					k++;
 				}
+				k = 0;
+				while (split_acc[k])
+					ft_strdel(&split_acc[k++]);
+				free(split_acc);
+				split_acc = NULL;
+				k = 0;
 			}
-			else
+			else*/
 			{
 				s = zoom_research(s, cmd[j]);
+					s->next = add_glob_next(s);
+
 				s = s->next;
 			}
 		}
 		else
-		{*/
-			if (!g->slash)
+		{
+			if (!s->slash)
 			{
-				if (!g->resforever)
+				if (!s->resforever)
 				{
-					g->resforever = add_path(g->resforever, cmd[j]);
+					s->resforever = add_path(s->resforever, cmd[j]);
 				}
 			}
 		}
@@ -129,6 +142,7 @@ t_glob	*globing_research(char **cmd)
 
 
 	ft_putendl("start print ");
+	while (hh){
 	while (hh->slash)
 	{
 			hh = hh->slash;
@@ -140,5 +154,6 @@ t_glob	*globing_research(char **cmd)
 			hh->resforever = hh->resforever->next;
 
 		}
+		hh = hh->next;}
 		return (g);
 }
