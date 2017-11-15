@@ -39,9 +39,9 @@ t_new	*add_path(t_new *st_path, char *path)
 	return (st_path);
 }
 
-int		ft_listsize(t_new *e)
+int		ft_listsize(t_env *e)
 {
-	t_new		*s;
+	t_env		*s;
 	int			i;
 
 	i = 0;
@@ -72,7 +72,7 @@ char	**list_to_tab_new(t_new *e)
 	i = 0;
 	while (s != NULL)
 	{
-		tab[i] = ft_strdup(s->str);
+		tab[i] = ft_strjoin(s->str);
 		i++;
 		s = s->next;
 	}

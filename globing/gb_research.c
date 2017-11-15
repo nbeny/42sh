@@ -39,7 +39,6 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		ft_putstr("zoom reasearch null return ");
 		return (NULL);
 	}
-
 	while (line[i])
 	{
 		ft_putnbr(i);
@@ -77,83 +76,50 @@ int		check_isglob(char *line)
 	return (0);
 }
 
-t_glob	*globing_research(char **cmd)
+char	**globing_research(char **cmd)
 {
 	int			j;
+	t_new		*res;
+	char		**end;
 	t_glob		*g;
 	t_glob		*s;
 	char		**split_acc;
-	int			k;
 
-	k = 0;
 	split_acc = NULL;
 	j = 1;
 	g = NULL;
-	g = init_glob();
-	s = g;
+	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
+		return (NULL);
+	res = NULL;
 	while (cmd && cmd[j])
 	{
+		g = init_glob();
 		if (check_isglob(cmd[j]))
 		{
-/*			if (check_is_acc(cmd[j]))
-			{
-				if (check_is_acc(cmd[j]))
-					ft_putendl("chack acc OK");
-				split_acc = ft_split_acc(cmd[j]);
-				while (split_acc[k])
-				{
-					ft_putendl("go zoom research");
-					s = zoom_research(s, split_acc[k]);
-					s->next = add_glob_next(s);
-					s = s->next;
-					
-					k++;
-				}
-				k = 0;
-				while (split_acc[k])
-					ft_strdel(&split_acc[k++]);
-				free(split_acc);
-				split_acc = NULL;
-				k = 0;
-			}
-			else*/
-			{
-				s = zoom_research(s, cmd[j]);
-					s->next = add_glob_next(s);
-
-				s = s->next;
-			}
+			g = zoom_research(g, cmd[j]);
+			s = g;
+			while (s->slash)
+				s = s->slash;
+			res = join_list(res, s->resforever);
 		}
 		else
 		{
-			if (!s->slash)
-			{
-				if (!s->resforever)
-				{
-					s->resforever = add_path(s->resforever, cmd[j]);
-				}
-			}
+			res = add_path(res, cmd[j]);
 		}
 		j++;
 	}
-	t_glob *hh;
-
-	hh = g;
-
-
 	ft_putendl("start print ");
-	while (hh){
-	while (hh->slash)
+	while (res)
 	{
-			hh = hh->slash;
+		ft_putendl(res->str);
+		res = res->next;
 	}
-		while (hh->resforever)
-		{
-			if ( hh->resforever->str)
-				ft_putendl(hh->resforever->str);
-			hh->resforever = hh->resforever->next;
-
-		}
-		hh = hh->next;}
-		return (g);
+	end = list_to_tab_new(res);
+	j = 0;
+	while (end && end[j])
+	{
+		ft_putendl(end[j]);
+		j++;
+	}
+	return (end);
 }

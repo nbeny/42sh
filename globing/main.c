@@ -2,8 +2,15 @@
 
 int main(int ac, char **av)
 {
-	t_glob *g;
-	g = globing_research(av);
-	ft_putstr("here");
+	char	**str;
+	int		i;
+
+	i = 0;
+	str = globing_research(av);
+	while (str && str[i])
+	{
+		ft_putendl(str[i]);
+		i++;
+	}
 	return (0);
 }

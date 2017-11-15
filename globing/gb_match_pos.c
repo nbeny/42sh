@@ -116,6 +116,7 @@ int		sb__match(int c, char *str, int *i)
 	}
 	return (0);
 }
+
 int		sb__match_no(int c, char *str, int *i)
 {
 	if (str && str[*i] && str[*i])

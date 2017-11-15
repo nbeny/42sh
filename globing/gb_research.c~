@@ -39,7 +39,6 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		ft_putstr("zoom reasearch null return ");
 		return (NULL);
 	}
-
 	while (line[i])
 	{
 		ft_putnbr(i);
@@ -77,41 +76,50 @@ int		check_isglob(char *line)
 	return (0);
 }
 
-t_glob	*globing_research(char **cmd)
+char	**globing_research(char **cmd)
 {
 	int			j;
+	t_new		*res;
+	char		**end;
 	t_glob		*g;
 	t_glob		*s;
+	char		**split_acc;
 
-	j = 0;
+	split_acc = NULL;
+	j = 1;
 	g = NULL;
-	g = init_glob();
-	s = g;
+	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
+		return (NULL);
+	res = NULL;
 	while (cmd && cmd[j])
 	{
+		g = init_glob();
 		if (check_isglob(cmd[j]))
 		{
-			s = zoom_research(s, cmd[j]);
-			s = s->next;
+			g = zoom_research(g, cmd[j]);
+			s = g;
+			while (s)
+				s = s->slash;
+			res = join_list(res, s->resforever);
+		}
+		else
+		{
+			res = add_path(res, cmd[j]);
 		}
 		j++;
 	}
-	t_glob *hh;
-
-	hh = g;
-
-
 	ft_putendl("start print ");
-	while (hh->slash)
+	while (res)
 	{
-			hh = hh->slash;
+		ft_putendl(res->str);
+		res = res->next;
 	}
-		while (hh->resforever)
-		{
-			if ( hh->resforever->str)
-				ft_putendl(hh->resforever->str);
-			hh->resforever = hh->resforever->next;
-
-		}
-		return (g);
+	end = list_to_tab_new(res);
+	j = 0;
+	while (end && end[j])
+	{
+		ft_putendl(end[j]);
+		j++;
+	}
+	return (end);
 }

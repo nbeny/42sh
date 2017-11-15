@@ -108,7 +108,7 @@ int		sb__match(int c, char *str, int *i)
 	ft_putstr("  ");
 //	dt_putstr
 	ft_putnbr(*i);
-	while (str && str[*i] && str[*i] != '-' && str[*i] != '[')
+	while (str && str[*i] && str[*i] != '-' && str[*i] != ']')
 	{
 		if (c == str[*i])
 			return (1);

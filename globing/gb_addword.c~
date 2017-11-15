@@ -31,7 +31,7 @@ t_new	*add_accolade(t_new *new, char *str)
 			new = make_comma(new, str);
 	}
 	else
-		make_comma(new, str);
+		new = make_comma(new, str);
 	return (new);
 }
 
@@ -124,7 +124,8 @@ t_new	*add_sb(t_new *new, char *str)
 
 	sb = NULL;
 	tmp = NULL;
-	new->sb = NULL;
+	if (new)
+		new->sb = NULL;
 	w = NULL;
 	s = new;
 	if (new != NULL)

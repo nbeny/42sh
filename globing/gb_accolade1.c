@@ -11,17 +11,18 @@ t_new	*make_comma(t_new *new, char *str)
 	s = new;
 	split = ft_strsplit(str, ',');
 	if (split == NULL)
+	{
+	ft_putendl("!!!!!!!!!!!!!!!!!!!!!!!!!!MAYBE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		return (new);
+	}
 	if (s != NULL)
 	{
 		ft_putendl(s->str);
 		while (s != NULL)
 		{
 			i = 0;
-			ft_putendl("wesh");
 			while (split && split[i])
 			{
-				ft_putendl("couble");
 				izi = add_joinaccolade(izi, s->str, split[i]);
 				i++;
 			}
@@ -30,15 +31,14 @@ t_new	*make_comma(t_new *new, char *str)
 	}
 	else
 	{
+		i = 0;
 		while (split && split[i])
 		{
-			ft_putendl("123");
 			izi = add_dupaccolade(izi, split[i]);
 			i++;
 		}
 	}
 	s = izi;
-	ft_putendl("GGPFPPF");
 	while (s != NULL)
 	{
 		ft_putendl(s->str);
@@ -100,50 +100,23 @@ char	*rebuild_path(t_new *sb, char *str)
 		}
 	}
 	ft_strdel(&str);
-	if (new[0] == '\0')
-		return (NULL);
-	else
-		return (new);
-	/*
-	int i;
-	char *new_path;
-	char *tmp;
-	int j;
-	char *ff;
+	return (new);
+}
 
-	ft_putendl("REBUILDDDDD");
-	ft_putendl(sb);
-	ft_putendl(str);
-	ff = NULL;
-	j = 0;
-	tmp = NULL;
-	new_path = NULL;
-	if (!str || !sb)
-		return (NULL);
-	if (str[0] != -42)
+t_new	*duplicate_sb(t_new *new, t_new *s)
+{
+	t_new *save;
+
+	save = new;
+	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+	if (new && s)
 	{
-		while (str[i] != -42)
-			i++;
-		new_path = ft_strsub(str, 0, i);
-		tmp = ft_strjoin(new_path, "[");
+		while (save->next != NULL)
+		{
+			save->sb = s->sb;
+			save = save->next;
+		}
 	}
-	else
-		tmp = ft_strdup("[");
-
-	ft_strdel(&new_path);
-
-	new_path = ft_strjoin(tmp, sb);
-	ft_strdel(&tmp);
-	tmp = ft_strjoin(new_path, "]");
-	ft_strdel(&new_path);
-	i++;
-	j = i;
-	while (str[i])
-		i++;
-	new_path = ft_strsub(str, j, i);
-	ff = ft_strjoin(tmp, new_path);
-	ft_putendl("RET REBUILDPATH:");
-	ft_putendl(ff);
-		return (NULL);
-	*/
+	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+	return (new);
 }

@@ -38,9 +38,9 @@ t_new	*match_rep(t_glob *g, char *path)
 	neg = 0;
 	while (s != NULL)
 	{
-	ft_putstr("<?>");
+		ft_putstr("<?>");
 		dir = opendir(path);
-	ft_putstr(path);
+		ft_putstr(path);
 		while ((d = readdir(dir)) != NULL)
 		{
 			ft_putstr("<?>");
@@ -53,15 +53,17 @@ t_new	*match_rep(t_glob *g, char *path)
 				neg = -1;
 			}
 			//if (!access(str, R_OK) &&
-				if (!access(str, R_OK) && d->d_type == 4 &&\
-					d->d_name[0] != '.' && nmatch(d->d_name, s->str, s->sb) != 0)
+			if (nmatch(d->d_name, s->str, s->sb) != 0)
 			{
-				ft_strdel(&str);
-				ft_putstr("<<<<<<<<<match_repfound>>>>>>>>>>\n");
-				str = tri_join(g->slashzero, path, d->d_name);
-				new_path = add_path(new_path, str);
+				if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.')
+				{
+					ft_strdel(&str);
+					ft_putstr("<<<<<<<<<match_repfound>>>>>>>>>>\n");
+					str = tri_join(g->slashzero, path, d->d_name);
+					new_path = add_path(new_path, str);
+				}
 			}
-				ft_strdel(&str);
+			ft_strdel(&str);
 		}
 //		sleep(1);
 		closedir(dir);
@@ -162,30 +164,35 @@ t_glob	*match_file(t_glob *g, char *path)
 			ft_putendl("while d_dir");
 			ft_putendl(d->d_name);
 			ft_putendl(s->str);
-			if (d->d_name[0] != '.' &&\
-				nmatch(d->d_name, s->str, s->sb) != 0)
+			if (nmatch(d->d_name, s->str, s->sb) != 0)
 			{
-				i = 1;
-				ft_putstr("FOUND<match_file>FOUND\n");
-				ft_putnbr(g->slashzero);
-				tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
-				ft_putstr("DONEtmpDONE\n");
-				ft_putstr(tmp);
-				g->resforever = add_path(g->resforever, tmp);
+				if (d->d_name[0] != '.')
+				{
+					i = 1;
+					ft_putstr("FOUND<match_file>FOUND\n");
+					ft_putnbr(g->slashzero);
+					tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
+					ft_putstr("DONEtmpDONE\n");
+					ft_putstr(tmp);
+					g->resforever = add_path(g->resforever, tmp);
 //				s = izi
 //				ft_strdel(&tmp);
-				ft_putstr("endif");
+					ft_putstr("endif");
+				}
 			}
 			else
 				ft_putendl("not__fpund");
 		}
-		if (i == 0 && s && s->str && s->str[0] != '\0')
+		if (i == 0 && s && s->str && s->str[0])
 		{
 			ft_putendl("seg");
 			if (s->sb == NULL)
 				ft_putendl("NULL");
 			if (check_rebuild_path(s->str))
+			{
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				s->str = rebuild_path(s->sb, s->str);
+			}
 			g->resforever = add_path(g->resforever, s->str);
 		}
 		ft_putstr("coucou");
@@ -198,7 +205,7 @@ t_glob	*match_file(t_glob *g, char *path)
 	{
 		ft_putendl(izi->str);
 		izi = izi->next;
-		}
+	}
 	ft_putendl("+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
 	ft_putstr("?<RETmatch_fileRET>?\n");
 	return (g);
