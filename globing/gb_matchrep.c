@@ -191,7 +191,7 @@ t_glob	*match_file(t_glob *g, char *path)
 			if (check_rebuild_path(s->str))
 			{
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-				s->str = rebuild_path(s->sb, s->str);
+//				s->str = rebuild_path(s->sb, s->str);
 			}
 			g->resforever = add_path(g->resforever, s->str);
 		}

@@ -188,11 +188,9 @@ t_glob	*match_file(t_glob *g, char *path)
 			ft_putendl("seg");
 			if (s->sb == NULL)
 				ft_putendl("NULL");
-			ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 			if (check_rebuild_path(s->str))
 			{
-			ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				s->str = rebuild_path(s->sb, s->str);
 			}
 			g->resforever = add_path(g->resforever, s->str);

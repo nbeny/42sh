@@ -100,8 +100,7 @@ char	*rebuild_path(t_new *sb, char *str)
 		}
 	}
 	ft_strdel(&str);
-	else
-		return (new);
+	return (new);
 }
 
 t_new	*duplicate_sb(t_new *new, t_new *s)

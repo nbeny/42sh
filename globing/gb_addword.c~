@@ -32,6 +32,7 @@ t_new	*add_accolade(t_new *new, char *str)
 	}
 	else
 		new = make_comma(new, str);
+//	new = duplicate_sb(new, s);
 	return (new);
 }
 
@@ -149,4 +150,3 @@ t_new	*add_sb(t_new *new, char *str)
 	}
 	return (new);
 }
-
