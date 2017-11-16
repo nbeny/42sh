@@ -79,7 +79,7 @@ char	*rebuild_path(t_new *sb, char *str)
 		{
 			i++;
 			tmp1 = ft_strjoin(new, "[");
-			tmp2 = ft_strjoin(tmp1, sb->str);
+			tmp2 = ft_strjoin(tmp1, s->str);
 			ft_strdel(&new);
 			new = ft_strjoin(tmp2, "]");
 			ft_strdel(&tmp1);
@@ -103,6 +103,14 @@ char	*rebuild_path(t_new *sb, char *str)
 	return (new);
 }
 
+t_new	*rebuild_sb_struct(t_new *n_sb, t_new *s_sb)
+{
+	t_new		*izi;
+
+	izi = add_sbplease();
+	return (izi);
+}
+
 t_new	*duplicate_sb(t_new *new, t_new *s)
 {
 	t_new *save;
@@ -113,7 +121,7 @@ t_new	*duplicate_sb(t_new *new, t_new *s)
 	{
 		while (save->next != NULL)
 		{
-			save->sb = s->sb;
+			save->sb = rebuild_sb_struct(save->sb, s->sb);
 			save = save->next;
 		}
 	}

@@ -101,6 +101,7 @@ char	**globing_research(char **cmd)
 			while (s->slash)
 				s = s->slash;
 			res = join_list(res, s->resforever);
+			free_glob_slash(g);
 		}
 		else
 		{
@@ -114,12 +115,17 @@ char	**globing_research(char **cmd)
 		ft_putendl(res->str);
 		res = res->next;
 	}
+	ft_putendl("start print ");
 	end = list_to_tab_new(res);
+	free_resforever(res);
+	ft_putendl("start print ");
 	j = 0;
 	while (end && end[j])
 	{
 		ft_putendl(end[j]);
 		j++;
 	}
+	ft_putendl("start print ");
+	while (1);
 	return (end);
 }

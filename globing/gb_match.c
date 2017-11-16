@@ -114,11 +114,13 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 {
 	char				*path;
 	t_new				*rec_path;
+	t_new				*f_path;
 	t_new				*izi;
 	t_glob				*sg;
 
 	(void)i;
 	sg = g;
+	f_path = st_path;
 	ft_putendl("ft_check_slash");
 	if (i == 1)
 		g->slashzero = 1;
@@ -174,7 +176,10 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 	ft_putnbr(g->slashzero);
 //	g->slash->slashzero = 1;
 	if (izi != NULL)
+	{
+		free_resforever(st_path);
 		return(check_slash(g->slash, izi, g->slashzero));
+	}
 	else
 	{
 		return (g);
@@ -222,7 +227,7 @@ t_glob	*do_we_match(t_glob	*g)
 				new = add_word(new, s->str);
 			else if (s->id == 1)
 				new = add_interro(new);
-			else if (s->id == 2)
+ 			else if (s->id == 2)
 				new = add_sb(new, s->str);
 			else if (s->id == 3)
 				new = add_accolade(new, s->str);
@@ -268,4 +273,3 @@ t_glob	*do_we_match(t_glob	*g)
 		g = check_slash(g, st_path, 0);
 	return (g);
 }
-

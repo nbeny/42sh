@@ -103,6 +103,20 @@ char	*rebuild_path(t_new *sb, char *str)
 	return (new);
 }
 
+t_new	*rebuild_sb_struct(t_new *n_sb, t_new *s_sb)
+{
+	t_new		*izi;
+	t_new		*s;
+
+	s = s_sb;
+	while (s)
+	{
+		izi = add_sbplease(izi, s->str);
+		s = s->next;
+	}
+	return (izi);
+}
+
 t_new	*duplicate_sb(t_new *new, t_new *s)
 {
 	t_new *save;
@@ -113,9 +127,10 @@ t_new	*duplicate_sb(t_new *new, t_new *s)
 	{
 		while (save->next != NULL)
 		{
-			save->sb = s->sb;
+			save->sb = rebuild_sb_struct(save->sb, s->sb);
 			save = save->next;
 		}
+		free_new(s->sb);
 	}
 	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 	return (new);

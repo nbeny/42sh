@@ -154,9 +154,9 @@ t_glob	*match_file(t_glob *g, char *path)
 		ssss = ssss->next;
 	}
 	ft_putendl("end print");
+	i = 0;
 	while (s != NULL)
 	{
-		i = 0;
 		dir = opendir(path);
 		ft_putstr(path);
 		while ((d = readdir(dir)) != NULL)
@@ -166,9 +166,9 @@ t_glob	*match_file(t_glob *g, char *path)
 			ft_putendl(s->str);
 			if (nmatch(d->d_name, s->str, s->sb) != 0)
 			{
+				i = 1;
 				if (d->d_name[0] != '.')
 				{
-					i = 1;
 					ft_putstr("FOUND<match_file>FOUND\n");
 					ft_putnbr(g->slashzero);
 					tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
