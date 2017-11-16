@@ -212,25 +212,9 @@ t_glob	*do_we_match(t_glob	*g)
 		s = gs->arg;
 		while (s != NULL)
 		{
-
 			
 			ft_putendl("while in dowee");
-			if (new)
-			{
-				ft_putendl("new != NULL");
-				if (new->sb)
-				{
-					ft_putendl("new->sb != NULL");
-					if (new->sb->str)
-						ft_putendl(new->sb->str);
-					else
-						ft_putendl("new->sb->str == NULL !!!");
-				}
-				else
-					ft_putendl("new->sb == NULL !!!");
-			}
-			else
-				ft_putendl("new == NULL !!!");
+
 			printf("\n{[-%p-]}\n", new);fflush(stdout);
 
 			
@@ -242,7 +226,6 @@ t_glob	*do_we_match(t_glob	*g)
 				new = add_sb(new, s->str);
 			else if (s->id == 3)
 				new = add_accolade(new, s->str);
-			ft_putendl(new->sb->str);
 			s = s->next;
 		}
 //		ft_putstr(new->str);
@@ -263,7 +246,7 @@ t_glob	*do_we_match(t_glob	*g)
 
 
 	ft_putendl("end while dowee");
-	ft_putendl(g->new->sb->str);
+
 	if (g->slashzero == 0)
 		tmp = getcwd(NULL, 1024);
 	else
