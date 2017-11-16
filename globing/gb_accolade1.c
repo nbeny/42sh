@@ -79,7 +79,7 @@ char	*rebuild_path(t_new *sb, char *str)
 		{
 			i++;
 			tmp1 = ft_strjoin(new, "[");
-			tmp2 = ft_strjoin(tmp1, sb->str);
+			tmp2 = ft_strjoin(tmp1, s->str);
 			ft_strdel(&new);
 			new = ft_strjoin(tmp2, "]");
 			ft_strdel(&tmp1);

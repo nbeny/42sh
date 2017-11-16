@@ -164,6 +164,8 @@ t_glob	*match_file(t_glob *g, char *path)
 			ft_putendl("while d_dir");
 			ft_putendl(d->d_name);
 			ft_putendl(s->str);
+			ft_putstr("s->sb->str: ");
+			ft_putendl(s->sb->str);
 			if (nmatch(d->d_name, s->str, s->sb) != 0)
 			{
 				if (d->d_name[0] != '.')
@@ -191,7 +193,7 @@ t_glob	*match_file(t_glob *g, char *path)
 			if (check_rebuild_path(s->str))
 			{
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-//				s->str = rebuild_path(s->sb, s->str);
+				s->str = rebuild_path(s->sb, s->str);
 			}
 			g->resforever = add_path(g->resforever, s->str);
 		}

@@ -104,7 +104,7 @@ t_new	*add_sbplease(t_new *sb, char *str)
 		s->next = init_new();
 		s = s->next;
 		s->str = ft_strdup(str);
-		return (s);
+		return (sb);
 	}
 	else
 	{
@@ -125,12 +125,15 @@ t_new	*add_sb(t_new *new, char *str)
 
 	sb = NULL;
 	tmp = NULL;
-	if (new)
-		new->sb = NULL;
+//	if (new)
+//		new->sb = NULL;
 	w = NULL;
 	s = new;
+
+	
 	if (new != NULL)
 	{
+		ft_putendl("0--> new != NULL");
 		while (s != NULL)
 		{
 			tmp = ft_strdup(s->str);

@@ -96,6 +96,7 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	if (sb && *s2 == -42 && *s1 != '\0' && *s2 != '\0')
 	{
 		ft_putstr("\t NAMATCH condition");
+		ft_putendl(sb->str);
 		i = check_sbmatch(s1, sb);
 		if (i == 0)
 			return(0);
@@ -211,9 +212,28 @@ t_glob	*do_we_match(t_glob	*g)
 		s = gs->arg;
 		while (s != NULL)
 		{
+
+			
 			ft_putendl("while in dowee");
-			ft_putstr(s->str);
+			if (new)
+			{
+				ft_putendl("new != NULL");
+				if (new->sb)
+				{
+					ft_putendl("new->sb != NULL");
+					if (new->sb->str)
+						ft_putendl(new->sb->str);
+					else
+						ft_putendl("new->sb->str == NULL !!!");
+				}
+				else
+					ft_putendl("new->sb == NULL !!!");
+			}
+			else
+				ft_putendl("new == NULL !!!");
 			printf("\n{[-%p-]}\n", new);fflush(stdout);
+
+			
 			if (s->id == 0)
 				new = add_word(new, s->str);
 			else if (s->id == 1)
@@ -222,6 +242,7 @@ t_glob	*do_we_match(t_glob	*g)
 				new = add_sb(new, s->str);
 			else if (s->id == 3)
 				new = add_accolade(new, s->str);
+			ft_putendl(new->sb->str);
 			s = s->next;
 		}
 //		ft_putstr(new->str);
@@ -234,6 +255,7 @@ t_glob	*do_we_match(t_glob	*g)
 			ft_putendl(ssss->str);
 			ssss = ssss->next;
 		}
+
 		gs = gs->slash;
 	}
 //	sleep(3);
@@ -241,6 +263,7 @@ t_glob	*do_we_match(t_glob	*g)
 
 
 	ft_putendl("end while dowee");
+	ft_putendl(g->new->sb->str);
 	if (g->slashzero == 0)
 		tmp = getcwd(NULL, 1024);
 	else
