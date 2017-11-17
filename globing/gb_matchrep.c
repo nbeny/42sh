@@ -173,9 +173,9 @@ t_glob	*match_file(t_glob *g, char *path)
 		ssss = ssss->next;
 	}
 	ft_putendl("end print");
-	i = 0;
 	while (s != NULL)
 	{
+		i = 0;
 		dir = opendir(path);
 		ft_putstr(path);
 		while ((d = readdir(dir)) != NULL)
@@ -212,7 +212,7 @@ t_glob	*match_file(t_glob *g, char *path)
 //			if (check_rebuild_path(s->str))
 //			{
 //				s->str = rebuild_path(g->sb, s->str);
-				g->resforever = add_path(g->resforever, s->str);
+//			g->resforever = add_path(g->resforever, s->str);
 //			}
 		}
 		ft_putstr("coucou");
