@@ -10,8 +10,9 @@ char	*tri_join(int zero, char *path, char *str)
 
 
 	tmp = ft_strjoin(path, "/");
-	path = ft_strjoin(tmp, str);
-	return (path);
+	join = ft_strjoin(tmp, str);
+	ft_strdel(&tmp);
+	return (join);
 }
 
 t_new	*match_rep(t_glob *g, char *path)
@@ -53,7 +54,7 @@ t_new	*match_rep(t_glob *g, char *path)
 				neg = -1;
 			}
 			//if (!access(str, R_OK) &&
-			if (nmatch(d->d_name, s->str, s->sb) != 0)
+			if (nmatch(d->d_name, s->str, g->sb) != 0)
 			{
 				if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.')
 				{
@@ -98,6 +99,8 @@ char	*found_path(int zero, char *path, char *dname)
 		ft_strdel(&tmp);
 		if (len[0] <= len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
 		{
+			if (tmp != NULL)
+				ft_strdel(&tmp);
 			ft_putendl("Tu me fais bug POV' MERDE");
 			tmp = ft_strsub(path, (len[0] + 1), len[1]);
 			found = ft_strjoin(tmp, "/");
@@ -132,6 +135,20 @@ t_glob	*match_file(t_glob *g, char *path)
 	char				*tmp;
 	int					i;
 
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				t_new *a = g->sb;
+				while (a)
+				{
+					ft_putendl(a->str);
+					a = a->next;
+				}
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
+				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 	tmp = NULL;
 	s = g->new;
 	ft_putstr("?<match_file>?\n");
@@ -162,9 +179,11 @@ t_glob	*match_file(t_glob *g, char *path)
 		while ((d = readdir(dir)) != NULL)
 		{
 			ft_putendl("while d_dir");
+			ft_putendl("**(*(*(*(*(*)*)*)*)*)*)**");
 			ft_putendl(d->d_name);
 			ft_putendl(s->str);
-			if (nmatch(d->d_name, s->str, s->sb) != 0)
+			ft_putendl("**(*(*(*(*(*)*)*)*)*)*)**");
+			if (nmatch(d->d_name, s->str, g->sb) != 0)
 			{
 				i = 1;
 				if (d->d_name[0] != '.')
@@ -176,7 +195,7 @@ t_glob	*match_file(t_glob *g, char *path)
 					ft_putstr(tmp);
 					g->resforever = add_path(g->resforever, tmp);
 //				s = izi
-//				ft_strdel(&tmp);
+					ft_strdel(&tmp);
 					ft_putstr("endif");
 				}
 			}
@@ -186,12 +205,11 @@ t_glob	*match_file(t_glob *g, char *path)
 		if (i == 0 && s && s->str && s->str[0])
 		{
 			ft_putendl("seg");
-			if (s->sb == NULL)
-				ft_putendl("NULL");
+//			if (s->sb == NULL)
+//				ft_putendl("NULL");
 			if (check_rebuild_path(s->str))
 			{
-				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-				s->str = rebuild_path(s->sb, s->str);
+				s->str = rebuild_path(g->sb, s->str);
 			}
 			g->resforever = add_path(g->resforever, s->str);
 		}

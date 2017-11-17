@@ -12,5 +12,12 @@ int main(int ac, char **av)
 		ft_putendl(str[i]);
 		i++;
 	}
+	i = 0;
+	while(str && str[i])
+	{
+		ft_strdel(&str[i]);
+	}
+	free(str);
+	str = NULL;
 	return (0);
 }

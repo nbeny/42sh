@@ -21,7 +21,7 @@ int		check_comma(char *line, int i)
 	ft_putendl("HEREEEEE CHECK COMMMA");
 	ft_putendl(line);
 	ft_putchar(line[i]);
-	while ( line[i] != '\0')
+	while (line[i] != '\0')
 	{
 		if (line[i] == ',')
 			count = 1;
@@ -85,17 +85,10 @@ t_new	*make_pointpoint(t_new *new, char *str)
 	char	*w;
 
 	izi = NULL;
-	c = 0;
-	if (str != NULL)
-		c = str[0];
-	else
-		return (new);
+	c = str[0];
 	s = new;
 	if (new != NULL)
 	{
-		w = creat_bracket(c);
-		izi = add_joinaccolade(izi, s->str, w);
-		ft_strdel(&w);
 		while (s != NULL)
 		{
 			while (c <= str[3])
@@ -110,9 +103,6 @@ t_new	*make_pointpoint(t_new *new, char *str)
 	}
 	else
 	{
-		w = creat_bracket(c);
-		izi = add_dupaccolade(izi, w);
-		ft_strdel(&w);
 		while (c <= str[3])
 		{
 			w = creat_bracket(c);

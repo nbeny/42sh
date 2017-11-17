@@ -12,60 +12,58 @@ char	*creat_bracket(int c)
 	return (s);
 }
 
-t_new	*add_accolade(t_new *new, char *str)
+t_glob	*add_accolade(t_glob *g, char *str)
 {
-	t_new	*s;
 	char	*tmp;
 	int		i;
 
 	i = 0;
-	s = new;
 	ft_putendl("add_accolade");
 	ft_putendl(str);
 	if (ft_strlen(str) == 4)
 	{
 		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \
 			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
-			new = make_pointpoint(new, str);
+			g->new = make_pointpoint(g->new, str);
 		else
-			new = make_comma(new, str);
+			g->new = make_comma(g->new, str);
 	}
 	else
-		new = make_comma(new, str);
-	new = duplicate_sb(new, s);
-	return (new);
+		g->new = make_comma(g->new, str);
+	return (g);
 }
 
-t_new	*add_interro(t_new *new)
+t_glob	*add_interro(t_glob *g)
 {
 	t_new	*s;
 	char	*tmp;
 
 	tmp = NULL;
-	s = new;
+	s = g->new;
 	if (s != NULL)
 		while (s != NULL)
 		{
 			tmp = ft_strdup(s->str);
 			ft_strdel(&(s->str));
 			s->str = ft_strjoin(tmp, "?");
+			ft_strdel(&tmp);
 			s = s->next;
 		}
 	else
 	{
-		new = add_new(new);
-		new->str = ft_strdup("?");
+		g->new = add_new(g->new);
+		g->new->str = ft_strdup("?");
 	}
-	return (new);
+	return (g);
 }
 
-t_new	*add_word(t_new *new, char *str)
+t_glob	*add_word(t_glob *g, char *str)
 {
 	t_new		*s;
 	char		*tmp;
 
 	ft_putendl("add_word()");
-	s = new;
+	s = g->new;
 	tmp = NULL;
 	if (s != NULL)
 	{
@@ -73,30 +71,27 @@ t_new	*add_word(t_new *new, char *str)
 		while (s != NULL)
 		{
 			tmp = ft_strdup(s->str);
-			if (tmp == NULL)
-				ft_putendl("tmp == NULL");
-			else
-				ft_putendl("tmp != NULL");
 			ft_strdel(&(s->str));
 			s->str = ft_strjoin(tmp, str);
+			ft_strdel(&tmp);
 			s = s->next;
 		}
 	}
 	else
 	{
 		ft_putendl("else");
-		new = add_new(new);
-		new->str = ft_strdup(str);
+		g->new = add_new(g->new);
+		g->new->str = ft_strdup(str);
 	}
 	ft_putendl("return add_word()");
-	return (new);
+	return (g);
 }
 
-t_new	*add_sbplease(t_new *sb, char *str)
+t_glob	*add_sbplease(t_glob *g, char *str)
 {
 	t_new	*s;
 
-	s = sb;
+	s = g->sb;
 	if (s != NULL)
 	{
 		while (s->next != NULL)
@@ -104,19 +99,19 @@ t_new	*add_sbplease(t_new *sb, char *str)
 		s->next = init_new();
 		s = s->next;
 		s->str = ft_strdup(str);
-		return (sb);
+		return (g);
 	}
 	else
 	{
-		sb = init_new();
-		sb->str = ft_strdup(str);
-		return (sb);
+		g->sb = init_new();
+		g->sb->str = ft_strdup(str);
+		return (g);
 	}
-	return (sb);
+	return (g);
 
 }
 
-t_new	*add_sb(t_new *new, char *str)
+t_glob	*add_sb(t_glob *g, char *str)
 {
 	t_new	*sb;
 	t_new	*s;
@@ -125,31 +120,30 @@ t_new	*add_sb(t_new *new, char *str)
 
 	sb = NULL;
 	tmp = NULL;
-//	if (new)
-//		new->sb = NULL;
 	w = NULL;
-	s = new;
+	s = g->new;
 
 	
-	if (new != NULL)
+	if (g && g->new)
 	{
 		ft_putendl("0--> new != NULL");
+		g = add_sbplease(g, str);
 		while (s != NULL)
 		{
 			tmp = ft_strdup(s->str);
 			ft_strdel(&(s->str));
 			w = creat_bracket(-42);
 			s->str = ft_strjoin(tmp, w);
+			ft_strdel(&tmp);
 			ft_strdel(&w);
-			s->sb = add_sbplease(s->sb, str);
 			s = s->next;
 		}
 	}
 	else
 	{
-		new = init_new();
-		new->str = creat_bracket(-42);
-		new->sb = add_sbplease(new->sb, str);
+		g->new = init_new();
+		g->new->str = creat_bracket(-42);
+		g = add_sbplease(g, str);
 	}
-	return (new);
+	return (g);
 }

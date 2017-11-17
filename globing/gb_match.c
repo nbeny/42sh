@@ -8,7 +8,6 @@ t_new	*init_new()
 	if (!(new = (t_new *)malloc(sizeof(t_new))))
 		return (NULL);
 	new->str = NULL;
-	new->sb = NULL;
 	new->next = NULL;
 	return (new);
 }
@@ -36,7 +35,6 @@ t_new	*add_new(t_new *new)
 
 int		check_sbmatch(char *s1, t_new *sb)
 {
-	ft_putstr("check_sbmatch");
 	t_new	*s;
 	int		i;
 	int		ret;
@@ -87,7 +85,9 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	ft_putendl("#################################################################################");
 //	ft_putendl(sb->str);
 	ft_putendl("#################################################################################");
-	if (s2 == NULL && s1 == NULL)
+	if (s2 == NULL)
+		return (0);
+	if (*s1 == '\0' && *s2 == '\0')
 		return (1);
 	if (*s1 != '\0' && *s2 == '*')
 		return (nmatch(s1 + 1, s2, sb) + nmatch(s1, s2 + 1, sb));
@@ -110,7 +110,7 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	return (0);
 }
 
-t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
+t_glob	*check_slash(t_glob *g, t_new *st_path)
 {
 	char				*path;
 	t_new				*rec_path;
@@ -118,32 +118,30 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 	t_new				*izi;
 	t_glob				*sg;
 
-	(void)i;
+//	(void)i;
 	sg = g;
 	f_path = st_path;
 	ft_putendl("ft_check_slash");
-	if (i == 1)
-		g->slashzero = 1;
-	else if (g->slashzero == 1)
-	{
-		ft_putstr("oui");
-		g->slashzero = 0;
-		g = g->slash;
-		g->slashzero = 1;
-	}
-	else
-	{
-		ft_putstr("non");
-	}
+//	if (i == 1)
+//		g->slashzero = 1;
+//	else if (g->slashzero == 1)
+//	{
+//		ft_putstr("oui");
+//		g->slashzero = 0;
+//		g = g->slash;
+//		g->slashzero = 1;
+//	}
+//	else
+//		ft_putstr("non");
 //	sleep(1);
 	rec_path = NULL;
 	path = NULL;
 	izi = NULL;
 	ft_putstr("---check_slash >>>recurisif<<<\n");
-	if (st_path->str)
-		ft_putstr(st_path->str);
-	if (g->new)
-		ft_putendl(g->new->str);
+//	if (st_path->str)
+//		ft_putstr(st_path->str);
+//	if (g->new)
+//		ft_putendl(g->new->str);
 	while (st_path != NULL)
 	{
 		ft_putstr("/n<*>/n");
@@ -178,12 +176,10 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, int i)
 	if (izi != NULL)
 	{
 		free_resforever(st_path);
-		return(check_slash(g->slash, izi, g->slashzero));
+		return(check_slash(g->slash, izi));
 	}
 	else
-	{
 		return (g);
-	}
 }
 
 t_glob	*do_we_match(t_glob	*g)
@@ -195,9 +191,8 @@ t_glob	*do_we_match(t_glob	*g)
 	char	*tmp;
 	t_new	*st_path;
 	t_glob	*gs;
-	t_new		*ssss;
+
 	st_path = NULL;
-//	sleep(5);
 	ft_putendl("DOWEMATCH()");
 	gs = g;
 	s = g->arg;
@@ -205,71 +200,38 @@ t_glob	*do_we_match(t_glob	*g)
 	str = NULL;
 	tmp = NULL;
 	i = 0;
-	if (s == NULL)
-	{
-		ft_putstr("qwerqwerqwerqwerqwerqwerqwer\n");
-//		return (g);
-	}
-	if (s != NULL)
-		ft_putendl("s non null;");
 	while (gs != NULL)
 	{
 		s = gs->arg;
 		while (s != NULL)
 		{
-			
-			ft_putendl("while in dowee");
-
-			printf("\n{[-%p-]}\n", new);fflush(stdout);
-
-			
 			if (s->id == 0)
-				new = add_word(new, s->str);
+				gs = add_word(gs, s->str);
 			else if (s->id == 1)
-				new = add_interro(new);
+				gs = add_interro(gs);
  			else if (s->id == 2)
-				new = add_sb(new, s->str);
+				gs = add_sb(gs, s->str);
 			else if (s->id == 3)
-				new = add_accolade(new, s->str);
+				gs = add_accolade(gs, s->str);
 			s = s->next;
 		}
-//		ft_putstr(new->str);
-		gs->new = new;
-		new = NULL;
-		ssss = gs->new;
-		ft_putendl("/****************************************????????????????????***********************************/");
+		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		t_new *ssss = gs->new;
 		while (ssss)
 		{
 			ft_putendl(ssss->str);
 			ssss = ssss->next;
 		}
-
+		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+		new = NULL;
 		gs = gs->slash;
 	}
-//	sleep(3);
-//	g->new = new;
-
-
-	ft_putendl("end while dowee");
-
 	if (g->slashzero == 0)
 		tmp = getcwd(NULL, 1024);
 	else
 		tmp = ft_strdup("/");
-
-	
-	ft_putstr(tmp);
-	if (g->slash == NULL)
-		ft_putendl("g->s NULL");
-	else
-		ft_putendl("g->slash");
-//	sleep(4);
-
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
-	if (g->slashzero == 0)
-		g = check_slash(g, st_path, 0);
-	else
-		g = check_slash(g, st_path, 0);
+	g = check_slash(g, st_path);
 	return (g);
 }

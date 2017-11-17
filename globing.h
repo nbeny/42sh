@@ -11,7 +11,6 @@ typedef struct	s_arg
 typedef struct	s_new
 {
 	char			*str;
-	struct s_new	*sb;
 	struct s_new	*next;
 }				t_new;
 typedef struct	s_glob
@@ -19,6 +18,7 @@ typedef struct	s_glob
 	int				slashzero;
 	struct s_arg	*arg;
 	struct s_new	*new;
+	struct s_new	*sb;
 	struct s_new	*resforever;
 	int				p[2];
 	struct s_glob	*slash;
@@ -53,11 +53,11 @@ t_glob			*slash_gestion(t_glob *g, char *line, int *i);
 **gb_addword
 */
 char			*creat_bracket(int c);
-t_new			*add_accolade(t_new *new, char *str);
-t_new			*add_interro(t_new *new);
-t_new			*add_word(t_new *new, char *str);
-t_new			*add_sbplease(t_new *sb, char *str);
-t_new			*add_sb(t_new *new, char *str);
+t_glob			*add_accolade(t_glob *g, char *str);
+t_glob			*add_interro(t_glob *g);
+t_glob			*add_word(t_glob *g, char *str);
+t_glob			*add_sbplease(t_glob *g, char *str);
+t_glob			*add_sb(t_glob *g, char *str);
 /*
 **gb_match
 */
@@ -65,7 +65,7 @@ t_new			*init_new();
 t_new			*add_new(t_new *new);
 int				check_sbmatch(char *s1, t_new *sb);
 int				nmatch(char *s1, char *s2, t_new *sb);
-t_glob			*check_slash(t_glob *g, t_new *st_path, int i);
+t_glob			*check_slash(t_glob *g, t_new *st_path);
 t_glob			*do_we_match(t_glob *g);
 /*
 **gb_match_pos

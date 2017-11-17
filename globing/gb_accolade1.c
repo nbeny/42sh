@@ -12,7 +12,7 @@ t_new	*make_comma(t_new *new, char *str)
 	split = ft_strsplit(str, ',');
 	if (split == NULL)
 	{
-	ft_putendl("!!!!!!!!!!!!!!!!!!!!!!!!!!MAYBE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+		ft_putendl("!!!!!!!!!!!!!!!!!!!!!!!!!!MAYBE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		return (new);
 	}
 	if (s != NULL)
@@ -72,18 +72,20 @@ char	*rebuild_path(t_new *sb, char *str)
 
 	i = 0;
 	s = sb;
-	new = ft_strdup("\0");
+	new = NULL;
+	ft_putendl("((((((((((((((((((REBUILDPATH))))))))))))))))))");
 	while (str && str[i] && sb)
 	{
+		ft_putendl("((((***************START**************)))))");
 		if (str[i] == -42)
 		{
 			i++;
 			tmp1 = ft_strjoin(new, "[");
 			tmp2 = ft_strjoin(tmp1, s->str);
-			ft_strdel(&new);
 			new = ft_strjoin(tmp2, "]");
 			ft_strdel(&tmp1);
 			ft_strdel(&tmp2);
+			ft_putendl("((((***************IF**************)))))");
 			s = s->next;
 		}
 		else
@@ -97,26 +99,31 @@ char	*rebuild_path(t_new *sb, char *str)
 			new = ft_strdup(tmp2);
 			ft_strdel(&tmp1);
 			ft_strdel(&tmp2);
+			ft_putendl("((((***************ELSE**************)))))");
 		}
 	}
 	ft_strdel(&str);
+	ft_putendl("((((***************END**************)))))");
 	return (new);
 }
-
+/*
 t_new	*rebuild_sb_struct(t_new *n_sb, t_new *s_sb)
 {
 	t_new		*izi;
 	t_new		*s;
 
 	s = s_sb;
+	ft_putendl("((((((((((((((((((REBUILD_SB_STRUCT))))))))))))))))))");
 	while (s)
 	{
+		ft_putstr("<i>");
 		izi = add_sbplease(izi, s->str);
 		s = s->next;
 	}
+	ft_putendl("((((((((((((((((((endREBUILD_SendB_STRUCTend))))))))))))))))))");
 	return (izi);
-}
-
+	}*/
+/*
 t_new	*duplicate_sb(t_new *new, t_new *s)
 {
 	t_new *save;
@@ -125,9 +132,16 @@ t_new	*duplicate_sb(t_new *new, t_new *s)
 	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 	if (new && s)
 	{
+		ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 		while (save->next != NULL)
 		{
-			save->sb = rebuild_sb_struct(save->sb, s->sb);
+			ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
+			if (s && s->sb)
+			{
+				ft_putendl("boom");
+				save->sb = rebuild_sb_struct(save->sb, s->sb);
+			}
+			ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 			save = save->next;
 		}
 		free_new(s->sb);
@@ -135,3 +149,4 @@ t_new	*duplicate_sb(t_new *new, t_new *s)
 	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
 	return (new);
 }
+*/

@@ -5,7 +5,7 @@ void	free_arg(t_arg *arg)
 	t_arg		*s;
 	t_arg		*f;
 
-	arg = s;
+	s = arg;
 	f = NULL;
 	while (s)
 	{
@@ -18,6 +18,7 @@ void	free_arg(t_arg *arg)
 		free(f);
 		f = NULL;
 	}
+	ft_putendl("EEEEEEEEEEEEEEEEENNNNNNNNNNNNNNNNNNNNNNNNNNNDDDDDDDDDDDDDDDDDDD");
 }
 
 void	free_new(t_new *new)
@@ -34,7 +35,7 @@ void	free_new(t_new *new)
 		f = s;
 		if (s->str)
 			ft_strdel(&(s->str));
-		sb = s->sb;
+/*		sb = s->sb;
 		while (sb)
 		{
 			f = sb;
@@ -42,7 +43,7 @@ void	free_new(t_new *new)
 			sb = sb->next;
 			free(f);
 			f = NULL;
-		}
+			}*/
 		s = s->next;
 		free(f);
 		f = NULL;
@@ -76,8 +77,8 @@ void	free_glob_slash(t_glob *g)
 	if (s)
 	{
 		ft_putendl("1111111111111111111111111111111");
-//		if (s->arg)
-//			free_arg(s->arg);
+		if (s->arg)
+			free_arg(s->arg);
 		ft_putendl("222222222222222222222222222222");
 		if (s->new)
 			free_new(s->new);
@@ -85,20 +86,19 @@ void	free_glob_slash(t_glob *g)
 //		if (s->resforever)
 //			free_resforever(s->resforever);
 		ft_putendl("444444444444444444444444444444444444");
-		if (s->slash)
-			s = s->slash;
+		s = s->slash;
 	}
 	while (s)
 	{
 		ft_putendl("555555555555555555555555555555555");
-//		if (s->arg)
-//			free_arg(s->arg);
+		if (s->arg)
+			free_arg(s->arg);
 		ft_putendl("6666666666666666666666666666666666");
-//		if (s->new)
-//			free_new(s->new);
+		if (s->new)
+			free_new(s->new);
 		ft_putendl("77777777777777777777777777777777");
-//		if (s->resforever)
-//			free_resforever(s->resforever);
+		if (s->resforever)
+			free_resforever(s->resforever);
 		ft_putendl("888888888888888888888888888888888");
 		f = s;
 		s = s->slash;
