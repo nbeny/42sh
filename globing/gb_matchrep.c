@@ -159,7 +159,7 @@ t_glob	*match_file(t_glob *g, char *path)
 	//else
 	//ft_putstr(s->str);
 
-	if (s == NULL)
+	if (s->str == NULL)
 		ft_putstr("?<match_file>?  is null sss \n");
 	if (path != NULL)
 		ft_putstr(path);
@@ -209,11 +209,11 @@ t_glob	*match_file(t_glob *g, char *path)
 			ft_putendl("seg");
 //			if (s->sb == NULL)
 //				ft_putendl("NULL");
-			if (check_rebuild_path(s->str))
-			{
-				s->str = rebuild_path(g->sb, s->str);
-			}
-			g->resforever = add_path(g->resforever, s->str);
+//			if (check_rebuild_path(s->str))
+//			{
+//				s->str = rebuild_path(g->sb, s->str);
+				g->resforever = add_path(g->resforever, s->str);
+//			}
 		}
 		ft_putstr("coucou");
 		closedir(dir);
