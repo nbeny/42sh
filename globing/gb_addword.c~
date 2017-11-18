@@ -22,7 +22,7 @@ t_glob	*add_accolade(t_glob *g, char *str)
 	ft_putendl(str);
 	if (ft_strlen(str) == 4)
 	{
-		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \
+		if (ft_isalnum(str[i]) && str[i + 1] == '.' &&\
 			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
 			g->new = make_pointpoint(g->new, str);
 		else
@@ -62,12 +62,10 @@ t_glob	*add_word(t_glob *g, char *str)
 	t_new		*s;
 	char		*tmp;
 
-	ft_putendl("add_word()");
 	s = g->new;
 	tmp = NULL;
 	if (s != NULL)
 	{
-		ft_putendl("if");
 		while (s != NULL)
 		{
 			tmp = ft_strdup(s->str);
@@ -79,11 +77,9 @@ t_glob	*add_word(t_glob *g, char *str)
 	}
 	else
 	{
-		ft_putendl("else");
 		g->new = add_new(g->new);
 		g->new->str = ft_strdup(str);
 	}
-	ft_putendl("return add_word()");
 	return (g);
 }
 

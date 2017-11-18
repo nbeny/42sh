@@ -73,7 +73,6 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 		s->next = init_argument();
 		s = s->next;
 		s->str = ft_strsub(line, g->p[0], g->p[1]);
-		ft_putstr(s->str);
 		s->id = a;
 	}
 	else

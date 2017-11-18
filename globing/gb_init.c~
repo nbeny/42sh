@@ -4,6 +4,8 @@ t_glob	*init_glob()
 {
 	t_glob		*g;
 
+	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
+		return (NULL);
 	g->slashzero = 0;
 	g->new = NULL;
 	g->resforever = NULL;

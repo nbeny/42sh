@@ -17,12 +17,19 @@ int		check_comma(char *line, int i)
 
 	count = 0;
 	i++;
+
+	ft_putendl("HEREEEEE CHECK COMMMA");
+	ft_putendl(line);
+	ft_putchar(line[i]);
 	while (line[i] != '\0')
 	{
 		if (line[i] == ',')
 			count = 1;
 		if (line[i] == '}' && count == 1)
+		{
+			ft_putstr("YYYYYYYYYYYEEEEEEESSSSS");
 			return (1);
+		}
 		i++;
 	}
 	return (0);

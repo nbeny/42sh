@@ -16,7 +16,6 @@ t_new	*add_new(t_new *new)
 {
 	t_new	*s;
 
-	ft_putstr("new()");
 	s = new;
 	if (s != NULL)
 	{
@@ -69,7 +68,6 @@ int		check_sbmatch(char *s1, t_new *sb)
 			if (ret == 1)
 				return (1);
 		}
-	ft_putendl("END check_sbmatch");
 	return (0);
 }
 
@@ -78,10 +76,6 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	int		i;
 
 	i = -1;
-	ft_putendl("---->>>>> namtch");
-	ft_putendl("#################################################################################");
-//	ft_putendl(sb->str);
-	ft_putendl("#################################################################################");
 	if (s1 == NULL || s2 == NULL)
 		return (0);
 	if (*s1 == '\0' && *s2 == '\0')
@@ -92,8 +86,6 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 		return (nmatch(s1, s2 + 1, sb));
 	if (sb && *s2 == -42 && *s1 != '\0' && *s2 != '\0')
 	{
-		ft_putstr("\t NAMATCH condition");
-		ft_putendl(sb->str);
 		i = check_sbmatch(s1, sb);
 		if (i == 0)
 			return(0);
@@ -114,16 +106,12 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 	t_new				*izi;
 
 	f_path = st_path;
-	ft_putendl("ft_check_slash");
 	rec_path = NULL;
 	izi = NULL;
-	ft_putstr("---check_slash >>>recurisif<<<\n");
 	while (f_path != NULL)
 	{
-		ft_putstr("/n<*>/n");
 		if (g->slash != NULL)
 		{
-			ft_putendl("g->slash == NULL go to match_rep");
 			rec_path = match_rep(g, f_path->str);
 			izi = join_list(izi, rec_path);
 		}
@@ -133,11 +121,6 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		}
 		f_path = f_path->next;
 	}
-	ft_putstr("before go recu ckeck_slash rec_path == ");
-//	if (rec_path && rec_path->str)
-//		ft_putendl(rec_path->str);
-//	ft_putnbr(g->slashzero);
-//	g->slash->slashzero = 1;
 	if (izi != NULL)
 	{
 		free_resforever(st_path);
@@ -153,7 +136,6 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 t_glob	*do_we_match(t_glob	*g)
 {
 	int		i;
-	t_new	*new;
 	t_arg	*s;
 	char	*str;
 	char	*tmp;
@@ -161,10 +143,8 @@ t_glob	*do_we_match(t_glob	*g)
 	t_glob	*gs;
 
 	st_path = NULL;
-	ft_putendl("DOWEMATCH()");
 	gs = g;
 	s = g->arg;
-	new = g->new;
 	str = NULL;
 	tmp = NULL;
 	i = 0;
@@ -183,15 +163,6 @@ t_glob	*do_we_match(t_glob	*g)
 				gs = add_accolade(gs, s->str);
 			s = s->next;
 		}
-//		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-//		t_new *ssss = gs->new;
-//		while (ssss)
-//		{
-//			ft_putendl(ssss->str);
-//			ssss = ssss->next;
-//		}
-//		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		new = NULL;
 		gs = gs->slash;
 	}
 	if (g->slashzero == 0)

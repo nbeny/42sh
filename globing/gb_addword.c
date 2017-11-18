@@ -18,8 +18,6 @@ t_glob	*add_accolade(t_glob *g, char *str)
 	int		i;
 
 	i = 0;
-	ft_putendl("add_accolade");
-	ft_putendl(str);
 	if (ft_strlen(str) == 4)
 	{
 		if (ft_isalnum(str[i]) && str[i + 1] == '.' &&\
@@ -62,12 +60,10 @@ t_glob	*add_word(t_glob *g, char *str)
 	t_new		*s;
 	char		*tmp;
 
-	ft_putendl("add_word()");
 	s = g->new;
 	tmp = NULL;
 	if (s != NULL)
 	{
-		ft_putendl("if");
 		while (s != NULL)
 		{
 			tmp = ft_strdup(s->str);
@@ -79,11 +75,9 @@ t_glob	*add_word(t_glob *g, char *str)
 	}
 	else
 	{
-		ft_putendl("else");
 		g->new = add_new(g->new);
 		g->new->str = ft_strdup(str);
 	}
-	ft_putendl("return add_word()");
 	return (g);
 }
 

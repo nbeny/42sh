@@ -11,13 +11,9 @@ t_new	*make_comma(t_new *new, char *str)
 	s = new;
 	split = ft_strsplit(str, ',');
 	if (split == NULL)
-	{
-		ft_putendl("!!!!!!!!!!!!!!!!!!!!!!!!!!MAYBE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 		return (new);
-	}
 	if (s != NULL)
 	{
-		ft_putendl(s->str);
 		while (s != NULL)
 		{
 			i = 0;
@@ -28,6 +24,7 @@ t_new	*make_comma(t_new *new, char *str)
 			}
 			s = s->next;
 		}
+		free_new(new);
 	}
 	else
 	{
@@ -39,12 +36,6 @@ t_new	*make_comma(t_new *new, char *str)
 		}
 	}
 	free_split(split);
-	s = izi;
-	while (s != NULL)
-	{
-		ft_putendl(s->str);
-		s = s->next;
-	}
 	return (izi);
 }
 
@@ -74,10 +65,8 @@ char	*rebuild_path(t_new *sb, char *str)
 	i = 0;
 	s = sb;
 	new = NULL;
-	ft_putendl("((((((((((((((((((REBUILDPATH))))))))))))))))))");
 	while (str && str[i] && sb)
 	{
-		ft_putendl("((((***************START**************)))))");
 		if (str[i] == -42)
 		{
 			i++;
@@ -86,7 +75,6 @@ char	*rebuild_path(t_new *sb, char *str)
 			new = ft_strjoin(tmp2, "]");
 			ft_strdel(&tmp1);
 			ft_strdel(&tmp2);
-			ft_putendl("((((***************IF**************)))))");
 			s = s->next;
 		}
 		else
@@ -100,11 +88,9 @@ char	*rebuild_path(t_new *sb, char *str)
 			new = ft_strdup(tmp2);
 			ft_strdel(&tmp1);
 			ft_strdel(&tmp2);
-			ft_putendl("((((***************ELSE**************)))))");
 		}
 	}
 	ft_strdel(&str);
-	ft_putendl("((((***************END**************)))))");
 	return (new);
 }
 /*
