@@ -2,6 +2,10 @@
 # define GLOBING_H
 #include "globing/libft/include/libft.h"
 
+#define GREEN   "\x1b[32m"
+#define RESET   "\x1b[0m"
+#define RED     "\x1b[31m"
+
 typedef struct	s_arg
 {
 	int				id;
@@ -64,7 +68,7 @@ t_new			*init_new();
 t_new			*add_new(t_new *new);
 int				check_sbmatch(char *s1, t_new *sb);
 int				nmatch(char *s1, char *s2, t_new *sb);
-t_glob			*check_slash(t_glob *g, t_new *st_path);
+t_glob			*check_slash(t_glob *g, t_new *st_path, t_glob *save);
 t_glob			*do_we_match(t_glob *g);
 /*
 **gb_match_pos

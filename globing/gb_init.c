@@ -13,6 +13,7 @@ t_glob	*init_glob()
 	g->p[0] = 0;
 	g->p[1] = 0;
 	g->slash = NULL;
+	g->sb = NULL;
 //	g->next = NULL;
 	return (g);
 }
@@ -66,6 +67,7 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 	t_arg		*s;
 
 	s = g->arg;
+	ft_putstr("create arg");
 	if (s != NULL)
 	{
 		while (s->next != NULL)
@@ -74,12 +76,14 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 		s = s->next;
 		s->str = ft_strsub(line, g->p[0], g->p[1]);
 		s->id = a;
+		printf(RED "\n malloc : %p"RESET"\n",s);
 	}
 	else
 	{
 		g->arg = init_argument();
 		g->arg->str = ft_strsub(line, g->p[0], g->p[1]);
 		g->arg->id = a;
+		printf(RED"\n malloc : %p"RESET"\n",g);
 	}
 	return (g);
 }

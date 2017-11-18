@@ -55,8 +55,12 @@ t_glob	*zoom_research(t_glob *g, char *line)
 			s = interogation(s, line, &i);
 		else
 			s = part_arg(s, line, &i);
+		printf("%p",s);
+		fflush(stdout);
 	}
+	printf("/n BFORE DOWEMATCH g = %p \n\n",g);
 	g = do_we_match(g);
+	printf("/n AFTER DOWEMATCH g = %p \n\n",g);
 	ft_putendl("return zoom search");
 	return (g);
 }
@@ -85,7 +89,7 @@ char	**globing_research(char **cmd)
 	t_glob		*g;
 	t_glob		*s;
 	char		**split_acc;
-
+	
 	split_acc = NULL;
 	j = 1;
 	g = NULL;
@@ -93,13 +97,18 @@ char	**globing_research(char **cmd)
 	while (cmd && cmd[j])
 	{
 		g = init_glob();
+		printf("INIT GLOB g = %p \n\n",g);
 		if (check_isglob(cmd[j]))
 		{
 			g = zoom_research(g, cmd[j]);
+			printf("after zoom research g = %p \n\n",g);
 			s = g;
 			while (s->slash)
 				s = s->slash;
 			res = join_list(res, s->resforever);
+			if (g->slash == NULL)
+				ft_putendl("ERROR");
+			printf("BEFORE FREE g = %p \n\n",g);
 			free_glob_slash(g);
 		}
 		else
@@ -110,26 +119,27 @@ char	**globing_research(char **cmd)
 	}
 	ft_putendl("start print ");
 	f = res;
-	while (res)
+/*	while (res)
 	{
 		ft_putendl(res->str);
 		res = res->next;
-	}
+		}*/
 	end = list_to_tab_new(f);
 	free_resforever(f);
 	ft_putendl("start print ");
 	j = 0;
-	while (end && end[j])
+/*	while (end && end[j])
 	{
 		ft_putendl(end[j]);
 		j++;
-	}
+		}*/
 	j = 0;
+
 	while (end && end[j])
 	{
 		ft_strdel(&end[j]);
 		j++;
-	}
+		}
 	free(end);
 	end = NULL;
 	while (1);

@@ -19,10 +19,12 @@ void	free_arg(t_arg *arg)
 	t_arg		*s;
 	t_arg		*f;
 
+	ft_putstr("free_sb");
 	s = arg;
 	f = NULL;
 	while (s)
 	{
+		printf(GREEN"\nfree :  %p"RESET"\n",arg);
 		f = s;
 		ft_strdel(&(s->str));
 		s = s->next;
@@ -36,10 +38,12 @@ void	free_new(t_new *new)
 	t_new		*s;
 	t_new		*f;
 
+	ft_putstr("free_new");
 	s = new;
 	f = NULL;
 	while (s)
 	{
+		printf(GREEN"\nfree :  %p"RESET"\n",s);
 		f = s;
 		ft_strdel(&(s->str));
 		s = s->next;
@@ -72,20 +76,18 @@ void	free_glob_slash(t_glob *g)
 
 	s = g;
 	f = NULL;
-	while (s)
+	while (s != NULL)
 	{
-		ft_putendl("555555555555555555555555555555555");
 		if (s->arg)
 			free_arg(s->arg);
-		ft_putendl("6666666666666666666666666666666666");
 		if (s->new)
 			free_new(s->new);
-		ft_putendl("77777777777777777777777777777777");
-		if (s->sb)
+		if (s->sb != NULL)
 			free_new(s->sb);
 		f = s;
 		s = s->slash;
+		printf(GREEN"free :  %p"RESET"\n",f);
 		free(f);
-		s = NULL;
+		f = NULL;
 	}
 }

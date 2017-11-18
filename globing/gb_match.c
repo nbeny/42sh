@@ -99,7 +99,7 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 	return (0);
 }
 
-t_glob	*check_slash(t_glob *g, t_new *st_path)
+t_glob	*check_slash(t_glob *g, t_new *st_path, t_glob *save)
 {
 	t_new				*rec_path;
 	t_new				*f_path;
@@ -124,12 +124,13 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 	if (izi != NULL)
 	{
 		free_resforever(st_path);
-		return(check_slash(g->slash, izi));
+		return(check_slash(g->slash, izi, save));
 	}
 	else
 	{
+		
 		free_resforever(st_path);
-		return (g);
+		return (save);
 	}
 }
 
@@ -171,6 +172,8 @@ t_glob	*do_we_match(t_glob	*g)
 		tmp = ft_strdup("/");
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
-	g = check_slash(g, st_path);
+	g = check_slash(g, st_path, g);
+
+
 	return (g);
 }

@@ -133,7 +133,9 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 	ft_putendl(".");
 	if (g->arg != NULL)
 	{
+		printf("BEFORE ADD GLOB SLASH g = %p \n\n",g);
 		g = add_glob_slash(g);
+		printf("AFTER ADD GLOB g = %p \n\n",g);
 //	g = do_we_match(g);
 		g = g->slash;
 		if (line[0] == '/')
