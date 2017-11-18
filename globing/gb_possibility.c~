@@ -5,7 +5,7 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 	int		save;
 	ft_putstr("accolade");
 	save = (*i);
-		ft_putendl("accolade");
+	ft_putendl("accolade");
 	g->p[0] = ++(*i);
 	while (line[*i] != '\0' && line[*i] != '}')
 		(*i)++;
@@ -61,7 +61,7 @@ int		check_is_posix(char *str, int *i)
 	char	*class;
 
 	ft_putstr("check is posix");
-		ft_putstr(str);
+	ft_putstr(str);
 	class = NULL;
 	save = *i;
 	j[0] = *i;
@@ -128,7 +128,7 @@ t_glob	*interogation(t_glob *g, char *line, int *i)
 		(*i)++;
 	g->p[1] = *i;
 //	if (line[*i] != '\0')
-		g = add_arg(g, line, 1);
+	g = add_arg(g, line, 1);
 /*
 **	else
 **		ft_putstr_fd(2, "error parse '}'\n");
@@ -138,10 +138,10 @@ t_glob	*interogation(t_glob *g, char *line, int *i)
 
 t_glob	*part_arg(t_glob *g, char *line, int *i)
 {
-		ft_putendl("part_arg()");
+	ft_putendl("part_arg()");
 	g->p[0] = *i;
 	while (line[*i] != '\0' && line[*i] != '[' &&\
-		line[*i] != '{' && line[*i] != '?' && line[*i] != '/')
+		   line[*i] != '{' && line[*i] != '?' && line[*i] != '/')
 		(*i)++;
 	g->p[1] = *i;
 	g = add_arg(g, line, 0);
@@ -158,18 +158,19 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 	ft_putnbr(*i);
 //	sleep(1);
 	if (line[0] == '/' )
-	{
-//		*i++;
 		g->slashzero = 1;
-	}
 	while (line[*i] != '\0' && line[*i] == '/')
 		(*i)++;
-		ft_putstr("end while i =");
-		ft_putnbr(*i);
-		ft_putendl(".");
-	g = add_glob_slash(g);
-	g->isrep = 1;
+	ft_putstr("end while i =");
+	ft_putnbr(*i);
+	ft_putendl(".");
+	if (g->arg != NULL)
+	{
+		g = add_glob_slash(g);
 //	g = do_we_match(g);
-	g = g->slash;
+		g = g->slash;
+		if (line[0] == '/')
+			g->slashzero = 1;
+	}
 	return (g);
 }

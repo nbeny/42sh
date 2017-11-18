@@ -1,5 +1,5 @@
 #include "globing.h"
-/*
+
 int		count_match(t_glob *g)
 {
 	int		i;
@@ -17,7 +17,7 @@ int		count_match(t_glob *g)
 	}
 	return (i);
 }
-*/
+
 int		check_char42(char *s)
 {
 	int		i;

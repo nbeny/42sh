@@ -83,7 +83,6 @@ int		check_is_posix(char *str, int *i)
 
 t_glob	*square_bracket(t_glob *g, char *line, int *i)
 {
-	char	*tmp;
 
 	ft_putstr("sqare");
 	g->p[0] = ++(*i);
@@ -105,18 +104,6 @@ t_glob	*square_bracket(t_glob *g, char *line, int *i)
 		(*i)++;
 		g = add_arg(g, line, 2);
 	}
-	
-//	while ()
-	ft_putendl("\n\nHEEEEREEEEE\n\n");
-//	while (g->arg != NULL)
-//	{
-//		ft_putendl(g->arg->str);
-//		g->arg = g->arg->next;
-//	}
-/*
-**	else
-**		ft_putstr_fd(2, "error parse ']'\n");
-*/
 	return (g);
 }
 

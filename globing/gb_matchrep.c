@@ -24,17 +24,9 @@ t_new	*match_rep(t_glob *g, char *path)
 	char				*str;
 	struct stat			stat;
 	int					neg;
-//	t_new				*save_rec;
 
-//	save_rec = rec_path;
-//	if (rec_path)
-//	while (rec_path->next)
-//		rec_path = rec_path->next;
 	str = NULL;
-	ft_putstr("<<<<<<<<<match_rep>>>>>>>>>>\n");
-//	sleep(1);
 	s = g->new;
-	ft_putstr("<?>");
 	new_path = NULL;
 	neg = 0;
 	while (s != NULL)
@@ -48,12 +40,6 @@ t_new	*match_rep(t_glob *g, char *path)
 			ft_putendl(path);
 			str = tri_join(g->slashzero, path, d->d_name);
 			ft_putendl(str);
-			if (lstat(str, &stat) == -1)
-			{
-				ft_putendl("stat: failed !");
-				neg = -1;
-			}
-			//if (!access(str, R_OK) &&
 			if (nmatch(d->d_name, s->str, g->sb) != 0)
 			{
 				if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.')
@@ -66,16 +52,9 @@ t_new	*match_rep(t_glob *g, char *path)
 			}
 			ft_strdel(&str);
 		}
-//		sleep(1);
 		closedir(dir);
 		s = s->next;
 	}
-	ft_putendl(path);
-//	ft_putendl(new_path->str);
-	ft_putstr("\n\n<<<<<<<<<ENDmatch_repEND>>>>>>>>>>\n");
-//	rec_path->next = new_path;
-//	if (save_rec != NULL)
-//			return (save_rec);
 	return (new_path);
 }
 
@@ -93,9 +72,6 @@ char	*found_path(int zero, char *path, char *dname)
 		tmp = getcwd(NULL, 1024);
 		len[0] = ft_strlen(tmp);
 		len[1] = ft_strlen(path);
-		ft_putendl(tmp);
-		ft_putendl("/ ****************************************** /");
-		ft_putendl(path);
 		ft_strdel(&tmp);
 		if (len[0] <= len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
 		{
@@ -112,6 +88,7 @@ char	*found_path(int zero, char *path, char *dname)
 		else
 		{
 			new_path = ft_strdup(dname);
+			ft_strdel(&dname);
 		}
 	}
 	else

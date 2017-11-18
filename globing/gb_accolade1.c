@@ -38,6 +38,7 @@ t_new	*make_comma(t_new *new, char *str)
 			i++;
 		}
 	}
+	free_split(split);
 	s = izi;
 	while (s != NULL)
 	{

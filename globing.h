@@ -22,7 +22,6 @@ typedef struct	s_glob
 	struct s_new	*resforever;
 	int				p[2];
 	struct s_glob	*slash;
-	struct s_glob	*next;
 }				t_glob;
 /*
 **gb_init
@@ -129,8 +128,9 @@ t_new			*join_list(t_new *izi, t_new *rec_path);
 t_new			*add_path(t_new *st_path, char *path);
 char			**list_to_tab_new(t_new *e);
 /*
-**free
+**gb_free
 */
+void			free_split(char **split);
 void			free_arg(t_arg *arg);
 void			free_new(t_new *new);
 void			free_resforever(t_new *resforever);

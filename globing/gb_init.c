@@ -13,10 +13,10 @@ t_glob	*init_glob()
 	g->p[0] = 0;
 	g->p[1] = 0;
 	g->slash = NULL;
-	g->next = NULL;
+//	g->next = NULL;
 	return (g);
 }
-
+/*
 t_glob	*add_glob_next(t_glob *g)
 {
 	t_glob		*s;
@@ -32,7 +32,7 @@ t_glob	*add_glob_next(t_glob *g)
 		g = init_glob();
 	return (g);
 }
-
+*/
 t_glob	*add_glob_slash(t_glob *g)
 {
 	t_glob		*s;

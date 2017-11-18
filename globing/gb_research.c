@@ -88,8 +88,6 @@ char	**globing_research(char **cmd)
 	split_acc = NULL;
 	j = 1;
 	g = NULL;
-	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
-		return (NULL);
 	res = NULL;
 	while (cmd && cmd[j])
 	{
@@ -115,7 +113,6 @@ char	**globing_research(char **cmd)
 		ft_putendl(res->str);
 		res = res->next;
 	}
-	ft_putendl("start print ");
 	end = list_to_tab_new(res);
 	free_resforever(res);
 	ft_putendl("start print ");
@@ -125,7 +122,14 @@ char	**globing_research(char **cmd)
 		ft_putendl(end[j]);
 		j++;
 	}
-	ft_putendl("start print ");
+	j = 0;
+	while (end && end[j])
+	{
+		ft_strdel(&end[j]);
+		j++;
+	}
+	free(end);
+	end = NULL;
 	while (1);
 	return (end);
 }

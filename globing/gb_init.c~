@@ -4,20 +4,17 @@ t_glob	*init_glob()
 {
 	t_glob		*g;
 
-	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
-		return (NULL);
 	g->slashzero = 0;
-	g->isrep = 0;
 	g->new = NULL;
 	g->resforever = NULL;
 	g->arg = NULL;
 	g->p[0] = 0;
 	g->p[1] = 0;
 	g->slash = NULL;
-	g->next = NULL;
+//	g->next = NULL;
 	return (g);
 }
-
+/*
 t_glob	*add_glob_next(t_glob *g)
 {
 	t_glob		*s;
@@ -33,7 +30,7 @@ t_glob	*add_glob_next(t_glob *g)
 		g = init_glob();
 	return (g);
 }
-
+*/
 t_glob	*add_glob_slash(t_glob *g)
 {
 	t_glob		*s;

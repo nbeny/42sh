@@ -22,7 +22,7 @@ t_glob	*add_accolade(t_glob *g, char *str)
 	ft_putendl(str);
 	if (ft_strlen(str) == 4)
 	{
-		if (ft_isalnum(str[i]) && str[i + 1] == '.' && \
+		if (ft_isalnum(str[i]) && str[i + 1] == '.' &&\
 			str[i + 2] == '.' && ft_isalnum(str[i + 3]))
 			g->new = make_pointpoint(g->new, str);
 		else

@@ -42,9 +42,6 @@ int		check_sbmatch(char *s1, t_new *sb)
 	ret = -1;
 	s = sb;
 	i = 0;
-	if (sb->str == NULL)
-		ft_putendl("&&&&&&&&&&&&&&&&&&&&&");
-	ft_putendl(sb->str);
 	if (sb)
 		while (sb->str && sb->str[i])
 		{
@@ -118,34 +115,16 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 	t_new				*izi;
 	t_glob				*sg;
 
-//	(void)i;
 	sg = g;
 	f_path = st_path;
 	ft_putendl("ft_check_slash");
-//	if (i == 1)
-//		g->slashzero = 1;
-//	else if (g->slashzero == 1)
-//	{
-//		ft_putstr("oui");
-//		g->slashzero = 0;
-//		g = g->slash;
-//		g->slashzero = 1;
-//	}
-//	else
-//		ft_putstr("non");
-//	sleep(1);
 	rec_path = NULL;
 	path = NULL;
 	izi = NULL;
 	ft_putstr("---check_slash >>>recurisif<<<\n");
-//	if (st_path->str)
-//		ft_putstr(st_path->str);
-//	if (g->new)
-//		ft_putendl(g->new->str);
 	while (st_path != NULL)
 	{
 		ft_putstr("/n<*>/n");
-//		sleep(1);
 		if (g->slash != NULL)
 		{
 			ft_putendl("g->slash == NULL go to match_rep");
@@ -156,15 +135,6 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		{
 			ft_putendl("g->slash != NULL go to match_file");
 			g = match_file(g, st_path->str);
-			t_new				*ssss = g->resforever;
-			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-			while (ssss)
-			{
-				ft_putendl(ssss->str);
-				ssss = ssss->next;
-			}
-			ft_putendl("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
-//			sleep(3);
 		}
 		st_path = st_path->next;
 	}
@@ -179,7 +149,10 @@ t_glob	*check_slash(t_glob *g, t_new *st_path)
 		return(check_slash(g->slash, izi));
 	}
 	else
+	{
+		free_resforever(st_path);
 		return (g);
+	}
 }
 
 t_glob	*do_we_match(t_glob	*g)
@@ -215,14 +188,14 @@ t_glob	*do_we_match(t_glob	*g)
 				gs = add_accolade(gs, s->str);
 			s = s->next;
 		}
-		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
-		t_new *ssss = gs->new;
-		while (ssss)
-		{
-			ft_putendl(ssss->str);
-			ssss = ssss->next;
-		}
-		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+//		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
+//		t_new *ssss = gs->new;
+//		while (ssss)
+//		{
+//			ft_putendl(ssss->str);
+//			ssss = ssss->next;
+//		}
+//		ft_putendl("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%");
 		new = NULL;
 		gs = gs->slash;
 	}

@@ -1,5 +1,19 @@
 #include "globing.h"
 
+void	free_split(char **split)
+{
+	int		i;
+
+	i = 0;
+	while (split && split[i])
+	{
+		ft_strdel(&(split[i]));
+		i++;
+	}
+	free(split);
+	split = NULL;
+}
+
 void	free_arg(t_arg *arg)
 {
 	t_arg		*s;
@@ -25,25 +39,25 @@ void	free_new(t_new *new)
 {
 	t_new		*s;
 	t_new		*f;
-	t_new		*sb;
+//	t_new		*sb;
 
 	s = new;
 	f = NULL;
-	sb = NULL;
+//	sb = NULL;
 	while (s)
 	{
 		f = s;
-		if (s->str)
-			ft_strdel(&(s->str));
+//		if (s->str)
+		ft_strdel(&(s->str));
 /*		sb = s->sb;
 		while (sb)
 		{
-			f = sb;
-			ft_strdel(&(sb->str));
-			sb = sb->next;
-			free(f);
-			f = NULL;
-			}*/
+		f = sb;
+		ft_strdel(&(sb->str));
+		sb = sb->next;
+		free(f);
+		f = NULL;
+		}*/
 		s = s->next;
 		free(f);
 		f = NULL;
@@ -74,20 +88,20 @@ void	free_glob_slash(t_glob *g)
 
 	s = g;
 	f = NULL;
-	if (s)
+/*	if (s)
 	{
-		ft_putendl("1111111111111111111111111111111");
-		if (s->arg)
-			free_arg(s->arg);
-		ft_putendl("222222222222222222222222222222");
-		if (s->new)
-			free_new(s->new);
-		ft_putendl("33333333333333333333333333333333");
+	ft_putendl("1111111111111111111111111111111");
+	if (s->arg)
+	free_arg(s->arg);
+	ft_putendl("222222222222222222222222222222");
+	if (s->new)
+	free_new(s->new);
+	ft_putendl("33333333333333333333333333333333");
 //		if (s->resforever)
 //			free_resforever(s->resforever);
-		ft_putendl("444444444444444444444444444444444444");
-		s = s->slash;
-	}
+ft_putendl("444444444444444444444444444444444444");
+s = s->slash;
+}*/
 	while (s)
 	{
 		ft_putendl("555555555555555555555555555555555");
