@@ -80,6 +80,7 @@ char	**globing_research(char **cmd)
 {
 	int			j;
 	t_new		*res;
+	t_new		*f;
 	char		**end;
 	t_glob		*g;
 	t_glob		*s;
@@ -108,13 +109,14 @@ char	**globing_research(char **cmd)
 		j++;
 	}
 	ft_putendl("start print ");
+	f = res;
 	while (res)
 	{
 		ft_putendl(res->str);
 		res = res->next;
 	}
-	end = list_to_tab_new(res);
-	free_resforever(res);
+	end = list_to_tab_new(f);
+	free_resforever(f);
 	ft_putendl("start print ");
 	j = 0;
 	while (end && end[j])

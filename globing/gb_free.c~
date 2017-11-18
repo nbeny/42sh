@@ -88,20 +88,6 @@ void	free_glob_slash(t_glob *g)
 
 	s = g;
 	f = NULL;
-/*	if (s)
-	{
-	ft_putendl("1111111111111111111111111111111");
-	if (s->arg)
-	free_arg(s->arg);
-	ft_putendl("222222222222222222222222222222");
-	if (s->new)
-	free_new(s->new);
-	ft_putendl("33333333333333333333333333333333");
-//		if (s->resforever)
-//			free_resforever(s->resforever);
-ft_putendl("444444444444444444444444444444444444");
-s = s->slash;
-}*/
 	while (s)
 	{
 		ft_putendl("555555555555555555555555555555555");
@@ -111,9 +97,6 @@ s = s->slash;
 		if (s->new)
 			free_new(s->new);
 		ft_putendl("77777777777777777777777777777777");
-//		if (s->resforever)
-//			free_resforever(s->resforever);
-		ft_putendl("888888888888888888888888888888888");
 		f = s;
 		s = s->slash;
 		free(f);

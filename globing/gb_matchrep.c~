@@ -1,7 +1,6 @@
 #include "globing.h"
 #include <sys/types.h>
 #include <sys/dir.h>
-#include <sys/stat.h>
 
 char	*tri_join(int zero, char *path, char *str)
 {
@@ -22,11 +21,9 @@ t_new	*match_rep(t_glob *g, char *path)
 	struct dirent		*d;
 	DIR					*dir;
 	char				*str;
-	struct stat			stat;
 	int					neg;
 
 	str = NULL;
-	ft_putstr("<<<<<<<<<match_rep>>>>>>>>>>\n");
 	s = g->new;
 	new_path = NULL;
 	neg = 0;
@@ -41,12 +38,6 @@ t_new	*match_rep(t_glob *g, char *path)
 			ft_putendl(path);
 			str = tri_join(g->slashzero, path, d->d_name);
 			ft_putendl(str);
-//			if (lstat(str, &stat) == -1)
-//			{
-//				ft_putendl("stat: failed !");
-//				neg = -1;
-//			}
-			//if (!access(str, R_OK) &&
 			if (nmatch(d->d_name, s->str, g->sb) != 0)
 			{
 				if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.')
@@ -59,16 +50,9 @@ t_new	*match_rep(t_glob *g, char *path)
 			}
 			ft_strdel(&str);
 		}
-//		sleep(1);
 		closedir(dir);
 		s = s->next;
 	}
-	ft_putendl(path);
-//	ft_putendl(new_path->str);
-	ft_putstr("\n\n<<<<<<<<<ENDmatch_repEND>>>>>>>>>>\n");
-//	rec_path->next = new_path;
-//	if (save_rec != NULL)
-//			return (save_rec);
 	return (new_path);
 }
 
@@ -86,9 +70,6 @@ char	*found_path(int zero, char *path, char *dname)
 		tmp = getcwd(NULL, 1024);
 		len[0] = ft_strlen(tmp);
 		len[1] = ft_strlen(path);
-		ft_putendl(tmp);
-		ft_putendl("/ ****************************************** /");
-		ft_putendl(path);
 		ft_strdel(&tmp);
 		if (len[0] <= len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
 		{
@@ -105,6 +86,7 @@ char	*found_path(int zero, char *path, char *dname)
 		else
 		{
 			new_path = ft_strdup(dname);
+			ft_strdel(&dname);
 		}
 	}
 	else
@@ -189,7 +171,6 @@ t_glob	*match_file(t_glob *g, char *path)
 					ft_putstr("DONEtmpDONE\n");
 					ft_putstr(tmp);
 					g->resforever = add_path(g->resforever, tmp);
-//				s = izi
 					ft_strdel(&tmp);
 					ft_putstr("endif");
 				}
@@ -200,13 +181,6 @@ t_glob	*match_file(t_glob *g, char *path)
 		if (i == 0 && s && s->str && s->str[0])
 		{
 			ft_putendl("seg");
-//			if (s->sb == NULL)
-//				ft_putendl("NULL");
-//			if (check_rebuild_path(s->str))
-//			{
-//				s->str = rebuild_path(g->sb, s->str);
-//			g->resforever = add_path(g->resforever, s->str);
-//			}
 		}
 		ft_putstr("coucou");
 		closedir(dir);

@@ -1,4 +1,4 @@
-/*#include "globing.h"
+#include "globing.h"
 
 int check_is_acc(char *str)
 {
@@ -107,4 +107,3 @@ char **ft_split_acc(char *str)
 	ft_putendl(start);
 	return (res);
 }
-*/

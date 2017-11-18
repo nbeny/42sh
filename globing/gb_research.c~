@@ -88,8 +88,6 @@ char	**globing_research(char **cmd)
 	split_acc = NULL;
 	j = 1;
 	g = NULL;
-//	if (!(g = (t_glob *)malloc(sizeof(t_glob))))
-//		return (NULL);
 	res = NULL;
 	while (cmd && cmd[j])
 	{

@@ -109,39 +109,34 @@ int		nmatch(char *s1, char *s2, t_new *sb)
 
 t_glob	*check_slash(t_glob *g, t_new *st_path)
 {
-	char				*path;
 	t_new				*rec_path;
 	t_new				*f_path;
 	t_new				*izi;
-	t_glob				*sg;
 
-	sg = g;
 	f_path = st_path;
 	ft_putendl("ft_check_slash");
 	rec_path = NULL;
-	path = NULL;
 	izi = NULL;
 	ft_putstr("---check_slash >>>recurisif<<<\n");
-	while (st_path != NULL)
+	while (f_path != NULL)
 	{
 		ft_putstr("/n<*>/n");
 		if (g->slash != NULL)
 		{
 			ft_putendl("g->slash == NULL go to match_rep");
-			rec_path = match_rep(g, st_path->str);
+			rec_path = match_rep(g, f_path->str);
 			izi = join_list(izi, rec_path);
 		}
 		else
 		{
-			ft_putendl("g->slash != NULL go to match_file");
-			g = match_file(g, st_path->str);
+			g = match_file(g, f_path->str);
 		}
-		st_path = st_path->next;
+		f_path = f_path->next;
 	}
 	ft_putstr("before go recu ckeck_slash rec_path == ");
-	if (rec_path && rec_path->str)
-		ft_putendl(rec_path->str);
-	ft_putnbr(g->slashzero);
+//	if (rec_path && rec_path->str)
+//		ft_putendl(rec_path->str);
+//	ft_putnbr(g->slashzero);
 //	g->slash->slashzero = 1;
 	if (izi != NULL)
 	{

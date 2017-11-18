@@ -1,7 +1,6 @@
 #include "globing.h"
 #include <sys/types.h>
 #include <sys/dir.h>
-#include <sys/stat.h>
 
 char	*tri_join(int zero, char *path, char *str)
 {
@@ -22,7 +21,6 @@ t_new	*match_rep(t_glob *g, char *path)
 	struct dirent		*d;
 	DIR					*dir;
 	char				*str;
-	struct stat			stat;
 	int					neg;
 
 	str = NULL;
@@ -116,14 +114,14 @@ t_glob	*match_file(t_glob *g, char *path)
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
-				t_new *a = NULL;
-				if (g && g->sb)
-					a = g->sb;
-				while (a)
-				{
-					ft_putendl(a->str);
-					a = a->next;
-				}
+//				t_new *a = NULL;
+//				if (g && g->sb)
+//					a = g->sb;
+//				while (a)
+//				{
+//					ft_putendl(a->str);
+//					a = a->next;
+//				}
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
 				ft_putendl("$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$");
@@ -173,7 +171,6 @@ t_glob	*match_file(t_glob *g, char *path)
 					ft_putstr("DONEtmpDONE\n");
 					ft_putstr(tmp);
 					g->resforever = add_path(g->resforever, tmp);
-//				s = izi
 					ft_strdel(&tmp);
 					ft_putstr("endif");
 				}
@@ -184,13 +181,6 @@ t_glob	*match_file(t_glob *g, char *path)
 		if (i == 0 && s && s->str && s->str[0])
 		{
 			ft_putendl("seg");
-//			if (s->sb == NULL)
-//				ft_putendl("NULL");
-//			if (check_rebuild_path(s->str))
-//			{
-//				s->str = rebuild_path(g->sb, s->str);
-//			g->resforever = add_path(g->resforever, s->str);
-//			}
 		}
 		ft_putstr("coucou");
 		closedir(dir);
