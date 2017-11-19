@@ -14,8 +14,8 @@ typedef struct	s_arg
 }				t_arg;
 typedef struct	s_new
 {
-	char			*str;
 	int				i;
+	char			*str;
 	struct s_new	*next;
 }				t_new;
 typedef struct	s_glob
@@ -47,12 +47,15 @@ char			**globing_research(char **cmd);
 **gb_possibility
 */
 t_glob			*accolade(t_glob *g, char *line, int *i);
-int				check_name_pos(char *str);
-int				check_is_posix(char *str, int *i);
 t_glob			*square_bracket(t_glob *g, char *line, int *i);
 t_glob			*interogation(t_glob *g, char *line, int *i);
 t_glob			*part_arg(t_glob *g, char *line, int *i);
 t_glob			*slash_gestion(t_glob *g, char *line, int *i);
+/*
+**gb_checkposix
+*/
+int				check_name_pos(char *str);
+int				check_is_posix(char *str, int *i);
 /*
 **gb_addword
 */
@@ -126,6 +129,11 @@ int				check_rebuild_path(char *str);
 char			*rebuild_path(t_new *sb, char *str);
 t_new			*rebuild_sb_struct(t_new *n_sb, t_new *s_sb);
 t_new			*duplicate_sb(t_new *new, t_new *s);
+/*
+**gb_accolade2
+*/
+t_new			*make_pointpointdup(char *str);
+t_new			*make_commadup(char **split);
 /*
 **gb_slash_gestion
 */
