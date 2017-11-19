@@ -37,6 +37,12 @@ t_glob			*add_glob_slash(t_glob *g);
 t_arg			*init_argument();
 t_glob			*add_arg(t_glob *g, char *line, int a);
 /*
+**gb_init1
+*/
+t_new			*init_new();
+t_new			*add_new(t_new *new);
+t_glob			*add_sbplease(t_glob *g, char *str);
+/*
 **gb_research
 */
 t_glob			*remake_arg(t_glob *g, char *line);
@@ -56,6 +62,8 @@ t_glob			*slash_gestion(t_glob *g, char *line, int *i);
 */
 int				check_name_pos(char *str);
 int				check_is_posix(char *str, int *i);
+int				sb_classmatch1(int c, char *str, int *i);
+int				sb_classmatch(int c, char *str, int *i);
 /*
 **gb_addword
 */
@@ -63,16 +71,18 @@ char			*creat_bracket(int c);
 t_glob			*add_accolade(t_glob *g, char *str);
 t_glob			*add_interro(t_glob *g);
 t_glob			*add_word(t_glob *g, char *str);
-t_glob			*add_sbplease(t_glob *g, char *str);
 t_glob			*add_sb(t_glob *g, char *str);
+/*
+**gb_addword1
+*/
+t_new			*add_squarebreak(t_new *new);
 /*
 **gb_match
 */
-t_new			*init_new();
-t_new			*add_new(t_new *new);
 int				check_sbmatch(char *s1, t_new *sb);
 int				nmatch(char *s1, char *s2, t_new *sb);
 t_glob			*check_slash(t_glob *g, t_new *st_path, t_glob *save);
+t_glob			*add_everything(t_glob *g);
 t_glob			*do_we_match(t_glob *g);
 /*
 **gb_match_pos
@@ -80,7 +90,6 @@ t_glob			*do_we_match(t_glob *g);
 int				sb_lessmatchno(int c, char *str, int *i);
 int				sb_exclammatch(int c, char *str, int *i);
 int				sb_lessmatch(int c, char *str, int *i);
-int				sb_classmatch(int c, char *str, int *i);
 int				sb__match(int c, char *str, int *i);
 int				sb__match_no(int c, char *str, int *i);
 /*
@@ -90,6 +99,11 @@ char			*tri_join(int zero, char *path, char *str);
 t_new			*match_rep(t_glob *g, char *path);
 char			*found_path(int zero, char *path, char *dname);
 t_glob			*match_file(t_glob *g, t_new *st_path);
+/*
+**gb_matchrep1
+*/
+t_new			*match_rep_end(t_glob *g, char *path, t_new *s, t_new *new_path);
+char			*found_path_zero(char *path, char *dname);
 /*
 **gb_recupchartab
 */

@@ -38,22 +38,7 @@ t_new	*match_rep(t_glob *g, char *path)
 	new_path = NULL;
 	while (s != NULL)
 	{
-		dir = opendir(path);
-		while ((d = readdir(dir)) != NULL)
-		{
-			str = tri_join(g->slashzero, path, d->d_name);
-			if (nmatch(d->d_name, s->str, g->sb) != 0)
-			{
-				if (!access(str, R_OK) && d->d_type == 4 && d->d_name[0] != '.')
-				{
-					ft_strdel(&str);
-					str = tri_join(g->slashzero, path, d->d_name);
-					new_path = add_path(new_path, str);
-				}
-			}
-			ft_strdel(&str);
-		}
-		closedir(dir);
+		new_path = match_rep_end(g, path, s, new_path);
 		s = s->next;
 	}
 	return (new_path);
@@ -62,32 +47,11 @@ t_new	*match_rep(t_glob *g, char *path)
 char	*found_path(int zero, char *path, char *dname)
 {
 	char		*new_path;
-	char		*found;
 	char		*tmp;
-	int			len[2];
 
 	new_path = NULL;
 	if (zero == 0)
-	{
-		tmp = getcwd(NULL, 1024);
-		len[0] = ft_strlen(tmp);
-		len[1] = ft_strlen(path);
-		ft_strdel(&tmp);
-		if (len[0] <= len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
-		{
-			tmp = ft_strsub(path, (len[0] + 1), len[1]);
-			found = ft_strjoin(tmp, "/");
-			ft_strdel(&tmp);
-			new_path = ft_strjoin(found, dname);
-			ft_strdel(&dname);
-			ft_strdel(&found);
-		}
-		else
-		{
-			new_path = ft_strdup(dname);
-			ft_strdel(&dname);
-		}
-	}
+		new_path = found_path_zero(path, dname);
 	else
 	{
 		tmp = ft_strjoin(path, "/");
@@ -111,18 +75,15 @@ t_glob	*match_file(t_glob *g, t_new *st_path)
 	{
 		dir = opendir(st_path->str);
 		while ((d = readdir(dir)) != NULL)
-		{
 			if (nmatch(d->d_name, s->str, g->sb) != 0)
-			{
 				if (d->d_name[0] != '.')
 				{
 					s->i = 1;
-					tmp = found_path(g->slashzero, st_path->str, ft_strdup(d->d_name));
+					tmp = found_path(g->slashzero,\
+								st_path->str, ft_strdup(d->d_name));
 					g->resforever = add_path(g->resforever, tmp);
 					ft_strdel(&tmp);
 				}
-			}
-		}
 		closedir(dir);
 		s = s->next;
 	}

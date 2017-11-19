@@ -95,27 +95,16 @@ t_glob	*add_word(t_glob *g, char *str)
 t_glob	*add_sb(t_glob *g, char *str)
 {
 	t_new	*sb;
-	t_new	*s;
 	char	*tmp;
 	char	*w;
 
 	sb = NULL;
 	tmp = NULL;
 	w = NULL;
-	s = g->new;
 	if (g && g->new)
 	{
 		g = add_sbplease(g, str);
-		while (s != NULL)
-		{
-			tmp = ft_strdup(s->str);
-			ft_strdel(&(s->str));
-			w = creat_bracket(-42);
-			s->str = ft_strjoin(tmp, w);
-			ft_strdel(&tmp);
-			ft_strdel(&w);
-			s = s->next;
-		}
+		g->new = add_squarebreak(g->new);
 	}
 	else
 	{

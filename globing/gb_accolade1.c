@@ -53,7 +53,7 @@ int		check_rebuild_path(char *str)
 	}
 	return (0);
 }
-
+/*
 char	*rebuild_path(t_new *sb, char *str)
 {
 	char		*tmp1;
@@ -71,6 +71,8 @@ char	*rebuild_path(t_new *sb, char *str)
 		if (str[i] == -42)
 		{
 			i++;
+			if (new != NULL)
+				ft_strdel(&new);
 			tmp1 = ft_strjoin(new, "[");
 			tmp2 = ft_strjoin(tmp1, s->str);
 			new = ft_strjoin(tmp2, "]");
@@ -81,9 +83,11 @@ char	*rebuild_path(t_new *sb, char *str)
 		else
 		{
 			p[0] = i;
-			while (str && str[i])
+			while (str && str[i] && str[i] != -42)
 				i++;
 			p[1] = i;
+			if (new != NULL)
+				ft_strdel(&new);
 			tmp1 = ft_strsub(str, p[0], p[1]);
 			tmp2 = ft_strjoin(new, tmp1);
 			new = ft_strdup(tmp2);
@@ -93,3 +97,4 @@ char	*rebuild_path(t_new *sb, char *str)
 	}
 	return (new);
 }
+*/

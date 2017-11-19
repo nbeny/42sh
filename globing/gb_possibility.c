@@ -21,7 +21,8 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 	while (line[*i] != '\0' && line[*i] != '}')
 		(*i)++;
 	g->p[1] = (*i);
-	if (line[*i] != '\0' && (check_pointpoint(line, save) || check_comma(line, save)))
+	if (line[*i] != '\0' &&\
+		(check_pointpoint(line, save) || check_comma(line, save)))
 	{
 		(*i)++;
 		g = add_arg(g, line, 3);
@@ -38,7 +39,6 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 
 t_glob	*square_bracket(t_glob *g, char *line, int *i)
 {
-
 	g->p[0] = ++(*i);
 	while (line && line[*i] != '\0' && line[*i] != ']')
 	{
@@ -75,7 +75,7 @@ t_glob	*part_arg(t_glob *g, char *line, int *i)
 {
 	g->p[0] = *i;
 	while (line[*i] != '\0' && line[*i] != '[' &&\
-		   line[*i] != '{' && line[*i] != '?' && line[*i] != '/')
+		line[*i] != '{' && line[*i] != '?' && line[*i] != '/')
 		(*i)++;
 	g->p[1] = *i;
 	g = add_arg(g, line, 0);
@@ -87,7 +87,7 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 	char	*tmp;
 
 	tmp = NULL;
-	if (line[0] == '/' )
+	if (line[0] == '/')
 		g->slashzero = 1;
 	while (line[*i] != '\0' && line[*i] == '/')
 		(*i)++;
