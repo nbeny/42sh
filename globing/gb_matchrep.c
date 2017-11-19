@@ -90,41 +90,32 @@ char	*found_path(int zero, char *path, char *dname)
 	return (new_path);
 }
 
-t_glob	*match_file(t_glob *g, char *path)
+t_glob	*match_file(t_glob *g, t_new *st_path)
 {
 	t_new				*s;
 	struct dirent		*d;
 	DIR					*dir;
 	char				*tmp;
-	int					i;
 
 	tmp = NULL;
 	s = g->new;
 	while (s != NULL)
 	{
-		i = 0;
-		dir = opendir(path);
-		ft_putstr(path);
+		dir = opendir(st_path->str);
 		while ((d = readdir(dir)) != NULL)
 		{
 			if (nmatch(d->d_name, s->str, g->sb) != 0)
 			{
-				i = 1;
 				if (d->d_name[0] != '.')
 				{
-					tmp = found_path(g->slashzero, path, ft_strdup(d->d_name));
+					s->i = 1;
+					tmp = found_path(g->slashzero, st_path->str, ft_strdup(d->d_name));
 					g->resforever = add_path(g->resforever, tmp);
 					ft_strdel(&tmp);
 				}
 			}
-			else
-				ft_putendl("not__fpund");
 		}
-		if (i == 0 && s && s->str && s->str[0])
-		{
-			ft_putendl("seg");
-		}
-		ft_putstr("coucou");
+	}
 		closedir(dir);
 		s = s->next;
 	}

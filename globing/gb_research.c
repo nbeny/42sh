@@ -119,20 +119,20 @@ char	**globing_research(char **cmd)
 	}
 	ft_putendl("start print ");
 	f = res;
-/*	while (res)
+	while (res)
 	{
 		ft_putendl(res->str);
 		res = res->next;
-		}*/
+		}
 	end = list_to_tab_new(f);
 	free_resforever(f);
 	ft_putendl("start print ");
 	j = 0;
-/*	while (end && end[j])
+	while (end && end[j])
 	{
 		ft_putendl(end[j]);
 		j++;
-		}*/
+		}
 	j = 0;
 
 	while (end && end[j])

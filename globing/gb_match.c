@@ -8,6 +8,7 @@ t_new	*init_new()
 	if (!(new = (t_new *)malloc(sizeof(t_new))))
 		return (NULL);
 	new->str = NULL;
+	new->i = 0;
 	new->next = NULL;
 	return (new);
 }
@@ -117,7 +118,7 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, t_glob *save)
 		}
 		else
 		{
-			g = match_file(g, f_path->str);
+			g = match_file(g, f_path);
 		}
 		f_path = f_path->next;
 	}

@@ -90,7 +90,7 @@ char	*rebuild_path(t_new *sb, char *str)
 			ft_strdel(&tmp2);
 		}
 	}
-	ft_strdel(&str);
+//	ft_strdel(&str);
 	return (new);
 }
 /*

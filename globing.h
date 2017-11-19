@@ -15,6 +15,7 @@ typedef struct	s_arg
 typedef struct	s_new
 {
 	char			*str;
+	int				i;
 	struct s_new	*next;
 }				t_new;
 typedef struct	s_glob
@@ -85,7 +86,7 @@ int				sb__match_no(int c, char *str, int *i);
 char			*tri_join(int zero, char *path, char *str);
 t_new			*match_rep(t_glob *g, char *path);
 char			*found_path(int zero, char *path, char *dname);
-t_glob			*match_file(t_glob *g, char *path);
+t_glob			*match_file(t_glob *g, t_new *st_path);
 /*
 **gb_recupchartab
 */
