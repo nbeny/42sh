@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_free.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:03:38 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:03:50 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 void	free_split(char **split)
@@ -19,12 +31,10 @@ void	free_arg(t_arg *arg)
 	t_arg		*s;
 	t_arg		*f;
 
-	ft_putstr("free_sb");
 	s = arg;
 	f = NULL;
 	while (s)
 	{
-		printf(GREEN"\nfree :  %p"RESET"\n",arg);
 		f = s;
 		ft_strdel(&(s->str));
 		s = s->next;
@@ -38,12 +48,10 @@ void	free_new(t_new *new)
 	t_new		*s;
 	t_new		*f;
 
-	ft_putstr("free_new");
 	s = new;
 	f = NULL;
 	while (s)
 	{
-		printf(GREEN"\nfree :  %p"RESET"\n",s);
 		f = s;
 		ft_strdel(&(s->str));
 		s = s->next;
@@ -86,7 +94,6 @@ void	free_glob_slash(t_glob *g)
 			free_new(s->sb);
 		f = s;
 		s = s->slash;
-		printf(GREEN"free :  %p"RESET"\n",f);
 		free(f);
 		f = NULL;
 	}

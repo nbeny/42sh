@@ -1,23 +1,17 @@
-#include "globing.h"
-/*
-int		count_match(t_glob *g)
-{
-	int		i;
-	t_glob	*s;
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_recupchartab.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:11:00 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:11:06 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-	i = 0;
-	s = g;
-	if (s == NULL)
-		return (0);
-	while (s != NULL)
-	{
-		if (s->arg != NULL)
-			i++;
-		s = s->next;
-	}
-	return (i);
-}
-*/
+#include "globing.h"
+
 int		check_char42(char *s)
 {
 	int		i;

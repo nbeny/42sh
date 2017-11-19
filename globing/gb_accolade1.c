@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_accolade1.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:09:37 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:10:09 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 t_new	*make_comma(t_new *new, char *str)
@@ -9,8 +21,7 @@ t_new	*make_comma(t_new *new, char *str)
 
 	izi = NULL;
 	s = new;
-	split = ft_strsplit(str, ',');
-	if (split == NULL)
+	if (!(split = ft_strsplit(str, ',')))
 		return (new);
 	if (s != NULL)
 	{
@@ -18,23 +29,13 @@ t_new	*make_comma(t_new *new, char *str)
 		{
 			i = 0;
 			while (split && split[i])
-			{
-				izi = add_joinaccolade(izi, s->str, split[i]);
-				i++;
-			}
+				izi = add_joinaccolade(izi, s->str, split[i++]);
 			s = s->next;
 		}
 		free_new(new);
 	}
 	else
-	{
-		i = 0;
-		while (split && split[i])
-		{
-			izi = add_dupaccolade(izi, split[i]);
-			i++;
-		}
-	}
+		izi = make_commadup(split);
 	free_split(split);
 	return (izi);
 }
@@ -90,50 +91,5 @@ char	*rebuild_path(t_new *sb, char *str)
 			ft_strdel(&tmp2);
 		}
 	}
-//	ft_strdel(&str);
 	return (new);
 }
-/*
-t_new	*rebuild_sb_struct(t_new *n_sb, t_new *s_sb)
-{
-	t_new		*izi;
-	t_new		*s;
-
-	s = s_sb;
-	ft_putendl("((((((((((((((((((REBUILD_SB_STRUCT))))))))))))))))))");
-	while (s)
-	{
-		ft_putstr("<i>");
-		izi = add_sbplease(izi, s->str);
-		s = s->next;
-	}
-	ft_putendl("((((((((((((((((((endREBUILD_SendB_STRUCTend))))))))))))))))))");
-	return (izi);
-	}*/
-/*
-t_new	*duplicate_sb(t_new *new, t_new *s)
-{
-	t_new *save;
-
-	save = new;
-	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-	if (new && s)
-	{
-		ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-		while (save->next != NULL)
-		{
-			ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-			if (s && s->sb)
-			{
-				ft_putendl("boom");
-				save->sb = rebuild_sb_struct(save->sb, s->sb);
-			}
-			ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-			save = save->next;
-		}
-		free_new(s->sb);
-	}
-	ft_putendl("||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||");
-	return (new);
-}
-*/

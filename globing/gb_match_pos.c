@@ -1,19 +1,28 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_match_pos.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:10:40 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:10:42 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 int		sb_lessmatchno(int c, char *str, int *i)
 {
-	ft_putstr("\n\tLESS");
 	if (str && str[*i])
 	{
 		if (c > str[*i] && c < str[*i + 2])
 		{
 			(*i) += 2;
-			ft_putendl("1");
 			return (1);
 		}
 		(*i) += 2;
 	}
-				ft_putendl("0");
 	return (0);
 }
 
@@ -21,7 +30,6 @@ int		sb_exclammatch(int c, char *str, int *i)
 {
 	int		ret;
 
-	ft_putstr("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL");
 	ret = 0;
 	(*i)++;
 	while (str && str[*i])
@@ -48,7 +56,6 @@ int		sb_exclammatch(int c, char *str, int *i)
 
 int		sb_lessmatch(int c, char *str, int *i)
 {
-	ft_putstr("LESS");
 	if (str && str[*i])
 	{
 		if (c >= str[*i - 1] && c <= str[*i + 1])
@@ -100,14 +107,6 @@ int		sb_classmatch(int c, char *str, int *i)
 
 int		sb__match(int c, char *str, int *i)
 {
-	ft_putendl("sb__match()--");
-	ft_putstr("int : ");
-	ft_putnbr(c);
-	ft_putstr(" str :");
-	ft_putstr(str);
-	ft_putstr("  ");
-//	dt_putstr
-	ft_putnbr(*i);
 	while (str && str[*i] && str[*i] != '-' && str[*i] != ']')
 	{
 		if (c == str[*i])

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_accolade.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:08:31 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:09:27 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 int		check_pointpoint(char *line, int i)
@@ -86,24 +98,15 @@ t_new	*make_pointpoint(t_new *new, char *str)
 		{
 			while (c <= str[3])
 			{
-				w = creat_bracket(c);
+				w = creat_bracket(c++);
 				izi = add_joinaccolade(izi, s->str, w);
 				ft_strdel(&w);
-				c++;
 			}
 			s = s->next;
 		}
 		free_new(new);
 	}
 	else
-	{
-		while (c <= str[3])
-		{
-			w = creat_bracket(c);
-			izi = add_dupaccolade(izi, w);
-			ft_strdel(&w);
-			c++;
-		}
-	}
+		izi = make_pointpointdup(str);
 	return (izi);
 }

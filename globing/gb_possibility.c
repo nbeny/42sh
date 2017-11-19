@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_possibility.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:10:53 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:10:55 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 t_glob	*accolade(t_glob *g, char *line, int *i)
@@ -22,50 +34,6 @@ t_glob	*accolade(t_glob *g, char *line, int *i)
 		g = remake_arg(g, line);
 	}
 	return (g);
-}
-
-int check_name_pos(char *str)
-{
-	if (ft_strncmp(str, "[:blank:]", 9) == 0 ||\
-		ft_strncmp(str, "[:alnum:]", 9) == 0 ||\
-		ft_strncmp(str, "[:alpha:]", 9) == 0 ||\
-		ft_strncmp(str, "[:ascii:]", 9) == 0 ||\
-		ft_strncmp(str, "[:cntrl:]", 9) == 0 ||\
-		ft_strncmp(str, "[:digit:]", 9) == 0 ||\
-		ft_strncmp(str, "[:graph:]", 9) == 0 ||\
-		ft_strncmp(str, "[:lower:]", 9) == 0 ||\
-		ft_strncmp(str, "[:print:]", 9) == 0 ||\
-		ft_strncmp(str, "[:punct:]", 9) == 0 ||\
-		ft_strncmp(str, "[:space:]", 9) == 0 ||\
-		ft_strncmp(str, "[:upper:]", 9) == 0 ||\
-		ft_strncmp(str, "[:word:]", 8) == 0 ||\
-		ft_strncmp(str, "[:xdigit:]", 10) == 0)
-		return (1);
-	return (0);
-}
-
-int		check_is_posix(char *str, int *i)
-{
-	int		j[2];
-	int		save;
-	char	*class;
-
-	class = NULL;
-	save = *i;
-	j[0] = *i;
-	while (str[*i] && str[*i] != ']')
-	{
-		(*i)++;
-	}
-	j[1] = ++(*i);
-	class = ft_strsub(str, j[0], j[1]);
-	if (check_name_pos(class) == 1)
-	{
-		ft_strdel(&class);
-		return (*i);
-	}
-	ft_strdel(&class);
-	return (++save);
 }
 
 t_glob	*square_bracket(t_glob *g, char *line, int *i)
@@ -105,7 +73,6 @@ t_glob	*interogation(t_glob *g, char *line, int *i)
 
 t_glob	*part_arg(t_glob *g, char *line, int *i)
 {
-	ft_putendl("part_arg()");
 	g->p[0] = *i;
 	while (line[*i] != '\0' && line[*i] != '[' &&\
 		   line[*i] != '{' && line[*i] != '?' && line[*i] != '/')
@@ -119,24 +86,14 @@ t_glob	*slash_gestion(t_glob *g, char *line, int *i)
 {
 	char	*tmp;
 
-	ft_putendl("slash_gestion(1)");
 	tmp = NULL;
-	ft_putendl(line);
-	ft_putnbr(*i);
-//	sleep(1);
 	if (line[0] == '/' )
 		g->slashzero = 1;
 	while (line[*i] != '\0' && line[*i] == '/')
 		(*i)++;
-	ft_putstr("end while i =");
-	ft_putnbr(*i);
-	ft_putendl(".");
 	if (g->arg != NULL)
 	{
-		printf("BEFORE ADD GLOB SLASH g = %p \n\n",g);
 		g = add_glob_slash(g);
-		printf("AFTER ADD GLOB g = %p \n\n",g);
-//	g = do_we_match(g);
 		g = g->slash;
 		if (line[0] == '/')
 			g->slashzero = 1;

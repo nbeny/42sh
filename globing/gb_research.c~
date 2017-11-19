@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_research.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:11:11 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:11:13 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 t_glob	*remake_arg(t_glob *g, char *line)
@@ -21,9 +33,7 @@ t_glob	*remake_arg(t_glob *g, char *line)
 		ft_strdel(&tmp2);
 	}
 	else
-	{
 		g = add_arg(g, line, 0);
-	}
 	return (g);
 }
 
@@ -35,29 +45,21 @@ t_glob	*zoom_research(t_glob *g, char *line)
 	i = 0;
 	s = g;
 	if (line == NULL)
-	{
-		ft_putstr("zoom reasearch null return ");
 		return (NULL);
-	}
 	while (line[i])
 	{
-		ft_putnbr(i);
 		if (line[i] == '/')
 			s = slash_gestion(s, line, &i);
 		if (line[i] == '[')
 			s = square_bracket(s, line, &i);
 		else if (line[i] == '{')
-		{
-			ft_putchar('q');
 			s = accolade(s, line, &i);
-		}
 		else if (line[i] == '?')
 			s = interogation(s, line, &i);
 		else
 			s = part_arg(s, line, &i);
 	}
 	g = do_we_match(g);
-	ft_putendl("return zoom search");
 	return (g);
 }
 
@@ -83,9 +85,7 @@ char	**globing_research(char **cmd)
 	char		**end;
 	t_glob		*g;
 	t_glob		*s;
-	char		**split_acc;
 
-	split_acc = NULL;
 	j = 1;
 	g = NULL;
 	res = NULL;
@@ -102,34 +102,10 @@ char	**globing_research(char **cmd)
 			free_glob_slash(g);
 		}
 		else
-		{
 			res = add_path(res, cmd[j]);
-		}
 		j++;
-	}
-	ft_putendl("start print ");
-	while (res)
-	{
-		ft_putendl(res->str);
-		res = res->next;
 	}
 	end = list_to_tab_new(res);
 	free_resforever(res);
-	ft_putendl("start print ");
-	j = 0;
-	while (end && end[j])
-	{
-		ft_putendl(end[j]);
-		j++;
-	}
-	j = 0;
-	while (end && end[j])
-	{
-		ft_strdel(&end[j]);
-		j++;
-	}
-	free(end);
-	end = NULL;
-	while (1);
 	return (end);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_research.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:11:11 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:11:13 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 t_glob	*remake_arg(t_glob *g, char *line)
@@ -21,9 +33,7 @@ t_glob	*remake_arg(t_glob *g, char *line)
 		ft_strdel(&tmp2);
 	}
 	else
-	{
 		g = add_arg(g, line, 0);
-	}
 	return (g);
 }
 
@@ -35,33 +45,21 @@ t_glob	*zoom_research(t_glob *g, char *line)
 	i = 0;
 	s = g;
 	if (line == NULL)
-	{
-		ft_putstr("zoom reasearch null return ");
 		return (NULL);
-	}
 	while (line[i])
 	{
-		ft_putnbr(i);
 		if (line[i] == '/')
 			s = slash_gestion(s, line, &i);
 		if (line[i] == '[')
 			s = square_bracket(s, line, &i);
 		else if (line[i] == '{')
-		{
-			ft_putchar('q');
 			s = accolade(s, line, &i);
-		}
 		else if (line[i] == '?')
 			s = interogation(s, line, &i);
 		else
 			s = part_arg(s, line, &i);
-		printf("%p",s);
-		fflush(stdout);
 	}
-	printf("/n BFORE DOWEMATCH g = %p \n\n",g);
 	g = do_we_match(g);
-	printf("/n AFTER DOWEMATCH g = %p \n\n",g);
-	ft_putendl("return zoom search");
 	return (g);
 }
 
@@ -84,64 +82,36 @@ char	**globing_research(char **cmd)
 {
 	int			j;
 	t_new		*res;
-	t_new		*f;
 	char		**end;
 	t_glob		*g;
 	t_glob		*s;
-	char		**split_acc;
-	
-	split_acc = NULL;
+
 	j = 1;
 	g = NULL;
 	res = NULL;
 	while (cmd && cmd[j])
 	{
 		g = init_glob();
-		printf("INIT GLOB g = %p \n\n",g);
 		if (check_isglob(cmd[j]))
 		{
 			g = zoom_research(g, cmd[j]);
-			printf("after zoom research g = %p \n\n",g);
 			s = g;
 			while (s->slash)
 				s = s->slash;
 			res = join_list(res, s->resforever);
-			if (g->slash == NULL)
-				ft_putendl("ERROR");
-			printf("BEFORE FREE g = %p \n\n",g);
 			free_glob_slash(g);
 		}
 		else
-		{
 			res = add_path(res, cmd[j]);
-		}
 		j++;
 	}
-	ft_putendl("start print ");
-	f = res;
-	while (res)
-	{
-		ft_putendl(res->str);
-		res = res->next;
-		}
-	end = list_to_tab_new(f);
-	free_resforever(f);
-	ft_putendl("start print ");
+	end = list_to_tab_new(res);
+	free_resforever(res);
 	j = 0;
 	while (end && end[j])
 	{
 		ft_putendl(end[j]);
 		j++;
-		}
-	j = 0;
-
-	while (end && end[j])
-	{
-		ft_strdel(&end[j]);
-		j++;
-		}
-	free(end);
-	end = NULL;
-	while (1);
+	}
 	return (end);
 }

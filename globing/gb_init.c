@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_init.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:10:28 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:10:29 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
-t_glob	*init_glob()
+t_glob	*init_glob(void)
 {
 	t_glob		*g;
 
@@ -14,26 +26,9 @@ t_glob	*init_glob()
 	g->p[1] = 0;
 	g->slash = NULL;
 	g->sb = NULL;
-//	g->next = NULL;
 	return (g);
 }
-/*
-t_glob	*add_glob_next(t_glob *g)
-{
-	t_glob		*s;
 
-	s = g;
-	if (g != NULL)
-	{
-		while (s->next != NULL)
-			s = s->next;
-		s->next = init_glob();
-	}
-	else
-		g = init_glob();
-	return (g);
-}
-*/
 t_glob	*add_glob_slash(t_glob *g)
 {
 	t_glob		*s;
@@ -50,7 +45,7 @@ t_glob	*add_glob_slash(t_glob *g)
 	return (g);
 }
 
-t_arg   *init_argument()
+t_arg	*init_argument(void)
 {
 	t_arg		*arg;
 
@@ -67,7 +62,6 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 	t_arg		*s;
 
 	s = g->arg;
-	ft_putstr("create arg");
 	if (s != NULL)
 	{
 		while (s->next != NULL)
@@ -76,14 +70,12 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 		s = s->next;
 		s->str = ft_strsub(line, g->p[0], g->p[1]);
 		s->id = a;
-		printf(RED "\n malloc : %p"RESET"\n",s);
 	}
 	else
 	{
 		g->arg = init_argument();
 		g->arg->str = ft_strsub(line, g->p[0], g->p[1]);
 		g->arg->id = a;
-		printf(RED"\n malloc : %p"RESET"\n",g);
 	}
 	return (g);
 }

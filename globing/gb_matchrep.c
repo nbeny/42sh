@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_matchrep.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:10:47 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:10:49 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 #include <sys/types.h>
 #include <sys/dir.h>
@@ -6,7 +18,6 @@ char	*tri_join(int zero, char *path, char *str)
 {
 	char	*join;
 	char	*tmp;
-
 
 	tmp = ft_strjoin(path, "/");
 	join = ft_strjoin(tmp, str);
@@ -21,16 +32,13 @@ t_new	*match_rep(t_glob *g, char *path)
 	struct dirent		*d;
 	DIR					*dir;
 	char				*str;
-	int					neg;
 
 	str = NULL;
 	s = g->new;
 	new_path = NULL;
-	neg = 0;
 	while (s != NULL)
 	{
 		dir = opendir(path);
-		ft_putstr(path);
 		while ((d = readdir(dir)) != NULL)
 		{
 			str = tri_join(g->slashzero, path, d->d_name);
@@ -115,7 +123,6 @@ t_glob	*match_file(t_glob *g, t_new *st_path)
 				}
 			}
 		}
-	}
 		closedir(dir);
 		s = s->next;
 	}

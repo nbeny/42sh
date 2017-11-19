@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_addword.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/19 02:10:13 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/19 02:10:15 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
-//gg
 
 char	*creat_bracket(int c)
 {
 	char *s;
 
 	if (!(s = (char *)malloc(sizeof(char) * 2)))
-		return(NULL);
+		return (NULL);
 	s[0] = c;
 	s[1] = '\0';
 	return (s);
@@ -81,30 +92,6 @@ t_glob	*add_word(t_glob *g, char *str)
 	return (g);
 }
 
-t_glob	*add_sbplease(t_glob *g, char *str)
-{
-	t_new	*s;
-
-	s = g->sb;
-	if (s != NULL)
-	{
-		while (s->next != NULL)
-			s = s->next;
-		s->next = init_new();
-		s = s->next;
-		s->str = ft_strdup(str);
-		return (g);
-	}
-	else
-	{
-		g->sb = init_new();
-		g->sb->str = ft_strdup(str);
-		return (g);
-	}
-	return (g);
-
-}
-
 t_glob	*add_sb(t_glob *g, char *str)
 {
 	t_new	*sb;
@@ -116,11 +103,8 @@ t_glob	*add_sb(t_glob *g, char *str)
 	tmp = NULL;
 	w = NULL;
 	s = g->new;
-
-	
 	if (g && g->new)
 	{
-		ft_putendl("0--> new != NULL");
 		g = add_sbplease(g, str);
 		while (s != NULL)
 		{
