@@ -85,7 +85,11 @@ char	**globing_research(char **cmd)
 	char		**end;
 	t_glob		*g;
 	t_glob		*s;
+	char **split;
+	int i;
 
+	split = NULL;
+	i = 0;
 	j = 1;
 	g = NULL;
 	res = NULL;
@@ -94,12 +98,41 @@ char	**globing_research(char **cmd)
 		g = init_glob();
 		if (check_isglob(cmd[j]))
 		{
-			g = zoom_research(g, cmd[j]);
-			s = g;
-			while (s->slash)
-				s = s->slash;
-			res = join_list(res, s->resforever);
-			free_glob_slash(g);
+			if (check_is_acc(cmd[j]))
+			{
+				split = ft_split_acc(cmd[j], 1);
+								ft_print_tab(split);
+				while(check_res(split))
+					split = ft_split_acc_tab(split);
+				ft_putendl("printable");
+				ft_print_tab(split);
+//				while(1);
+				i = 0;	
+//				while(1);
+					while (split[i])
+					{
+						if (check_isglob(split[i]))
+						{
+							g = zoom_research(g, split[i++]);
+							s = g;
+							while (s->slash)
+								s = s->slash;
+							res = join_list(res, s->resforever);
+							free_glob_slash(g);
+						}
+						else
+							res = add_path(res, split[i]);
+					}
+			}
+			else
+			{
+				g = zoom_research(g, cmd[j]);
+				s = g;
+				while (s->slash)
+					s = s->slash;
+				res = join_list(res, s->resforever);
+				free_glob_slash(g);
+			}
 		}
 		else
 			res = add_path(res, cmd[j]);
@@ -113,5 +146,12 @@ char	**globing_research(char **cmd)
 		ft_putendl(end[j]);
 		j++;
 	}
+	i = 0;
+	while (*split)
+	{
+		ft_strdel(&split[i++]);
+	}
+	free(split);
+//	while(1);
 	return (end);
 }

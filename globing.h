@@ -162,4 +162,10 @@ void			free_arg(t_arg *arg);
 void			free_new(t_new *new);
 void			free_resforever(t_new *resforever);
 void			free_glob_slash(t_glob *g);
+//acc
+char **ft_split_acc(char *str, int check);
+int check_is_acc(char *str);
+char **ft_split_acc_tab(char **tab);
+int check_res(char **tab);
+void ft_print_tab(char **tab);
 #endif

@@ -51,7 +51,7 @@ char **ft_join_tab(char **tab, char *start)
 	while (tab[len_tab])
 		len_tab++;
 	res = NULL;
-	if (!(res = (char **)malloc(sizeof(char *) * len_tab + 1)))
+	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + 1) )))
 		return (NULL);
 	i = 0;
 	while (tab[i])
@@ -64,6 +64,7 @@ char **ft_join_tab(char **tab, char *start)
 	while (tab[i])
 		ft_strdel(&tab[i++]);
 	free(tab);
+	tab = NULL;
 	return (res);
 }
 
@@ -80,7 +81,7 @@ char **ft_join_tab_end(char **tab, char *end)
 	while (tab[len_tab])
 		len_tab++;
 	res = NULL;
-	if (!(res = (char **)malloc(sizeof(char *) * len_tab + 1)))
+	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + 1))))
 		return (NULL);
 	i = 0;
 	while (tab[i])
@@ -188,7 +189,8 @@ char **ft_split_acc_tab(char **tab)
 	while (tab[i])
 	{
 		{
-			tmp = ft_split_acc(tab[i], 1);
+						ft_putendl("<<<<<<<<<<<<<<<<<<,,");
+			tmp = ft_split_acc(tab[i], 0);
 			ft_putendl("\t\t---------------------");
 			ft_print_tab(tmp);
 //			sleep(1);
@@ -197,9 +199,14 @@ char **ft_split_acc_tab(char **tab)
 			ft_putendl("\t\t---------------------");
 //			sleep(1);
 			tmp = NULL;
+//			return(res);
 		}
 		i++;
 	}
+	i = 0;
+	while (tab[i])
+		ft_strdel(&tab[i++]);
+	free (tab);
 	return (res);
 }
 char **ft_split_acc(char *str, int check)
@@ -217,7 +224,7 @@ char **ft_split_acc(char *str, int check)
 	res = NULL;
 	start = ft_strdup("\0");
 	ft_putendl("ft_split_acc");
-	while (str[i] != '\0')
+	while (str && str[i] != '\0')
 	{
 		if (str[i] == '{')
 		{
@@ -226,6 +233,7 @@ char **ft_split_acc(char *str, int check)
 			if (tmp)
 			{
 				start = ft_strjoin(start, tmp);
+
 			}
 			while (str[i] != '\0' && str[i] != '}')
 			{
@@ -240,9 +248,10 @@ char **ft_split_acc(char *str, int check)
 				res = ft_strsplit(tmp, ',');
 				ft_strdel(&tmp);
 				tmp = NULL;
-//				ft_print_tab(res);
+				ft_print_tab(res);
 				res = ft_join_tab(res, start);
-//				ft_print_tab(res);
+				ft_print_tab(res);
+				ft_strdel(&start);
 				if (str[i] != '\0')
 				{
 					j = i + 1;
@@ -259,12 +268,20 @@ char **ft_split_acc(char *str, int check)
 	}
 	i = 0;
 	(void)check;
-	if (check_res(res) )
-		res = ft_split_acc_tab(res);
+//	if (check == 1)
+//	if (check_res(res) )
+//		res = ft_split_acc_tab(res);
 	
 	ft_print_tab(res);
 	ft_putendl("end");
-	while(1);
+	i = 0;
+/*	while (split[i])
+	{
+		ft_strdel(&split[i++]);
+	}
+	free(split);
+	split = NULL;*/
+//	while(1);
 //	sleep(3);
 //	ft_putendl(start);
 	return (res);
