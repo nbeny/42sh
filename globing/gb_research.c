@@ -117,8 +117,12 @@ char	**globing_research(char **cmd)
 							s = g;
 							while (s->slash)
 								s = s->slash;
-							res = join_list(res, s->resforever);
+							if (res)
+								res = join_list(res, s->resforever);
+							else
+								res = add_path(res, split[i]);
 							free_glob_slash(g);
+							i++;
 						}
 						else
 							res = add_path(res, split[i]);
@@ -130,7 +134,11 @@ char	**globing_research(char **cmd)
 				s = g;
 				while (s->slash)
 					s = s->slash;
-				res = join_list(res, s->resforever);
+				if (res)
+					res = join_list(res, s->resforever);
+				else
+					res = add_path(res, cmd[j]);
+				
 				free_glob_slash(g);
 			}
 		}
@@ -147,11 +155,14 @@ char	**globing_research(char **cmd)
 		j++;
 	}
 	i = 0;
+	if (split)
+	{
 	while (*split)
 	{
 		ft_strdel(&split[i++]);
 	}
 	free(split);
-//	while(1);
+	}
+	while(1);
 	return (end);
 }
