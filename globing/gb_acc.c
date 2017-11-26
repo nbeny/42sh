@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_acc.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/11/27 00:44:11 by nbeny             #+#    #+#             */
+/*   Updated: 2017/11/27 00:44:15 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 int check_is_acc(char *str)
@@ -134,13 +146,13 @@ char **ft_fusion_array(char **tab1, char **tab2)
 	else if (tab1 && !tab2)
 		return (tab1);
 	else if (!tab1 && !tab2)
-		return NULL;
+		return (NULL);
 	while (tab1[len_tab])
 		len_tab++;
 	while (tab2[len_tab2])
 		len_tab2++;
 	res = NULL;
-	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + len_tab2 + 1) )))
+	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + len_tab2 + 1))))
 		return (NULL);
 	i = 0;
 	while (tab1[i])

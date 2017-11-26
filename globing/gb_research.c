@@ -106,9 +106,7 @@ char	**globing_research(char **cmd)
 					split = ft_split_acc_tab(split);
 				ft_putendl("printable");
 				ft_print_tab(split);
-//				while(1);
 				i = 0;	
-//				while(1);
 					while (split[i])
 					{
 						if (check_isglob(split[i]))
@@ -163,6 +161,6 @@ char	**globing_research(char **cmd)
 	}
 	free(split);
 	}
-	while(1);
+//	while(1);
 	return (end);
 }
