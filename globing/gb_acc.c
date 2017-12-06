@@ -12,173 +12,12 @@
 
 #include "globing.h"
 
-int check_is_acc(char *str)
+char	**ft_split_acc_tab(char **tab)
 {
-	int i;
-	int cout;
-
-	cout = 0;
-	if (!str)
-		return (0);
-	i = 0;
-	while (str[i])
-	{
-		if (str[i] == '{')
-			cout++;
-		if (cout > 0 && str[i] == '}')
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void ft_print_tab(char **tab)
-{
-	int i;
-
-	i = 0;
-	ft_putendl("tab : {");
-	if (tab)
-	while (tab[i] != NULL)
-	{
-		ft_putendl(tab[i++]);
-	}
-	ft_putendl("}");
-}
-
-char **ft_join_tab(char **tab, char *start)
-{
-	int i;
-	char **res;
-	int len_tab;
-
-	len_tab = 0;
-	if (!tab)
-		return (NULL);
-	while (tab[len_tab])
-		len_tab++;
-	res = NULL;
-	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + 1) )))
-		return (NULL);
-	i = 0;
-	while (tab[i])
-	{
-		res[i] = ft_strjoin(start, tab[i]);
-		i++;
-	}
-	res[i] = NULL;
-	i = 0;
-	while (tab[i])
-		ft_strdel(&tab[i++]);
-	free(tab);
-	tab = NULL;
-	return (res);
-}
-
-char **ft_join_tab_end(char **tab, char *end)
-{
-	int i;
-	char **res;
-	int len_tab;
-
-	len_tab = 0;
-	if (!tab)
-		return (NULL);
-	while (tab[len_tab])
-		len_tab++;
-	res = NULL;
-	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + 1))))
-		return (NULL);
-	i = 0;
-	while (tab[i])
-	{
-		res[i] = ft_strjoin(tab[i], end);
-		i++;
-	}
-	res[i] = NULL;
-	i = 0;
-	while (tab[i])
-		ft_strdel(&tab[i++]);
-	free(tab);
-	return (res);
-}
-
-int check_res(char **tab)
-{
-	int i;
-
-	i = 0;
-	if (!tab)
-		return (0);
-	while (tab[i])
-	{
-		if (check_is_acc(tab[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-void ft_free_array(char **tab)
-{
-	int i;
-
-	i = 0;
-	while (tab[i])
-	{
-		ft_strdel(&tab[i++]);
-	}
-	free(tab);
-	tab = NULL;
-}
-
-char **ft_fusion_array(char **tab1, char **tab2)
-{
-	int i;
-	char **res;
-	int len_tab;
-	int len_tab2;
-
-	len_tab2 = 0;
-	len_tab = 0;
-	if (!tab1 && tab2)
-		return (tab2);
-	else if (tab1 && !tab2)
-		return (tab1);
-	else if (!tab1 && !tab2)
-		return (NULL);
-	while (tab1[len_tab])
-		len_tab++;
-	while (tab2[len_tab2])
-		len_tab2++;
-	res = NULL;
-	if (!(res = (char **)malloc(sizeof(char *) * (len_tab + len_tab2 + 1))))
-		return (NULL);
-	i = 0;
-	while (tab1[i])
-	{
-		res[i] = ft_strdup(tab1[i]);
-		i++;
-	}
-	len_tab = 0;
-	while (tab2[len_tab])
-	{
-		res[i] = ft_strdup(tab2[len_tab]);
-		len_tab++;
-		i++;
-	}
-	res[i] = NULL;
-	ft_free_array(tab1);
-	ft_free_array(tab2);
-	return (res);	
-}
-
-char **ft_split_acc_tab(char **tab)
-{
-	int i;
-	char **res;
-	char **tmp;
-	int j;
+	int		i;
+	char	**res;
+	char	**tmp;
+	int		j;
 
 	tmp = NULL;
 	res = NULL;
@@ -196,7 +35,7 @@ char **ft_split_acc_tab(char **tab)
 		i++;
 	}
 	j = 0;
-	if(tmp)
+	if (tmp)
 	{
 		while (tmp[j])
 			ft_strdel(&tmp[j++]);
@@ -208,61 +47,74 @@ char **ft_split_acc_tab(char **tab)
 	free (tab);
 	return (res);
 }
-char **ft_split_acc(char *str, int check)
+
+t_utils *init_ut(t_utils *ut, char *str)
 {
-	int i;
-	char **res;
-	char *start;
-	char *tmp;
-	int j;
-	char *tmp2;
-	
-	j = 0;
-	i = 0;
-	tmp = NULL;
-	start = NULL;
-	res = NULL;
-	tmp2 = ft_strdup("\0");
-	while (str && str[i] != '\0')
+	ut->j = 0;
+	ut->i = 0;
+	ut->tmp = NULL;
+	ut->start = NULL;
+	ut->res = NULL;
+	ut->str = str;
+	ut->tmp2 = ft_strdup("\0");	
+	return (ut);
+}
+
+t_utils *ft_create_res(t_utils *ut)
+{
+	if (ut->res ==  NULL)
 	{
-		if (str[i] == '{')
+		ut->res = ft_strsplit(ut->tmp, ',');
+		ft_strdel(&ut->tmp);
+		ut->tmp = NULL;
+		ut->res = ft_join_tab(ut->res, ut->start);
+		ft_print_tab(ut->res);
+		ft_strdel(&(ut->start));
+		if (ut->str[ut->i] != '\0')
 		{
-			tmp = ft_strsub(str,0, i );
-			j = i + 1;
-			if (tmp)
-				start = ft_strjoin(tmp2, tmp);
-			ft_strdel(&tmp);
-			ft_strdel(&tmp2);
-			tmp2 = NULL;
-			res = NULL;
-			while (str[i] != '\0' && str[i] != '}')
-				i++;
-			tmp = ft_strsub(str, j, i);
-			if (res ==  NULL)
-			{
-				res = ft_strsplit(tmp, ',');
-				ft_strdel(&tmp);
-				tmp = NULL;
-				res = ft_join_tab(res, start);
-				ft_print_tab(res);
-				ft_strdel(&start);
-				if (str[i] != '\0')
-				{
-					j = i + 1;
-					while (str[i])
-						i++;
-					tmp = ft_strsub(str, j, i);
-					res = ft_join_tab_end(res, tmp);
-				}
-			}
-			ft_strdel(&tmp);
+			ut->j = ut->i + 1;
+			while (ut->str[ut->i])
+				ut->i++;
+			ut->tmp = ft_strsub(ut->str, ut->j, ut->i);
+			ut->res = ft_join_tab_end(ut->res, ut->tmp);
 		}
-		if (str[i] == '\0')
-		break ;
-			i++;
 	}
-	i = 0;
+	return (ut);
+}
+
+char	**ft_split_acc(char *str, int check)
+{
+	t_utils *ut;
+	char **res;
+	
+	ut = malloc(sizeof(t_utils));
+	ut = init_ut(ut, str);
+	while (str && str[ut->i] != '\0')
+	{
+		if (str[ut->i] == '{')
+		{
+			ut->tmp = ft_strsub(ut->str, 0, ut->i);
+			ut->j = ut->i + 1;
+			if (ut->tmp)
+				ut->start = ft_strjoin(ut->tmp2, ut->tmp);
+			ft_strdel(&(ut->tmp));
+			ft_strdel(&(ut->tmp2));
+			ut->tmp2 = NULL;
+			ut->res = NULL;
+			while (str[ut->i] != '\0' && str[ut->i] != '}')
+				ut->i++;
+			ut->tmp = ft_strsub(str, ut->j, ut->i);
+			ut = ft_create_res(ut);
+			ft_strdel(&(ut->tmp));
+		}
+		if (str[ut->i] == '\0')
+			break ;
+		ut->i++;
+	}
 	(void)check;
+	res = ut->res;
+	free(ut);
+	ft_putstr("hehre");
 	return (res);
 }
 

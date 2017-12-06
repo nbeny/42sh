@@ -28,6 +28,24 @@ typedef struct	s_glob
 	int				p[2];
 	struct s_glob	*slash;
 }				t_glob;
+typedef struct	s_fus
+{
+	int	 	i;
+	char	**res;
+	int	 	len_tab;
+	int	 	len_tab2;
+
+}				t_fus;
+typedef struct s_utils
+{
+	int	 	i;
+	char	**res;
+	char	*start;
+	char	*tmp;
+	int	 	j;
+	char	*tmp2;
+	char	*str;
+}				t_utils;
 /*
 **gb_init
 */
@@ -166,8 +184,20 @@ void			free_glob_slash(t_glob *g);
 **gb_acc
 */
 char			**ft_split_acc(char *str, int check);
-int				check_is_acc(char *str);
 char			**ft_split_acc_tab(char **tab);
-int				check_res(char **tab);
+t_utils			*ft_create_res(t_utils *ut);
+t_utils			*init_ut(t_utils *ut, char *str);
+/*
+**gb_acc2
+*/
+int				check_is_acc(char *str);
 void			ft_print_tab(char **tab);
+char			**ft_join_tab(char **tab, char *start);
+int				check_res(char **tab);
+/*
+**gb_acc_handle_array
+*/
+char    		**ft_fusion_array(char **tab1, char **tab2);
+char            **ft_join_tab_end(char **tab, char *end);
+void            ft_free_array(char **tab);
 #endif
