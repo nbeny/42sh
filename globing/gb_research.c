@@ -96,8 +96,6 @@ char	**globing_research(char **cmd)
 	while (cmd && cmd[j])
 	{
 		g = init_glob();
-
-
 		if (check_isglob(cmd[j]))
 		{
 			if (check_is_acc(cmd[j]))
@@ -109,16 +107,18 @@ char	**globing_research(char **cmd)
 				i = 0;	
 				while (split && split[i])
 				{
+					g = init_glob();
 					if (check_isglob(split[i]))
 					{
 						g = zoom_research(g, split[i]);
 						s = g;
 						while (s->slash)
 							s = s->slash;
-						if (res && s->resforever)
+						if (s->resforever)
 							res = join_list(res, s->resforever);
 						else
 							res = add_path(res, split[i]);
+						free_glob_slash(g);
 					}
 					else
 						res = add_path(res, split[i]);
@@ -127,16 +127,14 @@ char	**globing_research(char **cmd)
 			}
 			else
 			{
-				ft_putendl("-");
 				g = zoom_research(g, cmd[j]);
 				s = g;
 				while (s->slash)
 					s = s->slash;
-				if (res)
+				if (s->resforever)
 					res = join_list(res, s->resforever);
 				else
 					res = add_path(res, cmd[j]);
-				
 				free_glob_slash(g);
 			}
 		}
