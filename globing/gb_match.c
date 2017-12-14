@@ -131,7 +131,12 @@ t_glob	*do_we_match(t_glob *g)
 	st_path = NULL;
 	tmp = NULL;
 	g = add_everything(g);
-	if (g->slashzero == 0)
+	if (!ft_strncmp(g->new->str, "~\0", 2))
+	{	
+		tmp = ft_strdup(g->home);
+		g = g->slash;
+	}
+	else if (g->slashzero == 0)
 		tmp = getcwd(NULL, 1024);
 	else
 		tmp = ft_strdup("/");

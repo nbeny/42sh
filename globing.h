@@ -27,6 +27,7 @@ typedef struct	s_glob
 	struct s_new	*resforever;
 	int				p[2];
 	struct s_glob	*slash;
+	char			*home;
 }				t_glob;
 typedef struct	s_fus
 {
@@ -66,7 +67,7 @@ t_glob			*add_sbplease(t_glob *g, char *str);
 t_glob			*remake_arg(t_glob *g, char *line);
 t_glob			*zoom_research(t_glob *g, char *line);
 int				check_isglob(char *line);
-char			**globing_research(char **cmd);
+char			**globing_research(char **cmd, char **env);
 /*
 **gb_possibility
 */
@@ -200,4 +201,8 @@ int				check_res(char **tab);
 char    		**ft_fusion_array(char **tab1, char **tab2);
 char            **ft_join_tab_end(char **tab, char *end);
 void            ft_free_array(char **tab);
+/*
+**gb_get_env
+*/
+char			*gb_get_env(char **env);
 #endif

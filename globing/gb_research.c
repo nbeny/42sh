@@ -78,7 +78,7 @@ int		check_isglob(char *line)
 	return (0);
 }
 
-char	**globing_research(char **cmd)
+char	**globing_research(char **cmd, char **env)
 {
 	int			j;
 	t_new		*res;
@@ -95,7 +95,9 @@ char	**globing_research(char **cmd)
 	res = NULL;
 	while (cmd && cmd[j])
 	{
-		g = init_glob();
+		g = init_glob(env);
+		g->home = gb_get_env(env);
+		ft_putendl(g->home);
 		if (check_isglob(cmd[j]))
 		{
 			if (check_is_acc(cmd[j]))
@@ -107,7 +109,8 @@ char	**globing_research(char **cmd)
 				i = 0;	
 				while (split && split[i])
 				{
-					g = init_glob();
+					g = init_glob(env);
+					g->home = gb_get_env(env);
 					if (check_isglob(split[i]))
 					{
 						g = zoom_research(g, split[i]);

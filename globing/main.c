@@ -12,12 +12,17 @@
 
 #include "globing.h"
 
-int		main(int ac, char **av)
+int		main(int ac, char **av, char **env)
 {
 	char	**str;
 	int		i;
 
 	i = 0;
-	str = globing_research(av);
+	while (env && env[i] != NULL)
+	{
+		ft_putendl(env[i]);
+		i++;
+	}
+	str = globing_research(av, env);
 	return (0);
 }

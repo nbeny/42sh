@@ -12,7 +12,7 @@
 
 #include "globing.h"
 
-t_glob	*init_glob(void)
+t_glob	*init_glob()
 {
 	t_glob		*g;
 
@@ -26,6 +26,7 @@ t_glob	*init_glob(void)
 	g->p[1] = 0;
 	g->slash = NULL;
 	g->sb = NULL;
+	g->home = NULL;
 	return (g);
 }
 
