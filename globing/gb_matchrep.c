@@ -76,7 +76,8 @@ t_glob	*match_file(t_glob *g, t_new *st_path)
 		dir = opendir(st_path->str);
 		while ((d = readdir(dir)) != NULL)
 			if (nmatch(d->d_name, s->str, g->sb) != 0)
-				if (d->d_name[0] != '.' || !ft_strncmp(s->str, "..\0", 3))
+				if (d->d_name[0] != '.' || !ft_strncmp(s->str, "..\0", 3 ||\
+					!ft_strncmp(s->str, ".\0", 2)))
 				{
 					s->i = 1;
 					tmp = found_path(g->slashzero,\

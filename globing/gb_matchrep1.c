@@ -28,7 +28,8 @@ t_new	*match_rep_end(t_glob *g, char *path, t_new *s, t_new *new_path)
 		if (nmatch(d->d_name, s->str, g->sb) != 0)
 		{
 			if (!access(str, R_OK) && d->d_type == 4 &&\
-				(d->d_name[0] != '.' || !ft_strncmp(s->str, "..\0", 3)))
+				(d->d_name[0] != '.' || !ft_strncmp(s->str, "..\0", 3) ||\
+				!ft_strncmp(s->str, ".\0", 2)))
 			{
 				ft_strdel(&str);
 				str = tri_join(g->slashzero, path, d->d_name);
