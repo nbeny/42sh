@@ -97,7 +97,6 @@ char	**globing_research(char **cmd, char **env)
 	{
 		g = init_glob(env);
 		g->home = gb_get_env(env);
-		ft_putendl(g->home);
 		if (check_isglob(cmd[j]))
 		{
 			if (check_is_acc(cmd[j]))

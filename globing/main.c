@@ -18,11 +18,13 @@ int		main(int ac, char **av, char **env)
 	int		i;
 
 	i = 0;
+/*
 	while (env && env[i] != NULL)
 	{
 		ft_putendl(env[i]);
 		i++;
 	}
+*/
 	str = globing_research(av, env);
 	return (0);
 }

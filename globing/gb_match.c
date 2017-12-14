@@ -132,7 +132,7 @@ t_glob	*do_we_match(t_glob *g)
 	tmp = NULL;
 	g = add_everything(g);
 	if (!ft_strncmp(g->new->str, "~\0", 2))
-	{	
+	{
 		tmp = ft_strdup(g->home);
 		g = g->slash;
 	}
