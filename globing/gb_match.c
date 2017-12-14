@@ -93,7 +93,10 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, t_glob *save)
 	if (izi != NULL)
 		return (check_slash(g->slash, izi, save));
 	else
+	{
+//		g->resforever = gb_home_path(g->resforever, save);
 		return (save);
+	}
 }
 
 t_glob	*add_everything(t_glob *g)
@@ -127,21 +130,29 @@ t_glob	*do_we_match(t_glob *g)
 {
 	char	*tmp;
 	t_new	*st_path;
+	t_glob	*s;
 
 	st_path = NULL;
 	tmp = NULL;
 	g = add_everything(g);
-	if (!ft_strncmp(g->new->str, "~\0", 2))
+	s = g;
+	if (!ft_strncmp(s->new->str, "~\0", 2))
 	{
-		tmp = ft_strdup(g->home);
-		g = g->slash;
+		tmp = ft_strdup(s->home);
+		while (s != NULL)
+		{
+			s->slashzero = 1;
+			s = s->slash;
+		}
+		s = g;
+		s = s->slash;
 	}
-	else if (g->slashzero == 0)
+	else if (s->slashzero == 0)
 		tmp = getcwd(NULL, 1024);
 	else
 		tmp = ft_strdup("/");
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
-	g = check_slash(g, st_path, g);
+	g = check_slash(s, st_path, g);
 	return (g);
 }

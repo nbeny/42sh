@@ -18,3 +18,26 @@ char	*gb_get_env(char **env)
 	}
 	return (NULL);
 }
+/*
+t_new	*gb_home_path(t_new *res, t_glob *g)
+{
+	t_new	*s;
+	char	*tmp1;
+	char	*tmp2;
+
+	tmp1 = NULL;
+	tmp2 = NULL;
+	s = res;
+	while (s)
+	{
+		tmp1 = ft_strjoin(g->home, "/");
+		tmp2 = ft_strdup(s->str);
+		ft_strdel(&(s->str));
+		s->str = ft_strjoin(tmp1, tmp2);
+		ft_strdel(&tmp1);
+		ft_strdel(&tmp2);
+		s = s->next;
+	}
+	return (res);
+}
+*/

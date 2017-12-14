@@ -205,4 +205,5 @@ void            ft_free_array(char **tab);
 **gb_get_env
 */
 char			*gb_get_env(char **env);
+t_new			*gb_home_path(t_new *res, t_glob *g);
 #endif
