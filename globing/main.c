@@ -26,5 +26,6 @@ int		main(int ac, char **av, char **env)
 	}
 */
 	str = globing_research(av, env);
+	while (1);
 	return (0);
 }

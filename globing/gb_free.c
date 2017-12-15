@@ -92,6 +92,8 @@ void	free_glob_slash(t_glob *g)
 			free_new(s->new);
 		if (s->sb != NULL)
 			free_new(s->sb);
+		if (s->home)
+			ft_strdel(&(s->home));
 		f = s;
 		s = s->slash;
 		free(f);
