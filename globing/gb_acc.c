@@ -56,18 +56,22 @@ t_utils *init_ut(t_utils *ut, char *str)
 	ut->start = NULL;
 	ut->res = NULL;
 	ut->str = str;
-	ut->tmp2 = ft_strdup("\0");	
+	ut->tmp2 = ft_strdup("\0");
+	ut->res2 = NULL;
 	return (ut);
 }
 
 t_utils *ft_create_res(t_utils *ut)
 {
+	
 	if (ut->res ==  NULL)
 	{
 		ut->res = ft_strsplit(ut->tmp, ',');
+		printf(RED"5 CREATE ut->res = %p\n"RESET, ut->res);
 		ft_strdel(&ut->tmp);
 		ut->tmp = NULL;
 		ut->res = ft_join_tab(ut->res, ut->start);
+	printf(RED"5 AFTER join tab ut->res = %p\n"RESET, ut->res);	
 		ft_print_tab(ut->res);
 		ft_strdel(&(ut->start));
 		if (ut->str[ut->i] != '\0')
@@ -76,9 +80,14 @@ t_utils *ft_create_res(t_utils *ut)
 			while (ut->str[ut->i])
 				ut->i++;
 			ut->tmp = ft_strsub(ut->str, ut->j, ut->i);
+			printf(RED"5 RES bef join tab endut->res = %p\n"RESET, ut->res);
 			ut->res = ft_join_tab_end(ut->res, ut->tmp);
+			printf(RED"5 AFTER JOIN TAB END ut->res = %p\n"RESET, ut->res);
 		}
 	}
+   	printf("5 ut->tmp = %p\n", ut->tmp);
+	printf("5 ut->str = %p\n", ut->str);
+	printf("5 ut->res = %p\n", ut->res);
 	return (ut);
 }
 
@@ -88,18 +97,26 @@ char	**ft_split_acc(char *str, int check)
 	char **res;
 	
 	ut = malloc(sizeof(t_utils));
+	printf("4 ut = %p\n", ut);
 	ut = init_ut(ut, str);
 	while (str && str[ut->i] != '\0')
 	{
 		if (str[ut->i] == '{')
 		{
 			ut->tmp = ft_strsub(ut->str, 0, ut->i);
+			    printf(RED"4 malloc ut->tmp = %p\n"RESET, ut->tmp);
 			ut->j = ut->i + 1;
 			if (ut->tmp)
+			{
 				ut->start = ft_strjoin(ut->tmp2, ut->tmp);
+				printf("4 ut->start = %p\n", ut->start);
+			}
+			printf(GREEN"4 free ut->tmp = %p\n"RESET, ut->tmp);
+			printf(GREEN"4 free ut->tmp2 = %p\n"RESET, ut->tmp2);
 			ft_strdel(&(ut->tmp));
 			ft_strdel(&(ut->tmp2));
 			ut->tmp2 = NULL;
+			ut->tmp = NULL;
 			ut->res = NULL;
 			while (str[ut->i] != '\0' && str[ut->i] != '}')
 				ut->i++;
@@ -113,6 +130,9 @@ char	**ft_split_acc(char *str, int check)
 	}
 	(void)check;
 	res = ut->res;
+//	free(ut->res);
+	printf("4 ut->res = %p\n", ut->res);
+	printf("4 ut->res = %p\n", res);
 	free(ut);
 	ft_putstr("hehre");
 	return (res);

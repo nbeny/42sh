@@ -9,3 +9,4 @@ op:
 	gcc globing/*.c -L globing/libft -lft -I . -g3 -fsanitize=address
 clean:
 	rm -rf globing/libft/obj
+	rm -rf a.out a.out.dSYM/

@@ -18,6 +18,8 @@ char			**ft_join_tab_end(char **tab, char *end)
 	char	**res;
 	int		len_tab;
 
+	printf(RED"6 maalloc tab = %p\n"RESET, tab);
+	fflush(stdout);
 	len_tab = 0;
 	if (!tab)
 		return (NULL);
@@ -36,7 +38,9 @@ char			**ft_join_tab_end(char **tab, char *end)
 	i = 0;
 	while (tab[i])
 		ft_strdel(&tab[i++]);
+	printf(GREEN"6 free tab = %p\n"RESET, tab);
 	free(tab);
+	tab = NULL;
 	return (res);
 }
 

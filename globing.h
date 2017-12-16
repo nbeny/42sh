@@ -46,6 +46,7 @@ typedef struct s_utils
 	int	 	j;
 	char	*tmp2;
 	char	*str;
+	char	**res2;
 }				t_utils;
 /*
 **gb_init
