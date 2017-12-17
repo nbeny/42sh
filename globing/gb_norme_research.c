@@ -29,9 +29,9 @@ void	go_to_zoom_research(t_zoom *z)
 
 void	go_to_acc(t_zoom *z)
 {
-	if (check_is_acc(z->cmd))
+	if (check_is_acc(z->cmd[z->j]))
 	{
-		z->split = ft_split_acc(z->cmd, 1);
+		z->split = ft_split_acc(z->cmd[z->j], 1);
 		while(check_res(z->split))
 			z->split = ft_split_acc_tab(z->split);
 		z->i = 0;
@@ -58,14 +58,14 @@ void	init_z(t_zoom *z, char **cmd, char **env)
 void	go_to_zoom(t_zoom *z)
 {
 	z->g->home = gb_get_env(z->env);
-	z->g = zoom_research(z->g, z->cmd);
+	z->g = zoom_research(z->g, z->cmd[z->j]);
 	z->s = z->g;
 	while (z->s->slash)
 		z->s = z->s->slash;
 	if (z->s->resforever)
 		z->res = join_list(z->res, z->s->resforever);
 	else
-		z->res = add_path(z->res, z->cmd);
+		z->res = add_path(z->res, z->cmd[z->j]);
 	free_glob_slash(z->g);
 	z->g = NULL;
 }

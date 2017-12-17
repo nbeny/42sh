@@ -53,7 +53,7 @@ typedef struct s_zoom
 	t_glob	*g;
 	t_glob	*s;
 	char	**env;
-	char	*cmd;
+	char	**cmd;
 	char	**split;
 	t_new	*res;
 	int		j;
