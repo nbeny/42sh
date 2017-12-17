@@ -2,6 +2,7 @@
 
 void	go_to_zoom_research(t_zoom *z)
 {
+	z->i = 0;
 	while (z->split && z->split[z->i])
 	{
 		if (z->g == NULL)
@@ -22,7 +23,6 @@ void	go_to_zoom_research(t_zoom *z)
 			z->res = add_path(z->res, z->split[z->i]);
 		free_glob_slash(z->g);
 		z->g = NULL;
-
 		z->i++;
 	}
 }
@@ -34,7 +34,6 @@ void	go_to_acc(t_zoom *z)
 		z->split = ft_split_acc(z->cmd[z->j], 1);
 		while(check_res(z->split))
 			z->split = ft_split_acc_tab(z->split);
-		z->i = 0;
 		go_to_zoom_research(z);
 		ft_free_array(z->split);
 	}
@@ -44,7 +43,7 @@ void	go_to_acc(t_zoom *z)
 	}
 }
 
-void	init_z(t_zoom *z, char **cmd, t_envent *env)
+void	init_z(t_zoom *z, char **cmd, char **env)
 {
 	z->split = NULL;
 	z->i = 0;
@@ -52,7 +51,7 @@ void	init_z(t_zoom *z, char **cmd, t_envent *env)
 	z->g = NULL;
 	z->res = NULL;
 	z->cmd = cmd;
-	z->env = env_to_tab_envglob(env);
+	z->env = env;
 }
 
 void	go_to_zoom(t_zoom *z)

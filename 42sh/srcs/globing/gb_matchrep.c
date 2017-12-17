@@ -20,7 +20,10 @@ char	*tri_join(int zero, char *path, char *str)
 	char	*tmp;
 
 	(void)zero;
-	tmp = ft_strjoin(path, "/");
+	if (ft_strlen(path) == 1 && path[0] == '/')
+		tmp = ft_strdup(path);
+	else
+		tmp = ft_strjoin(path, "/");
 	join = ft_strjoin(tmp, str);
 	ft_strdel(&tmp);
 	return (join);

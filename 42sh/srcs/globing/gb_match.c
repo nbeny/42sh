@@ -93,10 +93,7 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, t_glob *save)
 	if (izi != NULL)
 		return (check_slash(g->slash, izi, save));
 	else
-	{
-//		g->resforever = gb_home_path(g->resforever, save);
 		return (save);
-	}
 }
 
 t_glob	*add_everything(t_glob *g)
@@ -150,9 +147,7 @@ t_glob	*do_we_match(t_glob *g)
 	else if (s->slashzero == 0)
 		tmp = getcwd(NULL, 1024);
 	else
-	{
 		tmp = ft_strdup("/");
-	}
 	st_path = add_path(st_path, tmp);
 	ft_strdel(&tmp);
 	g = check_slash(s, st_path, g);

@@ -68,7 +68,7 @@ static int    ft_listsize(t_envent *e)
     }
     return (i);
 }
-
+#include <stdio.h>
 static char        **env_to_tab_envglob(t_envent *e)
 {
     char        **tstr;
@@ -98,12 +98,19 @@ static char        **env_to_tab_envglob(t_envent *e)
 t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 {
 	t_cmd	*new;
+	char **tt;
+	char **ff;
 
+	ff = NULL;
+	tt = NULL;
 	if (!(new = malloc(sizeof(t_cmd))))
 		return (NULL);
-	new->av = get_avs(av);
+	tt = get_avs(av);
 	ast_lstfree(av);
-	new->av = globing_research(new->av, env_to_tab_envglob(t));
+	ff = env_to_tab_envglob(t);
+	new->av = globing_research(tt, ff);
+	ft_free_array(tt);
+	ft_free_array(ff);
 	new->next = NULL;
 	new->sin = 0;
 	new->sout = 0;

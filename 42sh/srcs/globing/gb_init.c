@@ -69,13 +69,13 @@ t_glob	*add_arg(t_glob *g, char *line, int a)
 			s = s->next;
 		s->next = init_argument();
 		s = s->next;
-		s->str = ft_strsub(line, g->p[0], g->p[1]);
+		s->str = ft_my_str_sub(line, g->p[0], g->p[1]);
 		s->id = a;
 	}
 	else
 	{
 		g->arg = init_argument();
-		g->arg->str = ft_strsub(line, g->p[0], g->p[1]);
+		g->arg->str = ft_my_str_sub(line, g->p[0], g->p[1]);
 		g->arg->id = a;
 	}
 	return (g);

@@ -130,6 +130,7 @@ SRC = srcs/ast/ast_ast.c \
 	  srcs/globing/gb_possibility.c \
 	  srcs/globing/gb_recupchartab.c \
 	  srcs/globing/gb_research.c \
+	  srcs/globing/gb_norme_research.c \
 	  srcs/globing/gb_slash_gestion.c \
 	  srcs/globing/gb_tools_match.c \
 	  srcs/globing/gb_tools_match1.c

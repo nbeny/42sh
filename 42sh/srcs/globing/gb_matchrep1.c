@@ -25,8 +25,6 @@ t_new	*match_rep_end(t_glob *g, char *path, t_new *s, t_new *new_path)
 	while ((d = readdir(dir)) != NULL)
 	{
 		str = tri_join(g->slashzero, path, d->d_name);
-		ft_putstr(s->str);
-		ft_putstr(" ;; ");
 		if (nmatch(d->d_name, s->str, g->sb) != 0)
 		{
 			if (!access(str, R_OK) && d->d_type == 4 &&\
@@ -58,7 +56,7 @@ char	*found_path_zero(char *path, char *dname)
 	ft_strdel(&tmp);
 	if (len[0] <= len[1] && path[len[0]] != '\0' && path[len[0] + 1] != '\0')
 	{
-		tmp = ft_strsub(path, (len[0] + 1), len[1]);
+		tmp = ft_my_str_sub(path, (len[0] + 1), len[1]);
 		found = ft_strjoin(tmp, "/");
 		ft_strdel(&tmp);
 		new_path = ft_strjoin(found, dname);

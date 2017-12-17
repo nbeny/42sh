@@ -46,7 +46,7 @@ int		check_is_posix(char *str, int *i)
 		(*i)++;
 	}
 	j[1] = ++(*i);
-	class = ft_strsub(str, j[0], j[1]);
+	class = ft_my_str_sub(str, j[0], j[1]);
 	if (check_name_pos(class) == 1)
 	{
 		ft_strdel(&class);

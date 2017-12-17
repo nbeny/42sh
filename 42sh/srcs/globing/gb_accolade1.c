@@ -88,7 +88,7 @@ char	*rebuild_path(t_new *sb, char *str)
 			p[1] = i;
 			if (new != NULL)
 				ft_strdel(&new);
-			tmp1 = ft_strsub(str, p[0], p[1]);
+			tmp1 = ft_my_str_sub(str, p[0], p[1]);
 			tmp2 = ft_strjoin(new, tmp1);
 			new = ft_strdup(tmp2);
 			ft_strdel(&tmp1);

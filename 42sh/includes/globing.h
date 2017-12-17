@@ -1,7 +1,6 @@
 #ifndef GLOBING_H
 # define GLOBING_H
 #include "libft.h"
-#include "env.h"
 
 #define GREEN   "\x1b[32m"
 #define RESET   "\x1b[0m"
@@ -49,6 +48,18 @@ typedef struct s_utils
 	char	*str;
 	char	**res2;
 }				t_utils;
+typedef struct s_zoom
+{
+	t_glob	*g;
+	t_glob	*s;
+	char	**env;
+	char	**cmd;
+	char	**split;
+	t_new	*res;
+	int		j;
+	char	**end;
+	int		i;
+}				t_zoom;
 /*
 **gb_init
 */
@@ -188,8 +199,6 @@ void			free_glob_slash(t_glob *g);
 */
 char			**ft_split_acc(char *str, int check);
 char			**ft_split_acc_tab(char **tab);
-t_utils			*ft_create_res(t_utils *ut);
-t_utils			*init_ut(t_utils *ut, char *str);
 /*
 **gb_acc2
 */
@@ -208,4 +217,11 @@ void            ft_free_array(char **tab);
 */
 char			*gb_get_env(char **env);
 t_new			*gb_home_path(t_new *res, t_glob *g);
+/*
+**	gb_norme_research
+*/
+void			go_to_zoom_research(t_zoom *z);
+void			go_to_acc(t_zoom *z);
+void			init_z(t_zoom *z, char **cmd, char **env);
+void			go_to_zoom(t_zoom *z);
 #endif
