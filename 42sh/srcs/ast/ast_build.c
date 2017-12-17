@@ -37,7 +37,7 @@ static void	cmds_apply_flag(int flag, t_cmd *cmd)
 	}
 }
 
-t_ast		*ast_parse(t_token *token)
+t_ast		*ast_parse(t_token *token, t_envent *t)
 {
 	t_ast	*rt;
 	t_cmd	*cmds;
@@ -49,7 +49,7 @@ t_ast		*ast_parse(t_token *token)
 	rt->flags = LFD_CMD;
 	while (token && !(token->flag & LFT_SEP || ft_strequ(token->value, "&")))
 	{
-		if (!(tmp = cmd_parse(&token)))
+		if (!(tmp = cmd_parse(&token, t)))
 			return (NULL);
 		cmd_addfront(&cmds, tmp);
 		if (token && (token->flag & LFT_PIPE))
@@ -63,7 +63,8 @@ t_ast		*ast_parse(t_token *token)
 	return (rt);
 }
 
-int			ast_build_sections(t_token *tokens, t_ast **root)
+int			ast_build_sections(t_token *tokens, t_ast **root, \
+							t_envent *t)
 {
 	t_token	*tmp;
 	t_ast	*parsed;
@@ -73,7 +74,7 @@ int			ast_build_sections(t_token *tokens, t_ast **root)
 	{
 		if ((tokens->flag & LFT_SEP || ft_strequ(tokens->value, "&")))
 		{
-			if (!(parsed = ast_parse(tmp)))
+			if (!(parsed = ast_parse(tmp, t)))
 				return (0);
 			ast_inright(root, ast_newast(NULL, parsed, NULL,\
 				(tokens->flag | LFD_NONE)));
@@ -81,20 +82,20 @@ int			ast_build_sections(t_token *tokens, t_ast **root)
 		}
 		tokens = tokens->next;
 	}
-	if (!(parsed = ast_parse(tmp)))
+	if (!(parsed = ast_parse(tmp, t)))
 		return (0);
 	(tmp) ? ast_inright(root, ast_newast(NULL, parsed, NULL, \
 			(tmp->flag | LFD_NONE))) : free(parsed);
 	return (1);
 }
 
-t_ast		*ast_build(t_token *tokens)
+t_ast		*ast_build(t_token *tokens, t_envent *t)
 {
 	t_ast	*root;
 	int		seplevels;
 
 	root = NULL;
-	if (!(seplevels = ast_build_sections(tokens, &root)))
+	if (!(seplevels = ast_build_sections(tokens, &root, t)))
 		return (NULL);
 	return (root);
 }

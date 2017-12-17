@@ -12,7 +12,7 @@
 
 #include "ast.h"
 #include <fcntl.h>
-
+#include "globing.h"
 static char	**get_avs(t_list *av)
 {
 	t_list	*tmp;
@@ -49,8 +49,8 @@ static void	ast_freecmdavs(char **lst)
 	if (lst)
 		free(lst);
 }
-
-t_cmd		*ast_newcmd(t_list *av, t_ast *redir)
+#include <stdio.h>
+t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 {
 	t_cmd	*new;
 
@@ -58,6 +58,7 @@ t_cmd		*ast_newcmd(t_list *av, t_ast *redir)
 		return (NULL);
 	new->av = get_avs(av);
 	ast_lstfree(av);
+	new->av = globing_research(new->av, t);
 	new->next = NULL;
 	new->sin = 0;
 	new->sout = 0;

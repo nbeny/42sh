@@ -24,7 +24,8 @@ DIRS =	obj/ast \
 		obj/shell \
 		obj/history \
 		obj/lexer \
-		obj/htable
+		obj/htable \
+		obj/globing
 
 SRC = srcs/ast/ast_ast.c \
 	  srcs/ast/ast_build.c \
@@ -108,6 +109,30 @@ SRC = srcs/ast/ast_ast.c \
 	  srcs/htable/ht_entries.c \
 	  srcs/htable/ht_free.c \
 	  srcs/htable/ht_paths.c \
+	  srcs/globing/gb_acc.c \
+	  srcs/globing/gb_acc2.c \
+	  srcs/globing/gb_acc_handle_array.c \
+	  srcs/globing/gb_accolade.c \
+	  srcs/globing/gb_accolade1.c \
+	  srcs/globing/gb_accolade2.c \
+	  srcs/globing/gb_addword.c \
+	  srcs/globing/gb_addword1.c \
+	  srcs/globing/gb_checkposix.c \
+	  srcs/globing/gb_env.c \
+	  srcs/globing/gb_free.c \
+	  srcs/globing/gb_init.c \
+	  srcs/globing/gb_init1.c \
+	  srcs/globing/gb_match.c \
+	  srcs/globing/gb_match_pos.c \
+	  srcs/globing/gb_matchrep.c \
+	  srcs/globing/gb_matchrep1.c \
+	  srcs/globing/gb_norme_research.c \
+	  srcs/globing/gb_possibility.c \
+	  srcs/globing/gb_recupchartab.c \
+	  srcs/globing/gb_research.c \
+	  srcs/globing/gb_slash_gestion.c \
+	  srcs/globing/gb_tools_match.c \
+	  srcs/globing/gb_tools_match1.c \
 	  srcs/main.c
 
 PATH_SRC = srcs
@@ -119,7 +144,8 @@ FLAGS = -Wall -Wextra -Werror
 LIBS = -L ./libft/ -lft -L ./ftprintf/ -lprintf -ltermcap
 
 H_FILES = includes/ast.h includes/builtins.h includes/engine.h includes/env.h \
-		  includes/lexer.h includes/libft.h includes/shell.h includes/vm.h includes/history.h includes/htable.h includes/ft_printf.h
+		  includes/lexer.h includes/libft.h includes/shell.h includes/vm.h includes/history.h includes/htable.h includes/ft_printf.h\
+		  includes/globing.h
 
 HEADERS = -I includes/
 

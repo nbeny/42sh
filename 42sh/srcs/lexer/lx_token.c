@@ -49,6 +49,9 @@ t_token		*lx_newtoken(char *value, int flag)
 		return (NULL);
 	new->value = value;
 	new->flag = flag;
+	ft_putnbr(flag);
+	ft_putchar('|');
+		ft_putchar('|');
 	new->next = NULL;
 	return (new);
 }

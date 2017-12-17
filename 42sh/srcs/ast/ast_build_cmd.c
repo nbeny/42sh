@@ -53,25 +53,33 @@ static t_ast	*cmd_parse_redir(t_token **tk, t_ast **elem)
 		cmd_parse_redir(tk, elem);
 	return (*elem);
 }
-
-t_cmd			*cmd_parse(t_token **tk)
+#include <stdio.h>
+t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 {
 	t_list	*av;
+//	char	*ez;
 	t_token	*token;
 	t_ast	*redir;
 
 	av = NULL;
+//	ez = ft_strdup("\0");
 	token = *tk;
 	if (!(token->flag & LFT_WORD))
 		return (NULL);
 	while (token && (token->flag & LFT_WORD))
 	{
+//		printf("->>%s  :  %i  \n",token->value, token->flag);
 		ft_lstaddfront(&av, \
 				ft_lstcreate(ft_strdup(token->value), sizeof(char *)));
+//		if (token->flag == 6 || token == 7)
+//			ez = ft_strjoin(ez,"0");
+//		else
+//			ez = ft_strjoin(ez,"1");
+
 		token = token->next;
 	}
 	redir = NULL;
 	cmd_parse_redir(&token, &redir);
 	*tk = token;
-	return (ast_newcmd(av, redir));
+	return (ast_newcmd(av, redir, t));
 }
