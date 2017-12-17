@@ -17,7 +17,8 @@ char	**ft_split_acc_tab(char **tab)
 	int		i;
 	char	**res;
 	char	**tmp;
-	int		j;
+
+//			while (1);
 
 	tmp = NULL;
 	res = NULL;
@@ -26,25 +27,18 @@ char	**ft_split_acc_tab(char **tab)
 		return (NULL);
 	while (tab[i])
 	{
-		{
 			tmp = ft_split_acc(tab[i], 0);
+			while(1);
 			res = ft_fusion_array(res, tmp);
+//						while(1);
 			ft_print_tab(res);
 			tmp = NULL;
-		}
+
 		i++;
 	}
-	j = 0;
-	if (tmp)
-	{
-		while (tmp[j])
-			ft_strdel(&tmp[j++]);
-		free(tmp);
-	}
-	i = 0;
-	while (tab[i])
-		ft_strdel(&tab[i++]);
-	free (tab);
+				
+			ft_free_array(tmp);
+	ft_free_array(tab);
 	return (res);
 }
 
@@ -95,7 +89,8 @@ char	**ft_split_acc(char *str, int check)
 {
 	t_utils *ut;
 	char **res;
-	
+
+
 	ut = malloc(sizeof(t_utils));
 	printf("4 ut = %p\n", ut);
 	ut = init_ut(ut, str);

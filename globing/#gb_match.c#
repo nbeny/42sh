@@ -93,7 +93,9 @@ t_glob	*check_slash(t_glob *g, t_new *st_path, t_glob *save)
 	if (izi != NULL)
 		return (check_slash(g->slash, izi, save));
 	else
+	{
 		return (save);
+	}
 }
 
 t_glob	*add_everything(t_glob *g)

@@ -49,12 +49,16 @@ void			ft_free_array(char **tab)
 	int i;
 
 	i = 0;
-	while (tab[i])
+	if (tab)
 	{
-		ft_strdel(&tab[i++]);
+		while (tab[i])
+		{
+			ft_strdel(&tab[i]);
+			i++;
+		}
+		free(tab);
+		tab = NULL;
 	}
-	free(tab);
-	tab = NULL;
 }
 
 static char		**check_valid_array(char **tab1, char **tab2)
@@ -68,7 +72,7 @@ static char		**check_valid_array(char **tab1, char **tab2)
 	return (NULL);
 }
 
-static t_fus	*init_fus(t_fus *fu, char **tab1, char **tab2)
+static void		init_fus(t_fus *fu, char **tab1, char **tab2)
 {
 	fu->len_tab = 0;
 	fu->len_tab2 = 0;
@@ -78,36 +82,33 @@ static t_fus	*init_fus(t_fus *fu, char **tab1, char **tab2)
     while (tab2[fu->len_tab2])
         fu->len_tab2++;
 	fu->res = NULL;
-	return (fu);
 }
 
 char			**ft_fusion_array(char **tab1, char **tab2)
 {
-	t_fus *fu;
+	t_fus fu;
 	char **res;
-	
-	fu = malloc(sizeof(t_fus));
+
 	if (!tab1 || !tab2)
 		return(check_valid_array(tab1, tab2));
-	fu = init_fus(fu, tab1, tab2);
-	if (!(fu->res = (char **)malloc(sizeof(char *) * (fu->len_tab + fu->len_tab2 + 1))))
+	init_fus(&fu, tab1, tab2);
+	if (!(fu.res = (char **)malloc(sizeof(char *) * (fu.len_tab + fu.len_tab2 + 1))))
 		return (NULL);
-	while (tab1[fu->i])
+	while (tab1[fu.i])
 	{
-		fu->res[fu->i] = ft_strdup(tab1[fu->i]);
-		fu->i++;
+		fu.res[fu.i] = ft_strdup(tab1[fu.i]);
+		fu.i++;
 	}
-	fu->len_tab = 0;
-	while (tab2[fu->len_tab])
+	fu.len_tab = 0;
+	while (tab2[fu.len_tab])
 	{
-		fu->res[fu->i] = ft_strdup(tab2[fu->len_tab]);
-		fu->len_tab++;
-		fu->i++;
+		fu.res[fu.i] = ft_strdup(tab2[fu.len_tab]);
+		fu.len_tab++;
+		fu.i++;
 	}
-	fu->res[fu->i] = NULL;
+	fu.res[fu.i] = NULL;
 	ft_free_array(tab1);
 	ft_free_array(tab2);
-	res = fu->res;
-	free(fu);
+	res = fu.res;
 	return (res);
 }
