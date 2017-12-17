@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   ast_cmd.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 13:12:35 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/17 15:39:41 by nbeny            ###   ########.fr       */
+/*   Created: 2017/10/31 13:12:35 by tgascoin          #+#    #+#             */
+/*   Updated: 2017/11/17 15:39:41 by tgascoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ast.h"
-#include <fcntl.h>
 #include "globing.h"
+#include <fcntl.h>
+
 static char	**get_avs(t_list *av)
 {
 	t_list	*tmp;
@@ -49,7 +50,7 @@ static void	ast_freecmdavs(char **lst)
 	if (lst)
 		free(lst);
 }
-#include <stdio.h>
+
 static int    ft_listsize(t_envent *e)
 {
     t_envent    *s;
@@ -93,6 +94,7 @@ static char        **env_to_tab_envglob(t_envent *e)
     tstr[i] = NULL;
     return (tstr);
 }
+
 t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 {
 	t_cmd	*new;
@@ -101,9 +103,7 @@ t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 		return (NULL);
 	new->av = get_avs(av);
 	ast_lstfree(av);
-	ft_print_tab(new->av);
 	new->av = globing_research(new->av, env_to_tab_envglob(t));
-	ft_print_tab(new->av);
 	new->next = NULL;
 	new->sin = 0;
 	new->sout = 0;

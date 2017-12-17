@@ -90,25 +90,25 @@ char	**globing_research(char **cmd, char **env)
 
 	split = NULL;
 	i = 0;
-	j = 1;
+	j = 0;
 	g = NULL;
 	res = NULL;
 	while (cmd && cmd[j])
 	{
 		g = init_glob(env);
-		printf("1 g = %p\n", g);
+//		printf("1 g = %p\n", g);
 		g->home = gb_get_env(env);
 		if (check_isglob(cmd[j]))
 		{
 			if (check_is_acc(cmd[j]))
 			{
 				split = ft_split_acc(cmd[j], 1);
-				printf("2 split = %p\n", split);
+//				printf("2 split = %p\n", split);
 				ft_print_tab(split);
 				while(check_res(split))
 				{
 					split = ft_split_acc_tab(split);
-					printf("3 splt = %p\n", split);
+//					printf("3 splt = %p\n", split);
 				}
 				i = 0;	
 				while (split && split[i])
@@ -126,11 +126,11 @@ char	**globing_research(char **cmd, char **env)
 							res = join_list(res, s->resforever);
 						else
 							res = add_path(res, split[i]);
-						free_glob_slash(g);
 						g = NULL;
 					}
 					else
 						res = add_path(res, split[i]);
+					free_glob_slash(g);
 					i++;
 				}
 			}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast_build.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 13:12:50 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/17 15:39:33 by nbeny            ###   ########.fr       */
+/*   Created: 2017/10/31 13:12:50 by tgascoin          #+#    #+#             */
+/*   Updated: 2017/11/17 15:39:33 by tgascoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ t_ast		*ast_parse(t_token *token, t_envent *t)
 	return (rt);
 }
 
-int			ast_build_sections(t_token *tokens, t_ast **root, \
-							t_envent *t)
+int			ast_build_sections(t_token *tokens, t_ast **root, t_envent *t)
 {
 	t_token	*tmp;
 	t_ast	*parsed;
