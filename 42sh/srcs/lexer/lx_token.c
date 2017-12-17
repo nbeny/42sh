@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lx_token.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/10/31 16:31:29 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/17 15:41:59 by nbeny            ###   ########.fr       */
+/*   Created: 2017/10/31 16:31:29 by tgascoin          #+#    #+#             */
+/*   Updated: 2017/11/17 15:41:59 by tgascoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,6 @@ t_token		*lx_newtoken(char *value, int flag)
 		return (NULL);
 	new->value = value;
 	new->flag = flag;
-	ft_putnbr(flag);
-	ft_putchar('|');
-		ft_putchar('|');
 	new->next = NULL;
 	return (new);
 }

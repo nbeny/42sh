@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
+/*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/27 00:59:34 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/27 00:59:42 by nbeny            ###   ########.fr       */
+/*   Created: 2017/11/01 13:41:46 by tgascoin          #+#    #+#             */
+/*   Updated: 2017/11/01 13:49:07 by tgascoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
-t_cmd				*ast_newcmd(t_list *av, t_ast *redir, t_envent *t);
+t_cmd				*ast_newcmd(t_list *av, t_ast *redir, t_envent *e);
 t_ast				*ast_newast(void *data, t_ast *left, t_ast *right, int fl);
 void				ast_freeast(t_ast **ast);
 

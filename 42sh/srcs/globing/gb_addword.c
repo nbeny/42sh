@@ -94,9 +94,11 @@ t_glob	*add_word(t_glob *g, char *str)
 t_glob	*add_sb(t_glob *g, char *str)
 {
 	t_new	*sb;
+	char	*tmp;
 	char	*w;
 
 	sb = NULL;
+	tmp = NULL;
 	w = NULL;
 	if (g && g->new)
 	{

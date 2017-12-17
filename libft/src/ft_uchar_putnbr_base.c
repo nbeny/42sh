@@ -1,31 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   ft_uchar_putnbr_base.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/11/14 15:07:51 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/17 13:54:37 by nbeny            ###   ########.fr       */
+/*   Created: 2017/02/24 18:07:58 by nbeny             #+#    #+#             */
+/*   Updated: 2017/02/24 18:08:02 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "engine.h"
-#include "shell.h"
+#include "../include/libft.h"
 
-int		main(int ac, char **av, char **env)
+void		ft_uchar_putnbr_base(unsigned char nb, char *base)
 {
-	t_engine	*engine;
-	int			out;
-
-	(void)ac;
-	(void)av;
-	out = 0;
-	engine = NULL;
-	ft_errset("ft_bash");
-	tc_check_sin(env);
-	tc_listen_signals();
-	engine = en_init(0, env);
-	en_loop(engine, &out);
-	return (en_free(&engine, out));
+	if (nb >= (unsigned char)ft_strlen(base))
+	{
+		ft_putnbr_base(nb / ft_strlen(base), base);
+		ft_putnbr_base(nb % ft_strlen(base), base);
+	}
+	else
+		ft_putchar(base[nb]);
 }
