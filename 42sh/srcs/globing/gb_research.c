@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "globing.h"
-#include "vm.h"
 
 t_glob	*remake_arg(t_glob *g, char *line)
 {
@@ -79,30 +78,97 @@ int		check_isglob(char *line)
 	return (0);
 }
 
-char	**globing_research(char **cmd, t_envent *env)
+char	**globing_research(char **cmd, char **env)
 {
-	t_zoom z;
+	int			j;
+	t_new		*res;
+	char		**end;
+	t_glob		*g;
+	t_glob		*s;
+	char **split;
+	int i;
 
-	init_z(&z, cmd, env);
-//	ft_print_tab(cmd);
-	while (z.cmd && z.cmd[z.j])
+	split = NULL;
+	i = 0;
+	j = 1;
+	g = NULL;
+	res = NULL;
+	while (cmd && cmd[j])
 	{
-		z.g = init_glob(z.env);
-		if (check_isglob(z.cmd[z.j]))
-			go_to_acc(&z);
+		g = init_glob(env);
+		printf("1 g = %p\n", g);
+		g->home = gb_get_env(env);
+		if (check_isglob(cmd[j]))
+		{
+			if (check_is_acc(cmd[j]))
+			{
+				split = ft_split_acc(cmd[j], 1);
+				printf("2 split = %p\n", split);
+				ft_print_tab(split);
+				while(check_res(split))
+				{
+					split = ft_split_acc_tab(split);
+					printf("3 splt = %p\n", split);
+				}
+				i = 0;	
+				while (split && split[i])
+				{
+					if (g == NULL)
+						g = init_glob(env);
+					g->home = gb_get_env(env);
+					if (check_isglob(split[i]))
+					{
+						g = zoom_research(g, split[i]);
+						s = g;
+						while (s->slash)
+							s = s->slash;
+						if (s->resforever)
+							res = join_list(res, s->resforever);
+						else
+							res = add_path(res, split[i]);
+						free_glob_slash(g);
+						g = NULL;
+					}
+					else
+						res = add_path(res, split[i]);
+					i++;
+				}
+			}
+			else
+			{
+				g = zoom_research(g, cmd[j]);
+				s = g;
+				while (s->slash)
+					s = s->slash;
+				if (s->resforever)
+					res = join_list(res, s->resforever);
+				else
+					res = add_path(res, cmd[j]);
+				free_glob_slash(g);
+				g = NULL;
+			}
+		}
 		else
-			z.res = add_path(z.res, z.cmd[z.j]);
-		z.j++;
+			res = add_path(res, cmd[j]);
+		j++;
 	}
-	z.end = list_to_tab_new(z.res);
-	free_resforever(z.res);
-	z.j = 0;
-/*	while (z.end && z.end[z.j])
+	end = list_to_tab_new(res);
+	free_resforever(res);
+	j = 0;
+	while (end && end[j])
 	{
-		ft_putendl(z.end[z.j]);
-		z.j++;
-		}*/
-	ft_free_array(z.env);
-	ft_free_array(cmd);
-	return (z.end);
+		ft_putendl(end[j]);
+		j++;
+	}
+	i = 0;
+	if (split)
+	{
+		while (split[i])
+		{
+			ft_strdel(&split[i++]);
+		}
+		free(split);
+	}
+//	while(1);
+	return (end);
 }

@@ -1,8 +1,8 @@
 #ifndef GLOBING_H
 # define GLOBING_H
-
 #include "libft.h"
 #include "env.h"
+
 #define GREEN   "\x1b[32m"
 #define RESET   "\x1b[0m"
 #define RED     "\x1b[31m"
@@ -49,18 +49,6 @@ typedef struct s_utils
 	char	*str;
 	char	**res2;
 }				t_utils;
-typedef struct s_zoom
-{
-	t_glob	*g;
-	t_glob	*s;
-	char	**env;
-	char	**cmd;
-	char	**split;
-	t_new	*res;
-	int		j;
-	char	**end;
-	int		i;
-}				t_zoom;
 /*
 **gb_init
 */
@@ -81,7 +69,7 @@ t_glob			*add_sbplease(t_glob *g, char *str);
 t_glob			*remake_arg(t_glob *g, char *line);
 t_glob			*zoom_research(t_glob *g, char *line);
 int				check_isglob(char *line);
-char			**globing_research(char **cmd, t_envent *env);
+char			**globing_research(char **cmd, char **env);
 /*
 **gb_possibility
 */
@@ -144,7 +132,6 @@ int				count_match(t_glob *g);
 int				check_char42(char *s);
 void			reverse_char42(char *s);
 void			get_char42(char *s);
-char			**env_to_tab_envglob(t_envent *e);
 /*
 **gb_tools_match
 */
@@ -221,11 +208,4 @@ void            ft_free_array(char **tab);
 */
 char			*gb_get_env(char **env);
 t_new			*gb_home_path(t_new *res, t_glob *g);
-/*
-**	gb_norme_research
-*/
-void			go_to_zoom_research(t_zoom *z);
-void			go_to_acc(t_zoom *z);
-void			init_z(t_zoom *z, char **cmd, t_envent *env);
-void			go_to_zoom(t_zoom *z);
 #endif

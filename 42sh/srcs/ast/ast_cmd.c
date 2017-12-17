@@ -50,6 +50,49 @@ static void	ast_freecmdavs(char **lst)
 		free(lst);
 }
 #include <stdio.h>
+static int    ft_listsize(t_envent *e)
+{
+    t_envent    *s;
+    int            i;
+
+    i = 0;
+    s = e;
+    if (e != NULL)
+    {
+        while (s != NULL)
+        {
+            i++;
+            s = s->next;
+        }
+    }
+    return (i);
+}
+
+static char        **env_to_tab_envglob(t_envent *e)
+{
+    char        **tstr;
+    char        *stock;
+    t_envent    *s;
+    int            i;
+
+    s = e;
+    if (e == NULL)
+        return (NULL);
+    i = ft_listsize(e);
+    if (!(tstr = (char **)malloc(sizeof(char *) * (i + 1))))
+        return (NULL);
+    i = 0;
+    while (s != NULL)
+    {
+        stock = ft_strjoin(s->name, "=");
+        tstr[i] = ft_strjoin(stock, s->value);
+        ft_strdel(&stock);
+        i++;
+        s = s->next;
+    }
+    tstr[i] = NULL;
+    return (tstr);
+}
 t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 {
 	t_cmd	*new;
@@ -58,7 +101,9 @@ t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 		return (NULL);
 	new->av = get_avs(av);
 	ast_lstfree(av);
-	new->av = globing_research(new->av, t);
+	ft_print_tab(new->av);
+	new->av = globing_research(new->av, env_to_tab_envglob(t));
+	ft_print_tab(new->av);
 	new->next = NULL;
 	new->sin = 0;
 	new->sout = 0;

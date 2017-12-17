@@ -62,13 +62,6 @@ void		en_loop(t_engine *engine, int *out)
 				vm_loadast(engine->vm, ast);
 				tc_stop_signals();
 				vm_readast(engine->vm, ast, out);
-				if(engine->vm->env)
-					ft_putstr(engine->vm->env->name);
-				else
-					ft_putstr("NULL");
-				//if (lex->tokens->flag == 2)
-				//engine->vm->work->av = globing_research(engine->vm->work->av, engine->vm->env);
-
 				tc_listen_signals();
 			}
 		}
