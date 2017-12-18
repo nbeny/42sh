@@ -143,7 +143,6 @@ int				count_match(t_glob *g);
 int				check_char42(char *s);
 void			reverse_char42(char *s);
 void			get_char42(char *s);
-void			get_slashzero_home(t_glob *g);
 /*
 **gb_tools_match
 */

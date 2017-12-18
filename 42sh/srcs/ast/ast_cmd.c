@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:35 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/11/17 15:39:41 by tgascoin         ###   ########.fr       */
+/*   Updated: 2017/12/18 12:09:57 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,55 +51,11 @@ static void	ast_freecmdavs(char **lst)
 		free(lst);
 }
 
-static int    ft_listsize(t_envent *e)
-{
-    t_envent    *s;
-    int            i;
-
-    i = 0;
-    s = e;
-    if (e != NULL)
-    {
-        while (s != NULL)
-        {
-            i++;
-            s = s->next;
-        }
-    }
-    return (i);
-}
-#include <stdio.h>
-static char        **env_to_tab_envglob(t_envent *e)
-{
-    char        **tstr;
-    char        *stock;
-    t_envent    *s;
-    int            i;
-
-    s = e;
-    if (e == NULL)
-        return (NULL);
-    i = ft_listsize(e);
-    if (!(tstr = (char **)malloc(sizeof(char *) * (i + 1))))
-        return (NULL);
-    i = 0;
-    while (s != NULL)
-    {
-        stock = ft_strjoin(s->name, "=");
-        tstr[i] = ft_strjoin(stock, s->value);
-        ft_strdel(&stock);
-        i++;
-        s = s->next;
-    }
-    tstr[i] = NULL;
-    return (tstr);
-}
-
 t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 {
 	t_cmd	*new;
-	char **tt;
-	char **ff;
+	char	**tt;
+	char	**ff;
 
 	ff = NULL;
 	tt = NULL;

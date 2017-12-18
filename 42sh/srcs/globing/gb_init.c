@@ -6,13 +6,13 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:10:28 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/19 02:10:29 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/12/18 12:37:17 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "globing.h"
 
-t_glob	*init_glob()
+t_glob	*init_glob(void)
 {
 	t_glob		*g;
 

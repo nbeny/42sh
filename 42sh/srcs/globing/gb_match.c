@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:10:33 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/19 02:10:35 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/12/18 12:43:28 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,12 +136,7 @@ t_glob	*do_we_match(t_glob *g)
 	if (!ft_strncmp(s->new->str, "~\0", 2))
 	{
 		tmp = ft_strdup(s->home);
-		while (s != NULL)
-		{
-			s->slashzero = 1;
-			s = s->slash;
-		}
-		s = g;
+		get_slashzero_home(g);
 		s = s->slash;
 	}
 	else if (s->slashzero == 0)

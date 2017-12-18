@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:14:02 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/11/17 13:54:19 by kbagot           ###   ########.fr       */
+/*   Updated: 2017/12/18 12:17:40 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,15 +56,14 @@ void		en_loop(t_engine *engine, int *out)
 		lx_gettokens(lex, engine);
 		lx_remove_uslesstoken(&lex->tokens);
 		if (lex->tokens && lex->tokens->value && lex->tokens->value[0] != '\0')
-		{
-			if (lx_verifytokens(lex->tokens) && (ast = ast_build(lex->tokens, engine->vm->env)))
+			if (lx_verifytokens(lex->tokens) &&\
+				(ast = ast_build(lex->tokens, engine->vm->env)))
 			{
 				vm_loadast(engine->vm, ast);
 				tc_stop_signals();
 				vm_readast(engine->vm, ast, out);
 				tc_listen_signals();
 			}
-		}
 		clear_fds(engine, &lex);
 	}
 }

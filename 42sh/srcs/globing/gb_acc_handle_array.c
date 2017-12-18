@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 21:45:00 by nidzik            #+#    #+#             */
-/*   Updated: 2017/12/06 21:45:02 by nidzik           ###   ########.fr       */
+/*   Updated: 2017/12/18 12:27:41 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,27 +75,25 @@ static void		init_fus(t_fus *fu, char **tab1, char **tab2)
 	fu->len_tab2 = 0;
 	fu->i = 0;
 	while (tab1[fu->len_tab])
-        fu->len_tab++;
-    while (tab2[fu->len_tab2])
-        fu->len_tab2++;
+		fu->len_tab++;
+	while (tab2[fu->len_tab2])
+		fu->len_tab2++;
 	fu->res = NULL;
 }
 
 char			**ft_fusion_array(char **tab1, char **tab2)
 {
-	t_fus fu;
-	char **res;
+	t_fus	fu;
+	char	**res;
 
 	if (!tab1 || !tab2)
-		return(check_valid_array(tab1, tab2));
+		return (check_valid_array(tab1, tab2));
 	init_fus(&fu, tab1, tab2);
-	if (!(fu.res = (char **)malloc(sizeof(char *) * (fu.len_tab + fu.len_tab2 + 1))))
+	if (!(fu.res = (char **)malloc(sizeof(char *) *\
+					(fu.len_tab + fu.len_tab2 + 1))))
 		return (NULL);
 	while (tab1[fu.i])
-	{
-		fu.res[fu.i] = ft_strdup(tab1[fu.i]);
-		fu.i++;
-	}
+		fu.res[fu.i] = ft_strdup(tab1[fu.i++]);
 	fu.len_tab = 0;
 	while (tab2[fu.len_tab])
 	{

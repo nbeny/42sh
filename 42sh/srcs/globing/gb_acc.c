@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/27 00:44:11 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/27 00:44:15 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/12/18 12:33:02 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,9 @@ char			**ft_split_acc_tab(char **tab)
 		return (NULL);
 	while (tab[i])
 	{
-			tmp = ft_split_acc(tab[i], 0);
-			res = ft_fusion_array(res, tmp);
-			tmp = NULL;
-
+		tmp = ft_split_acc(tab[i], 0);
+		res = ft_fusion_array(res, tmp);
+		tmp = NULL;
 		i++;
 	}
 	ft_free_array(tmp);
@@ -50,7 +49,6 @@ static void		init_ut(t_utils *ut, char *str)
 
 static void		ft_create_res(t_utils *ut)
 {
-	
 	if (ut->res ==  NULL)
 	{
 		ut->res = ft_strsplit(ut->tmp, ',');
@@ -69,7 +67,7 @@ static void		ft_create_res(t_utils *ut)
 	}
 }
 
-char	**ft_split_acc(char *str, int check)
+char			**ft_split_acc(char *str, int check)
 {
 	t_utils ut;
 	char **res;

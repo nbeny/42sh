@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   gb_norme_research.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nbeny <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/18 12:37:34 by nbeny             #+#    #+#             */
+/*   Updated: 2017/12/18 12:39:37 by nbeny            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "globing.h"
 
 void	go_to_zoom_research(t_zoom *z)
@@ -32,7 +44,7 @@ void	go_to_acc(t_zoom *z)
 	if (check_is_acc(z->cmd[z->j]))
 	{
 		z->split = ft_split_acc(z->cmd[z->j], 1);
-		while(check_res(z->split))
+		while (check_res(z->split))
 			z->split = ft_split_acc_tab(z->split);
 		go_to_zoom_research(z);
 		ft_free_array(z->split);

@@ -6,7 +6,7 @@
 #    By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/27 00:56:40 by nbeny             #+#    #+#              #
-#    Updated: 2017/11/27 00:56:43 by nbeny            ###   ########.fr        #
+#    Updated: 2017/12/18 12:10:30 by nbeny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,7 @@ SRC = srcs/ast/ast_ast.c \
 	  srcs/ast/ast_build_cmd.c \
 	  srcs/ast/ast_cmd.c \
 	  srcs/ast/ast_insert.c \
+	  srcs/ast/ast_tools.c \
 	  srcs/builtins/ft_cd.c \
 	  srcs/builtins/ft_echo.c \
 	  srcs/builtins/ft_set.c \

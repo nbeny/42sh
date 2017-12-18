@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 13:41:46 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/12/18 12:11:29 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/11/01 13:49:07 by tgascoin         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,4 @@ t_ast				*ast_build(t_token *tokens, t_envent *t);
 void				ast_lstfree(t_list *lst);
 void				ast_freeast(t_ast **ast);
 
-char				**env_to_tab_envglob(t_envent *e);
 #endif

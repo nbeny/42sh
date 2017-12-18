@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:09:37 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/19 02:10:09 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/12/18 12:18:40 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,48 +53,3 @@ int		check_rebuild_path(char *str)
 	}
 	return (0);
 }
-/*
-char	*rebuild_path(t_new *sb, char *str)
-{
-	char		*tmp1;
-	char		*tmp2;
-	char		*new;
-	t_new		*s;
-	int			i;
-	int			p[2];
-
-	i = 0;
-	s = sb;
-	new = NULL;
-	while (str && str[i] && sb)
-	{
-		if (str[i] == -42)
-		{
-			i++;
-			if (new != NULL)
-				ft_strdel(&new);
-			tmp1 = ft_strjoin(new, "[");
-			tmp2 = ft_strjoin(tmp1, s->str);
-			new = ft_strjoin(tmp2, "]");
-			ft_strdel(&tmp1);
-			ft_strdel(&tmp2);
-			s = s->next;
-		}
-		else
-		{
-			p[0] = i;
-			while (str && str[i] && str[i] != -42)
-				i++;
-			p[1] = i;
-			if (new != NULL)
-				ft_strdel(&new);
-			tmp1 = ft_my_str_sub(str, p[0], p[1]);
-			tmp2 = ft_strjoin(new, tmp1);
-			new = ft_strdup(tmp2);
-			ft_strdel(&tmp1);
-			ft_strdel(&tmp2);
-		}
-	}
-	return (new);
-}
-*/

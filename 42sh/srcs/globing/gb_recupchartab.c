@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:11:00 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/19 02:11:06 by nbeny            ###   ########.fr       */
+/*   Updated: 2017/12/18 12:43:01 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,5 +52,18 @@ void	get_char42(char *s)
 			if (s[i] == -42)
 				s[i] = 42;
 			i++;
+		}
+}
+
+void	get_slashzero_home(t_glob *g)
+{
+	t_glob	*s;
+
+	s = g;
+	if (g)
+		while (s)
+		{
+			s->slashzero = 1;
+			s = s->slash;
 		}
 }
