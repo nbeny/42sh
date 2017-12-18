@@ -12,6 +12,12 @@
 
 #include "globing.h"
 
+/*
+**			 if (sb->i == 0 && sb->str[sb->i + 1] == \
+**			 '-' && sb->str[sb->i + 2] != '\0')
+**			 ret = sb_lessmatch(*s1, sb);
+*/
+
 int		check_sbmatch(char *s1, t_new *sb)
 {
 	int		ret;
@@ -25,8 +31,6 @@ int		check_sbmatch(char *s1, t_new *sb)
 				&& sb->str[sb->i + 1] != '\0')
 				if (!(ret = sb_exclammatch(*s1, sb)))
 					return (0);
-//			if (sb->i == 0 && sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] != '\0')
-//				ret = sb_lessmatch(*s1, sb);
 			if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
 				if (check_name_pos(&(sb->str)[sb->i]))
 					ret = sb_classmatch(*s1, sb);

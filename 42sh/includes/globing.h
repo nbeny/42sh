@@ -1,10 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   globing.h                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/12/18 14:06:41 by nidzik            #+#    #+#             */
+/*   Updated: 2017/12/18 14:06:44 by nidzik           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef GLOBING_H
 # define GLOBING_H
-#include "libft.h"
 
-#define GREEN   "\x1b[32m"
-#define RESET   "\x1b[0m"
-#define RED     "\x1b[31m"
+# include "libft.h"
 
 typedef struct	s_arg
 {
@@ -12,12 +21,14 @@ typedef struct	s_arg
 	char			*str;
 	struct s_arg	*next;
 }				t_arg;
+
 typedef struct	s_new
 {
 	int				i;
 	char			*str;
 	struct s_new	*next;
 }				t_new;
+
 typedef struct	s_glob
 {
 	int				slashzero;
@@ -29,26 +40,29 @@ typedef struct	s_glob
 	struct s_glob	*slash;
 	char			*home;
 }				t_glob;
+
 typedef struct	s_fus
 {
-	int	 	i;
+	int		i;
 	char	**res;
-	int	 	len_tab;
-	int	 	len_tab2;
+	int		len_tab;
+	int		len_tab2;
 
 }				t_fus;
-typedef struct s_utils
+
+typedef struct	s_utils
 {
-	int	 	i;
+	int		i;
 	char	**res;
 	char	*start;
 	char	*tmp;
-	int	 	j;
+	int		j;
 	char	*tmp2;
 	char	*str;
 	char	**res2;
 }				t_utils;
-typedef struct s_zoom
+
+typedef struct	s_zoom
 {
 	t_glob	*g;
 	t_glob	*s;
@@ -60,6 +74,7 @@ typedef struct s_zoom
 	char	**end;
 	int		i;
 }				t_zoom;
+
 /*
 **gb_init
 */
@@ -134,7 +149,8 @@ t_glob			*match_file(t_glob *g, t_new *st_path);
 /*
 **gb_matchrep1
 */
-t_new			*match_rep_end(t_glob *g, char *path, t_new *s, t_new *new_path);
+t_new			*match_rep_end(t_glob *g, char *path, t_new *s,\
+								t_new *new_path);
 char			*found_path_zero(char *path, char *dname);
 /*
 **gb_recupchartab
@@ -210,9 +226,9 @@ int				check_res(char **tab);
 /*
 **gb_acc_handle_array
 */
-char    		**ft_fusion_array(char **tab1, char **tab2);
-char            **ft_join_tab_end(char **tab, char *end);
-void            ft_free_array(char **tab);
+char			**ft_fusion_array(char **tab1, char **tab2);
+char			**ft_join_tab_end(char **tab, char *end);
+void			ft_free_array(char **tab);
 /*
 **gb_get_env
 */

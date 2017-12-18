@@ -150,7 +150,8 @@ int					ft_pow(int n, int p);
 char				*ft_strndup(const char *s1, size_t size);
 char				*ft_str3join(char *s1, char *s2, char *s3);
 
-char				*ft_xstrsub(char const *s, unsigned int start, size_t len, int ref);
+char				*ft_xstrsub(char const *s, unsigned int start, size_t len,\
+								int ref);
 char				*ft_xstrdup(const char *str, int ref);
 void				*ft_salloc(size_t size);
 void				*ft_scalloc(size_t size);

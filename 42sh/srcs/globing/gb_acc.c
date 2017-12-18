@@ -49,7 +49,7 @@ static void		init_ut(t_utils *ut, char *str)
 
 static void		ft_create_res(t_utils *ut)
 {
-	if (ut->res ==  NULL)
+	if (ut->res == NULL)
 	{
 		ut->res = ft_strsplit(ut->tmp, ',');
 		ft_strdel(&ut->tmp);
@@ -67,10 +67,20 @@ static void		ft_create_res(t_utils *ut)
 	}
 }
 
+static void		ft_norme_acc_pl(t_utils *ut, int check)
+{
+	ft_strdel(&(ut->tmp));
+	ft_strdel(&(ut->tmp2));
+	ut->tmp2 = NULL;
+	ut->tmp = NULL;
+	ut->res = NULL;
+	(void)check;
+}
+
 char			**ft_split_acc(char *str, int check)
 {
-	t_utils ut;
-	char **res;
+	t_utils	ut;
+	char	**res;
 
 	init_ut(&ut, str);
 	while (str && str[ut.i] != '\0')
@@ -80,14 +90,8 @@ char			**ft_split_acc(char *str, int check)
 			ut.tmp = ft_my_str_sub(ut.str, 0, ut.i);
 			ut.j = ut.i + 1;
 			if (ut.tmp)
-			{
 				ut.start = ft_strjoin(ut.tmp2, ut.tmp);
-			}
-			ft_strdel(&(ut.tmp));
-			ft_strdel(&(ut.tmp2));
-			ut.tmp2 = NULL;
-			ut.tmp = NULL;
-			ut.res = NULL;
+			ft_norme_acc_pl(&ut, check);
 			while (str[ut.i] != '\0' && str[ut.i] != '}')
 				ut.i++;
 			ut.tmp = ft_my_str_sub(str, ut.j, ut.i);
@@ -98,8 +102,6 @@ char			**ft_split_acc(char *str, int check)
 			break ;
 		ut.i++;
 	}
-	(void)check;
 	res = ut.res;
 	return (res);
 }
-

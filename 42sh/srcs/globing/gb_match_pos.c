@@ -26,6 +26,11 @@ int		sb_lessmatchno(int c, t_new *sb)
 	return (0);
 }
 
+/*
+** 		else if (sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] != '\0')
+**			ret = sb_lessmatchno(c, sb);
+*/
+
 int		sb_exclammatch(int c, t_new *sb)
 {
 	int		ret;
@@ -41,8 +46,6 @@ int		sb_exclammatch(int c, t_new *sb)
 			else
 				ret = sb__match_no(c, sb);
 		}
-//		else if (sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] != '\0')
-//			ret = sb_lessmatchno(c, sb);
 		else
 		{
 			ret = sb__match(c, sb);
