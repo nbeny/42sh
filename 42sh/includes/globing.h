@@ -94,8 +94,8 @@ t_glob			*slash_gestion(t_glob *g, char *line, int *i);
 */
 int				check_name_pos(char *str);
 int				check_is_posix(char *str, int *i);
-int				sb_classmatch1(int c, char *str, int *i);
-int				sb_classmatch(int c, char *str, int *i);
+int				sb_classmatch1(int c, t_new *sb);
+int				sb_classmatch(int c, t_new *sb);
 /*
 **gb_addword
 */
@@ -119,11 +119,11 @@ t_glob			*do_we_match(t_glob *g);
 /*
 **gb_match_pos
 */
-int				sb_lessmatchno(int c, char *str, int *i);
-int				sb_exclammatch(int c, char *str, int *i);
-int				sb_lessmatch(int c, char *str, int *i);
-int				sb__match(int c, char *str, int *i);
-int				sb__match_no(int c, char *str, int *i);
+int				sb_lessmatchno(int c, t_new *sb);
+int				sb_exclammatch(int c, t_new *sb);
+int				sb_lessmatch(int c, t_new *sb);
+int				sb__match(int c, t_new *sb);
+int				sb__match_no(int c, t_new *sb);
 /*
 **gb_matchrep
 */

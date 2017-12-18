@@ -24,8 +24,10 @@ char	*ft_my_str_sub(char const *s, int start, int len)
 			return (NULL);
 		if (!(strsub = (char *)malloc(sizeof(char) * (len + 1))))
 			return (NULL);
-		while (start < len && s[start])
+		while (s && start < len && s[start])
 		{
+			while (s && s[start] == '*' && s[start + 1] == '*')
+				start++;
 			strsub[i] = s[start];
 			start++;
 			i++;

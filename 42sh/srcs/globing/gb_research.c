@@ -77,7 +77,7 @@ int		check_isglob(char *line)
 	}
 	return (0);
 }
-#include <stdio.h>
+
 char	**globing_research(char **cmd, char **env)
 {
 	t_zoom z;

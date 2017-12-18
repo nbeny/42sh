@@ -56,40 +56,40 @@ int		check_is_posix(char *str, int *i)
 	return (++save);
 }
 
-int		sb_classmatch1(int c, char *str, int *i)
+int		sb_classmatch1(int c, t_new *sb)
 {
-	if (!ft_strncmp(&str[*i], "[:lower:]", 9) && (((*i) += 9) > 0))
+	if (!ft_strncmp(&(sb->str[sb->i]), "[:lower:]", 9) && ((sb->i += 9) > 0))
 		return (ft_islower(c));
-	else if (!ft_strncmp(&str[*i], "[:print:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:print:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isprint(c));
-	else if (!ft_strncmp(&str[*i], "[:punct:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:punct:]", 9) && ((sb->i += 9) > 0))
 		return (ft_ispunct(c));
-	else if (!ft_strncmp(&str[*i], "[:space:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:space:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isspace(c));
-	else if (!ft_strncmp(&str[*i], "[:upper:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:upper:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isupper(c));
-	else if (!ft_strncmp(&str[*i], "[:word:]", 8) && (((*i) += 8) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:word:]", 8) && ((sb->i += 8) > 0))
 		return (ft_isword(c));
-	else if (!ft_strncmp(&str[*i], "[:xdigit:]", 10) && (((*i) += 10) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:xdigit:]", 10) && ((sb->i += 10) > 0))
 		return (ft_isxdigit(c));
 	return (0);
 }
 
-int		sb_classmatch(int c, char *str, int *i)
+int		sb_classmatch(int c, t_new *sb)
 {
-	if (!ft_strncmp(&str[*i], "[:blank:]", 9) && (((*i) += 9) > 0))
+	if (!ft_strncmp(&(sb->str[sb->i]), "[:blank:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isblank(c));
-	else if (!ft_strncmp(&str[*i], "[:alnum:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:alnum:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isalnum(c));
-	else if (!ft_strncmp(&str[*i], "[:alpha:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:alpha:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isalpha(c));
-	else if (!ft_strncmp(&str[*i], "[:ascii:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:ascii:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isascii(c));
-	else if (!ft_strncmp(&str[*i], "[:cntrl:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:cntrl:]", 9) && ((sb->i += 9) > 0))
 		return (ft_iscntrl(c));
-	else if (!ft_strncmp(&str[*i], "[:digit:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:digit:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isdigit(c));
-	else if (!ft_strncmp(&str[*i], "[:graph:]", 9) && (((*i) += 9) > 0))
+	else if (!ft_strncmp(&(sb->str[sb->i]), "[:graph:]", 9) && ((sb->i += 9) > 0))
 		return (ft_isgraph(c));
-	return (sb_classmatch1(c, str, i));
+	return (sb_classmatch1(c, sb));
 }

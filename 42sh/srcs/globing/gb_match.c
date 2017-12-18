@@ -14,27 +14,27 @@
 
 int		check_sbmatch(char *s1, t_new *sb)
 {
-	int		i;
 	int		ret;
 
 	ret = -1;
-	i = 0;
+	sb->i = 0;
 	if (sb)
-		while (sb->str && sb->str[i])
+		while (sb->str && sb->str[sb->i])
 		{
-			if (i == 0 && (sb->str[0] == '!' || sb->str[0] == '^')\
-				&& sb->str[i + 1] != '\0')
-				if (!(ret = sb_exclammatch(*s1, sb->str, &i)))
+			if (sb->i == 0 && (sb->str[0] == '!' || sb->str[0] == '^')\
+				&& sb->str[sb->i + 1] != '\0')
+				if (!(ret = sb_exclammatch(*s1, sb)))
 					return (0);
-			if (i > 0 && sb->str[i] == '-' && sb->str[i + 1] != '\0')
-				ret = sb_lessmatch(*s1, sb->str, &i);
-			if (sb->str[i] == '[' && sb->str[i + 1] != '\0')
-				if (check_name_pos(&(sb->str)[i]))
-					ret = sb_classmatch(*s1, sb->str, &i);
+//			if (sb->i == 0 && sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] != '\0')
+//				ret = sb_lessmatch(*s1, sb);
+			if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
+				if (check_name_pos(&(sb->str)[sb->i]))
+					ret = sb_classmatch(*s1, sb);
 				else
-					ret = sb__match_no(*s1, sb->str, &i);
+					ret = sb__match_no(*s1, sb);
 			else
-				ret = sb__match(*s1, sb->str, &i);
+				ret = sb__match(*s1, sb);
+			sb->i++;
 			if (ret == 1)
 				return (1);
 		}

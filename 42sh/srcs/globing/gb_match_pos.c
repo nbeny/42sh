@@ -12,80 +12,81 @@
 
 #include "globing.h"
 
-int		sb_lessmatchno(int c, char *str, int *i)
+int		sb_lessmatchno(int c, t_new *sb)
 {
-	if (str && str[*i])
+	if (sb->str && sb->str[sb->i])
 	{
-		if (c > str[*i] && c < str[*i + 2])
+		if (c > sb->str[sb->i] && c < sb->str[sb->i + 2])
 		{
-			(*i) += 2;
+			sb->i += 2;
 			return (1);
 		}
-		(*i) += 2;
+		sb->i += 2;
 	}
 	return (0);
 }
 
-int		sb_exclammatch(int c, char *str, int *i)
+int		sb_exclammatch(int c, t_new *sb)
 {
 	int		ret;
 
 	ret = 0;
-	(*i)++;
-	while (str && str[*i])
+	sb->i++;
+	while (sb->str && sb->str[sb->i])
 	{
-		if (str[*i] == '[' && str[*i + 1] != '\0')
+		if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
 		{
-			if (check_name_pos(&str[*i]))
-				ret = sb_classmatch(c, str, i);
+			if (check_name_pos(&(sb->str[sb->i])))
+				ret = sb_classmatch(c, sb);
 			else
-				ret = sb__match_no(c, str, i);
+				ret = sb__match_no(c, sb);
 		}
-		else if (str[*i + 1] == '-' && str[*i + 2] != '\0')
-			ret = sb_lessmatchno(c, str, i);
+//		else if (sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] != '\0')
+//			ret = sb_lessmatchno(c, sb);
 		else
 		{
-			ret = sb__match(c, str, i);
+			ret = sb__match(c, sb);
 		}
 		if (ret == 1)
 			return (0);
-		(*i)++;
+		sb->i++;
 	}
 	return (1);
 }
 
-int		sb_lessmatch(int c, char *str, int *i)
+int		sb_lessmatch(int c, t_new *sb)
 {
-	if (str && str[*i])
+	if (sb->str && sb->str[sb->i])
 	{
-		if (c >= str[*i - 1] && c <= str[*i + 1])
+		if (c >= sb->str[sb->i - 1] && c <= sb->str[(sb->i + 1)])
 		{
-			(*i) += 2;
+			sb->i += 2;
 			return (1);
 		}
-		(*i) += 2;
+		sb->i += 2;
 	}
 	return (0);
 }
 
-int		sb__match(int c, char *str, int *i)
+int		sb__match(int c, t_new *sb)
 {
-	while (str && str[*i] && str[*i] != '-' && str[*i] != ']')
+	while (sb->str && sb->str[sb->i] &&\
+		sb->str[sb->i] != ']')
 	{
-		if (c == str[*i])
+		if (c == sb->str[sb->i])
 			return (1);
-		(*i)++;
+		sb->i++;
 	}
 	return (0);
 }
 
-int		sb__match_no(int c, char *str, int *i)
+int		sb__match_no(int c, t_new *sb)
 {
-	if (str && str[*i] && str[*i])
+	if (sb->str && sb->str[sb->i])
 	{
-		if (c == str[*i])
+		if (c == sb->str[sb->i])
 			return (1);
-		(*i)++;
+		sb->i++;
 	}
 	return (0);
 }
