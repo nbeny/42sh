@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "globing.h"
+#include "ft_printf.h"
 
 /*
 **			 if (sb->i == 0 && sb->str[sb->i + 1] == \
@@ -24,10 +25,11 @@ int		check_sbmatch(char *s1, t_new *sb)
 
 	ret = -1;
 	sb->i = 0;
+	ft_printf(2, "%s\n", s1);
 	if (sb)
 		while (sb->str && sb->str[sb->i])
 		{
-			if (sb->i == 0 && (sb->str[0] == '!' || sb->str[0] == '^')\
+			if ((sb->str[0] == '!' || sb->str[0] == '^')\
 				&& sb->str[sb->i + 1] != '\0')
 				if (!(ret = sb_exclammatch(*s1, sb)))
 					return (0);

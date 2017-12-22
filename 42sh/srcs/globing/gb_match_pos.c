@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "globing.h"
+#include "ft_printf.h"
 
 int		sb_lessmatchno(int c, t_new *sb)
 {
@@ -39,17 +40,16 @@ int		sb_exclammatch(int c, t_new *sb)
 	sb->i++;
 	while (sb->str && sb->str[sb->i])
 	{
+		ft_printf(2, "%i\n", sb->i);
 		if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
 		{
-			if (check_name_pos(&(sb->str[sb->i])))
+			if (check_name_pos(&(sb->str)[sb->i]))
 				ret = sb_classmatch(c, sb);
 			else
 				ret = sb__match_no(c, sb);
 		}
 		else
-		{
 			ret = sb__match(c, sb);
-		}
 		if (ret == 1)
 			return (0);
 		sb->i++;

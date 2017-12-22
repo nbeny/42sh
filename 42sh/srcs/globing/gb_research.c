@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "globing.h"
+#include "ft_printf.h"
 
 t_glob	*remake_arg(t_glob *g, char *line)
 {
@@ -41,15 +42,25 @@ t_glob	*zoom_research(t_glob *g, char *line)
 {
 	t_glob	*s;
 	int		i;
+	int		j;
 
 	i = 0;
+	j = 0;
 	s = g;
 	if (line == NULL)
 		return (NULL);
 	while (line[i])
 	{
 		if (line[i] == '/')
+		{
+			j++;
+			if (j >= 4)
+			{
+				ft_printf(2, "ft_bash: too mush arguments generate\n");
+				return (g);
+			}
 			s = slash_gestion(s, line, &i);
+		}
 		if (line[i] == '[')
 			s = square_bracket(s, line, &i);
 		else if (line[i] == '{')
