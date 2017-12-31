@@ -73,6 +73,7 @@ int			ast_build_sections(t_token *tokens, t_ast **root, t_envent *t)
 	{
 		if ((tokens->flag & LFT_SEP || ft_strequ(tokens->value, "&")))
 		{
+			
 			if (!(parsed = ast_parse(tmp, t)))
 				return (0);
 			ast_inright(root, ast_newast(NULL, parsed, NULL,\

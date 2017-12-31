@@ -50,9 +50,13 @@ int		sb_exclammatch(int c, t_new *sb)
 		{
 			ret = sb__match(c, sb);
 		}
+			ft_putstr("ret =");
+			ft_putnbr(ret);
+			ft_putchar('\n');
 		if (ret == 1)
 			return (0);
-		sb->i++;
+		
+//		sb->i++;
 	}
 	return (1);
 }
@@ -74,10 +78,13 @@ int		sb_lessmatch(int c, t_new *sb)
 int		sb__match(int c, t_new *sb)
 {
 	while (sb->str && sb->str[sb->i] &&\
-		sb->str[sb->i] != ']')
+		sb->str[sb->i] != ']' && sb->str[sb->i] != '[')
 	{
 		if (c == sb->str[sb->i])
+		{
+			sb->i++;
 			return (1);
+		}
 		sb->i++;
 	}
 	return (0);

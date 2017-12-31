@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ast.h"
+#include "globing.h"
 
 static t_token	*parse_redir_avs(t_token *token, t_list **rdav, t_ast *ret)
 {
@@ -59,15 +60,41 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 	t_list	*av;
 	t_token	*token;
 	t_ast	*redir;
-
+	char	**convert;
+	char    **tt;
+	char    **ff;
+	int i;
+	i = 0;
+	convert = NULL;
 	av = NULL;
 	token = *tk;
 	if (!(token->flag & LFT_WORD))
 		return (NULL);
 	while (token && (token->flag & LFT_WORD))
 	{
-		ft_lstaddfront(&av, \
+		i = 0;
+		ff = NULL;
+		tt = NULL;
+		ff = env_to_tab_envglob(t);
+		if ( token->value[ft_strlen(token->value) - 1] != -42)
+		{
+			convert = globing_research(token->value, ff);
+			ft_putstr("ouiouioui");
+			while (convert[i])
+			{
+				ft_lstaddfront(&av,\
+							ft_lstcreate(ft_strdup(convert[i]), sizeof(char *)));
+				i++;
+			}
+		}
+		else
+		{
+			if ( token->value[ft_strlen(token->value) - 1] == -42)
+				token->value[ft_strlen(token->value) - 1] = '\0';
+			
+			ft_lstaddfront(&av,\
 				ft_lstcreate(ft_strdup(token->value), sizeof(char *)));
+		}
 		token = token->next;
 	}
 	redir = NULL;

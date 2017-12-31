@@ -78,18 +78,19 @@ int		check_isglob(char *line)
 	return (0);
 }
 
-char	**globing_research(char **cmd, char **env)
+char	**globing_research(char *cmd, char **env)
 {
 	t_zoom z;
-
+	if (cmd[ft_strlen(cmd -1)] == -42)
+	    cmd[ft_strlen(cmd) - 1] = '\0';
 	init_z(&z, cmd, env);
-	while (z.cmd && z.cmd[z.j])
+//	while (z.cmd && z.cmd[z.j])
 	{
 		z.g = init_glob(z.env);
-		if (check_isglob(z.cmd[z.j]))
+		if (check_isglob(z.cmd))
 			go_to_acc(&z);
 		else
-			z.res = add_path(z.res, z.cmd[z.j]);
+			z.res = add_path(z.res, z.cmd);
 		if (z.g != NULL)
 			free(z.g);
 		z.j++;
@@ -97,7 +98,7 @@ char	**globing_research(char **cmd, char **env)
 	z.end = list_to_tab_new(z.res);
 	free_resforever(z.res);
 	z.j = 0;
-	cmd = NULL;
 	env = NULL;
+	ft_print_tab(z.end);
 	return (z.end);
 }

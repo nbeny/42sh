@@ -79,6 +79,8 @@ void		lx_doescape(t_token *tok)
 	while (*ptr++)
 		if (!(*ptr == LXC_SQUOT || *ptr == LXC_DQUOT))
 			*ptb++ = *ptr;
+		else if ((*ptr == LXC_SQUOT || *ptr == LXC_DQUOT))
+			*ptb++ = -42;
 	free(tok->value);
 	tok->flag = LFT_WORD;
 	tok->value = tmp;
@@ -95,6 +97,7 @@ int			lx_verifytokens(t_token *tok)
 	while (tok)
 	{
 		if (tok->flag == LXS_SQUOT || tok->flag == LXS_DQUOT)
+//			(void)tok->flag;
 			lx_doescape(tok);
 		else if ((tok->flag & LXS_TOKEN && ((tok->next && tok->next->flag & \
 		LXS_TOKEN && (tok->next->flag != LXS_SQUOT && tok->next->flag != \

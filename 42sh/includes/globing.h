@@ -67,7 +67,7 @@ typedef struct	s_zoom
 	t_glob	*g;
 	t_glob	*s;
 	char	**env;
-	char	**cmd;
+	char	*cmd;
 	char	**split;
 	t_new	*res;
 	int		j;
@@ -95,7 +95,7 @@ t_glob			*add_sbplease(t_glob *g, char *str);
 t_glob			*remake_arg(t_glob *g, char *line);
 t_glob			*zoom_research(t_glob *g, char *line);
 int				check_isglob(char *line);
-char			**globing_research(char **cmd, char **env);
+char			**globing_research(char *cmd, char **env);
 /*
 **gb_possibility
 */
@@ -239,6 +239,6 @@ t_new			*gb_home_path(t_new *res, t_glob *g);
 */
 void			go_to_zoom_research(t_zoom *z);
 void			go_to_acc(t_zoom *z);
-void			init_z(t_zoom *z, char **cmd, char **env);
+void			init_z(t_zoom *z, char *cmd, char **env);
 void			go_to_zoom(t_zoom *z);
 #endif

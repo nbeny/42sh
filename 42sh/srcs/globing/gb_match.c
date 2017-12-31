@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "globing.h"
-
+#include "ft_printf.h"
 /*
 **			 if (sb->i == 0 && sb->str[sb->i + 1] == \
 **			 '-' && sb->str[sb->i + 2] != '\0')
@@ -21,16 +21,37 @@
 int		check_sbmatch(char *s1, t_new *sb)
 {
 	int		ret;
-
+	int i;
 	ret = -1;
 	sb->i = 0;
+
+	ft_printf(1,"sb == %s,   s1 == %s\n", sb->str, s1);
 	if (sb)
 		while (sb->str && sb->str[sb->i])
 		{
+				i = 0;				
 			if (sb->i == 0 && (sb->str[0] == '!' || sb->str[0] == '^')\
 				&& sb->str[sb->i + 1] != '\0')
+			{
 				if (!(ret = sb_exclammatch(*s1, sb)))
+				{
+					ft_printf(1,"oui excla");
 					return (0);
+				}
+				else
+					return 1;
+			}
+			if (ft_isprint(sb->str[sb->i]) && sb->str[sb->i + 1] && sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] && ft_isprint(sb->str[sb->i + 2]))
+			{
+
+				char c = sb->str[i];
+				while (c < sb->str[i+2])
+					if (*s1 == c)
+						return (1);
+					else
+						c++;
+
+			}
 			if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
 				if (check_name_pos(&(sb->str)[sb->i]))
 					ret = sb_classmatch(*s1, sb);

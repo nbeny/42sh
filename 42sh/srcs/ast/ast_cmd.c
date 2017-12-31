@@ -57,16 +57,16 @@ t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 	char	**tt;
 	char	**ff;
 
+	(void)t;
 	ff = NULL;
 	tt = NULL;
 	if (!(new = malloc(sizeof(t_cmd))))
 		return (NULL);
 	tt = get_avs(av);
 	ast_lstfree(av);
-	ff = env_to_tab_envglob(t);
-	new->av = globing_research(tt, ff);
-	ft_free_array(tt);
-	ft_free_array(ff);
+	ft_print_tab(tt);
+//	ff = env_to_tab_envglob(t);
+	new->av = tt;//globing_research(tt, ff);
 	new->next = NULL;
 	new->sin = 0;
 	new->sout = 0;
