@@ -12,7 +12,7 @@
 
 CC = gcc
 
-NAME = 21sh
+NAME = 42sh
 
 PATH_SRC = srcs
 

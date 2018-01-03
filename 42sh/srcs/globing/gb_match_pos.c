@@ -34,28 +34,35 @@ int		sb_lessmatchno(int c, t_new *sb)
 int		sb_exclammatch(int c, t_new *sb)
 {
 	int		ret;
+	char	ct;
 
 	ret = 0;
 	sb->i++;
 	while (sb->str && sb->str[sb->i])
 	{
-		if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
+		if (ft_isprint(sb->str[sb->i]) && sb->str[sb->i + 1] &&\
+			sb->str[sb->i + 1] == '-' && sb->str[sb->i + 2] &&\
+			ft_isprint(sb->str[sb->i + 2]))
 		{
-			if (check_name_pos(&(sb->str[sb->i])))
+			ct = sb->str[sb->i];
+			while (ct < sb->str[sb->i + 2])
+				if (c == ct)
+					return (0);
+				else
+					ct++;
+		}
+		if (sb->str[sb->i] == '[' && sb->str[sb->i + 1] != '\0')
+			if (check_name_pos(&(sb->str)[sb->i]))
 				ret = sb_classmatch(c, sb);
 			else
 				ret = sb__match_no(c, sb);
-		}
 		else
-		{
 			ret = sb__match(c, sb);
-		}
 			ft_putstr("ret =");
 			ft_putnbr(ret);
 			ft_putchar('\n');
 		if (ret == 1)
 			return (0);
-		
 //		sb->i++;
 	}
 	return (1);
