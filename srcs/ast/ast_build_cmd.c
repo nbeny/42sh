@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:43 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/11/23 20:51:58 by kbagot           ###   ########.fr       */
+/*   Updated: 2018/01/04 16:30:20 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 	char    **tt;
 	char    **ff;
 	int i;
+
 	i = 0;
 	convert = NULL;
 	av = NULL;
@@ -76,25 +77,25 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 		ff = NULL;
 		tt = NULL;
 		ff = env_to_tab_envglob(t);
-		if ( token->value[ft_strlen(token->value) - 1] != -42)
+		if (token->value[ft_strlen(token->value) - 1] != -42)
 		{
 			convert = globing_research(token->value, ff);
-			ft_putstr("ouiouioui");
 			while (convert[i])
 			{
 				ft_lstaddfront(&av,\
 							ft_lstcreate(ft_strdup(convert[i]), sizeof(char *)));
 				i++;
 			}
+			ft_free_array(convert);
 		}
 		else
 		{
-			if ( token->value[ft_strlen(token->value) - 1] == -42)
+			if (token->value[ft_strlen(token->value) - 1] == -42)
 				token->value[ft_strlen(token->value) - 1] = '\0';
-			
 			ft_lstaddfront(&av,\
 				ft_lstcreate(ft_strdup(token->value), sizeof(char *)));
 		}
+		ft_free_array(ff);
 		token = token->next;
 	}
 	redir = NULL;

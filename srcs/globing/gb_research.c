@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:11:11 by nbeny             #+#    #+#             */
-/*   Updated: 2017/11/19 02:11:13 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/04 16:30:27 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,18 @@ t_glob	*remake_arg(t_glob *g, char *line)
 	return (g);
 }
 
+t_glob	*error_mush_arg(t_glob *s, char *line, int *j, int *i)
+{
+	(*j)++;
+	if ((*j) >= 4)
+	{
+		ft_printf(2, "ft_bash: too mush arguments generate\n");
+		return (NULL);
+	}
+	s = slash_gestion(s, line, i);
+	return (s);
+}
+
 t_glob	*zoom_research(t_glob *g, char *line)
 {
 	t_glob	*s;
@@ -52,15 +64,8 @@ t_glob	*zoom_research(t_glob *g, char *line)
 	while (line[i])
 	{
 		if (line[i] == '/')
-		{
-			j++;
-			if (j >= 4)
-			{
-				ft_printf(2, "ft_bash: too mush arguments generate\n");
+			if (!(s = error_mush_arg(s, line, &j, &i)))
 				return (g);
-			}
-			s = slash_gestion(s, line, &i);
-		}
 		if (line[i] == '[')
 			s = square_bracket(s, line, &i);
 		else if (line[i] == '{')
@@ -110,6 +115,6 @@ char	**globing_research(char *cmd, char **env)
 	free_resforever(z.res);
 	z.j = 0;
 	env = NULL;
-	ft_print_tab(z.end);
+//	ft_print_tab(z.end);
 	return (z.end);
 }

@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:06:41 by nidzik            #+#    #+#             */
-/*   Updated: 2018/01/04 16:23:45 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/04 15:55:22 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ t_glob			*add_sbplease(t_glob *g, char *str);
 **gb_research
 */
 t_glob			*remake_arg(t_glob *g, char *line);
-t_glob			*error_mush_arg(t_glob *s, char *line, int *j, int *i);
+//t_glob			*error_mush_arg(t_glob *s, char *line, int *j, int *i);
 t_glob			*zoom_research(t_glob *g, char *line);
 int				check_isglob(char *line);
 char			**globing_research(char *cmd, char **env);

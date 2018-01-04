@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:50 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/11/17 15:39:33 by tgascoin         ###   ########.fr       */
+/*   Updated: 2018/01/04 15:34:01 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int			ast_build_sections(t_token *tokens, t_ast **root, t_envent *t)
 	{
 		if ((tokens->flag & LFT_SEP || ft_strequ(tokens->value, "&")))
 		{
-			
 			if (!(parsed = ast_parse(tmp, t)))
 				return (0);
 			ast_inright(root, ast_newast(NULL, parsed, NULL,\
@@ -84,7 +83,7 @@ int			ast_build_sections(t_token *tokens, t_ast **root, t_envent *t)
 	}
 	if (!(parsed = ast_parse(tmp, t)))
 		return (0);
-	(tmp) ? ast_inright(root, ast_newast(NULL, parsed, NULL, \
+	(tmp) ? ast_inright(root, ast_newast(NULL, parsed, NULL,\
 			(tmp->flag | LFD_NONE))) : free(parsed);
 	return (1);
 }
