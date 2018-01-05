@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 13:41:46 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/12/18 12:11:29 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:27:23 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,14 @@ typedef struct		s_cmd
 	struct s_cmd	*next;
 }					t_cmd;
 
+typedef struct		s_trans
+{
+	char			**convert;
+	char			**tt;
+	char			**ff;
+	int				i;
+}					t_trans;
+
 t_cmd				*ast_newcmd(t_list *av, t_ast *redir, t_envent *e);
 t_ast				*ast_newast(void *data, t_ast *left, t_ast *right, int fl);
 void				ast_freeast(t_ast **ast);
@@ -50,6 +58,7 @@ t_cmd				*cmd_parse(t_token **tk, t_envent *t);
 t_ast				*ast_build(t_token *tokens, t_envent *t);
 void				ast_lstfree(t_list *lst);
 void				ast_freeast(t_ast **ast);
+void				init_trans(t_trans *tr);
 
 char				**env_to_tab_envglob(t_envent *e);
 #endif

@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:43 by tgascoin          #+#    #+#             */
-/*   Updated: 2018/01/05 07:11:23 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:26:21 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,38 +55,39 @@ static t_ast	*cmd_parse_redir(t_token **tk, t_ast **elem)
 	return (*elem);
 }
 
+void			init_trans(t_trans *tr)
+{
+	tr->convert = NULL;
+	tr->tt = NULL;
+	tr->ff = NULL;
+	tr->i = 0;
+}
+
 t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 {
 	t_list	*av;
 	t_token	*token;
 	t_ast	*redir;
-	char	**convert;
-	char	**tt;
-	char	**ff;
-	int		i;
+	t_trans	tr;
 
-	i = 0;
-	convert = NULL;
 	av = NULL;
 	token = *tk;
 	if (!(token->flag & LFT_WORD))
 		return (NULL);
 	while (token && (token->flag & LFT_WORD))
 	{
-		i = 0;
-		ff = NULL;
-		tt = NULL;
-		ff = env_to_tab_envglob(t);
+		init_trans(&tr);
+		tr.ff = env_to_tab_envglob(t);
 		if (token->value[ft_strlen(token->value) - 1] != -42)
 		{
-			convert = globing_research(token->value, ff);
-			while (convert[i])
+			tr.convert = globing_research(token->value, tr.ff);
+			while (tr.convert[tr.i])
 			{
 				ft_lstaddfront(&av,\
-						ft_lstcreate(ft_strdup(convert[i]), sizeof(char *)));
-				i++;
+					ft_lstcreate(ft_strdup(tr.convert[tr.i]), sizeof(char *)));
+				tr.i++;
 			}
-			ft_free_array(convert);
+			ft_free_array(tr.convert);
 		}
 		else
 		{
@@ -95,7 +96,7 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 			ft_lstaddfront(&av,\
 				ft_lstcreate(ft_strdup(token->value), sizeof(char *)));
 		}
-		ft_free_array(ff);
+		ft_free_array(tr.ff);
 		token = token->next;
 	}
 	redir = NULL;
