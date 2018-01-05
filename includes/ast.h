@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/01 13:41:46 by tgascoin          #+#    #+#             */
-/*   Updated: 2018/01/05 07:27:23 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:54:32 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ t_cmd				*cmd_parse(t_token **tk, t_envent *t);
 t_ast				*ast_build(t_token *tokens, t_envent *t);
 void				ast_lstfree(t_list *lst);
 void				ast_freeast(t_ast **ast);
-void				init_trans(t_trans *tr);
 
 char				**env_to_tab_envglob(t_envent *e);
+void				init_trans(t_trans *tr);
+t_list				*creat_every_thing(t_token *token, t_envent *t, t_list *av);
 #endif

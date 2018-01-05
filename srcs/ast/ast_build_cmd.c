@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:43 by tgascoin          #+#    #+#             */
-/*   Updated: 2018/01/05 07:26:21 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:56:04 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,12 +63,39 @@ void			init_trans(t_trans *tr)
 	tr->i = 0;
 }
 
+t_list			*creat_every_thing(t_token *token, t_envent *t, t_list *av)
+{
+	t_trans	tr;
+
+	init_trans(&tr);
+	tr.ff = env_to_tab_envglob(t);
+	if (token->value[ft_strlen(token->value) - 1] != -42)
+	{
+		tr.convert = globing_research(token->value, tr.ff);
+		while (tr.convert[tr.i])
+		{
+			ft_lstaddfront(&av,\
+					ft_lstcreate(ft_strdup(tr.convert[tr.i]), sizeof(char *)));
+			tr.i++;
+		}
+		ft_free_array(tr.convert);
+	}
+	else
+	{
+		if (token->value[ft_strlen(token->value) - 1] == -42)
+			token->value[ft_strlen(token->value) - 1] = '\0';
+		ft_lstaddfront(&av,\
+					ft_lstcreate(ft_strdup(token->value), sizeof(char *)));
+	}
+	ft_free_array(tr.ff);
+	return (av);
+}
+
 t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 {
 	t_list	*av;
 	t_token	*token;
 	t_ast	*redir;
-	t_trans	tr;
 
 	av = NULL;
 	token = *tk;
@@ -76,27 +103,7 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 		return (NULL);
 	while (token && (token->flag & LFT_WORD))
 	{
-		init_trans(&tr);
-		tr.ff = env_to_tab_envglob(t);
-		if (token->value[ft_strlen(token->value) - 1] != -42)
-		{
-			tr.convert = globing_research(token->value, tr.ff);
-			while (tr.convert[tr.i])
-			{
-				ft_lstaddfront(&av,\
-					ft_lstcreate(ft_strdup(tr.convert[tr.i]), sizeof(char *)));
-				tr.i++;
-			}
-			ft_free_array(tr.convert);
-		}
-		else
-		{
-			if (token->value[ft_strlen(token->value) - 1] == -42)
-				token->value[ft_strlen(token->value) - 1] = '\0';
-			ft_lstaddfront(&av,\
-				ft_lstcreate(ft_strdup(token->value), sizeof(char *)));
-		}
-		ft_free_array(tr.ff);
+		av = creat_every_thing(token, t, av);
 		token = token->next;
 	}
 	redir = NULL;
