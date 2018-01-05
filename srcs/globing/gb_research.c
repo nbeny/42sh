@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:11:11 by nbeny             #+#    #+#             */
-/*   Updated: 2018/01/05 11:23:57 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 11:33:31 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ t_glob	*zoom_research(t_glob *g, char *line)
 		if (line[i] == '[')
 			s = square_bracket(s, line, &i);
 		else if (line[i] == '{')
-				s = accolade(s, line, &i);
+			s = accolade(s, line, &i);
 		else if (line[i] == '?')
 			s = interogation(s, line, &i);
 		else
