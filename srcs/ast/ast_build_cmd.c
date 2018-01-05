@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:43 by tgascoin          #+#    #+#             */
-/*   Updated: 2018/01/05 07:56:04 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 10:08:13 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_list			*creat_every_thing(t_token *token, t_envent *t, t_list *av)
 	if (token->value[ft_strlen(token->value) - 1] != -42)
 	{
 		tr.convert = globing_research(token->value, tr.ff);
-		while (tr.convert[tr.i])
+		while (tr.convert && tr.convert[tr.i])
 		{
 			ft_lstaddfront(&av,\
 					ft_lstcreate(ft_strdup(tr.convert[tr.i]), sizeof(char *)));
