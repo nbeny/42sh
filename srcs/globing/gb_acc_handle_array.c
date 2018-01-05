@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/06 21:45:00 by nidzik            #+#    #+#             */
-/*   Updated: 2017/12/18 12:27:41 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 11:21:11 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,10 @@ char			**ft_fusion_array(char **tab1, char **tab2)
 					(fu.len_tab + fu.len_tab2 + 1))))
 		return (NULL);
 	while (tab1[fu.i])
-		fu.res[fu.i] = ft_strdup(tab1[fu.i++]);
+	{
+		fu.res[fu.i] = ft_strdup(tab1[fu.i]);
+		fu.i++;
+	}
 	fu.len_tab = 0;
 	while (tab2[fu.len_tab])
 	{
@@ -102,8 +105,7 @@ char			**ft_fusion_array(char **tab1, char **tab2)
 		fu.i++;
 	}
 	fu.res[fu.i] = NULL;
-	ft_free_array(tab1);
-	ft_free_array(tab2);
+	free_two_tab(tab1, tab2);
 	res = fu.res;
 	return (res);
 }

@@ -6,7 +6,7 @@
 /*   By: nidzik <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/12/18 14:06:41 by nidzik            #+#    #+#             */
-/*   Updated: 2018/01/04 16:23:45 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 11:22:14 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ int				check_is_acc(char *str);
 void			ft_print_tab(char **tab);
 char			**ft_join_tab(char **tab, char *start);
 int				check_res(char **tab);
+void			free_two_tab(char **tab1, char **tab2);
 /*
 **gb_acc_handle_array
 */
