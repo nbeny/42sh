@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:10:47 by nbeny             #+#    #+#             */
-/*   Updated: 2018/01/05 07:09:23 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 08:59:09 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,19 @@ char	*found_path(int zero, char *path, char *dname)
 		new_path = found_path_zero(path, dname);
 	else
 	{
-		tmp = ft_strjoin(path, "/");
-		new_path = ft_strjoin(tmp, dname);
-		ft_strdel(&tmp);
-		ft_strdel(&dname);
+		if (ft_strcmp(path, "/"))
+		{
+			tmp = ft_strjoin(path, "/");
+			new_path = ft_strjoin(tmp, dname);
+			ft_strdel(&tmp);
+			ft_strdel(&dname);
+		}
+		else
+		{
+			new_path = ft_strjoin(path, dname);
+			ft_strdel(&dname);
+		}
+			
 	}
 	return (new_path);
 }
