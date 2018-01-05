@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:10:47 by nbeny             #+#    #+#             */
-/*   Updated: 2018/01/05 08:59:09 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 10:20:35 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,6 @@ char	*found_path(int zero, char *path, char *dname)
 			new_path = ft_strjoin(path, dname);
 			ft_strdel(&dname);
 		}
-			
 	}
 	return (new_path);
 }
