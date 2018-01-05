@@ -6,7 +6,7 @@
 #    By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/27 00:56:40 by nbeny             #+#    #+#              #
-#    Updated: 2017/12/18 12:10:30 by nbeny            ###   ########.fr        #
+#    Updated: 2018/01/05 10:11:29 by nbeny            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -141,7 +141,7 @@ PATH_SRC = srcs
 
 OBJ = $(patsubst $(PATH_SRC)/%.c, obj/%.o, $(SRC))
 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror -fsanitize=address -O0 -g3
 
 LIBS = -L ./libft/ -lft -L ./ftprintf/ -lprintf -ltermcap
 

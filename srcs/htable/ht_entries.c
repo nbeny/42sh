@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 16:18:44 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/10/31 16:19:41 by tgascoin         ###   ########.fr       */
+/*   Updated: 2018/01/05 10:15:02 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ unsigned int		ht_hash(char *cp)
 	unsigned int	hash;
 
 	hash = 0x01000193;
-	while (*cp)
+	while (cp && *cp)
 	{
 		hash ^= *cp++;
 		hash *= 0x01000193;
