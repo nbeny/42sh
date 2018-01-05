@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:10:47 by nbeny             #+#    #+#             */
-/*   Updated: 2018/01/04 16:33:35 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:09:23 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,6 @@ t_glob	*match_file(t_glob *g, t_new *st_path)
 		dir = opendir(st_path->str);
 		while ((d = readdir(dir)) != NULL)
 			if (nmatch(d->d_name, s->str, g->sb) != 0)
-			{
-//								ft_putendl("nmatch != 0");
 				if (d->d_name[0] != '.' || !ft_strncmp(s->str, "..\0", 3 ||\
 					!ft_strncmp(s->str, ".\0", 2)))
 				{
@@ -89,9 +87,6 @@ t_glob	*match_file(t_glob *g, t_new *st_path)
 					g->resforever = add_path(g->resforever, tmp);
 					ft_strdel(&tmp);
 				}
-			}
-//			else
-//				ft_putendl("nmatch == 0");
 		closedir(dir);
 		s = s->next;
 	}

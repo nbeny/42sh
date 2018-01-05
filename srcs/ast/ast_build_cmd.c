@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:43 by tgascoin          #+#    #+#             */
-/*   Updated: 2018/01/04 16:30:20 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:11:23 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,9 +61,9 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 	t_token	*token;
 	t_ast	*redir;
 	char	**convert;
-	char    **tt;
-	char    **ff;
-	int i;
+	char	**tt;
+	char	**ff;
+	int		i;
 
 	i = 0;
 	convert = NULL;
@@ -83,7 +83,7 @@ t_cmd			*cmd_parse(t_token **tk, t_envent *t)
 			while (convert[i])
 			{
 				ft_lstaddfront(&av,\
-							ft_lstcreate(ft_strdup(convert[i]), sizeof(char *)));
+						ft_lstcreate(ft_strdup(convert[i]), sizeof(char *)));
 				i++;
 			}
 			ft_free_array(convert);

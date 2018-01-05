@@ -6,7 +6,7 @@
 /*   By: nbeny <nbeny@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/19 02:11:11 by nbeny             #+#    #+#             */
-/*   Updated: 2018/01/04 16:30:27 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:07:38 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,10 +97,11 @@ int		check_isglob(char *line)
 char	**globing_research(char *cmd, char **env)
 {
 	t_zoom z;
-	if (cmd[ft_strlen(cmd -1)] == -42)
-	    cmd[ft_strlen(cmd) - 1] = '\0';
+
+	if (cmd[ft_strlen(cmd - 1)] == -42)
+		cmd[ft_strlen(cmd) - 1] = '\0';
 	init_z(&z, cmd, env);
-//	while (z.cmd && z.cmd[z.j])
+	while (z.cmd && z.cmd[z.j])
 	{
 		z.g = init_glob(z.env);
 		if (check_isglob(z.cmd))
@@ -115,6 +116,5 @@ char	**globing_research(char *cmd, char **env)
 	free_resforever(z.res);
 	z.j = 0;
 	env = NULL;
-//	ft_print_tab(z.end);
 	return (z.end);
 }

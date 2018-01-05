@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 16:21:17 by tgascoin          #+#    #+#             */
-/*   Updated: 2017/11/17 15:41:43 by tgascoin         ###   ########.fr       */
+/*   Updated: 2018/01/05 07:05:53 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,6 @@ int			lx_verifytokens(t_token *tok)
 	while (tok)
 	{
 		if (tok->flag == LXS_SQUOT || tok->flag == LXS_DQUOT)
-//			(void)tok->flag;
 			lx_doescape(tok);
 		else if ((tok->flag & LXS_TOKEN && ((tok->next && tok->next->flag & \
 		LXS_TOKEN && (tok->next->flag != LXS_SQUOT && tok->next->flag != \

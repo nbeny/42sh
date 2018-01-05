@@ -6,7 +6,7 @@
 /*   By: tgascoin <tgascoin@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/31 13:12:35 by tgascoin          #+#    #+#             */
-/*   Updated: 2018/01/04 16:32:49 by nbeny            ###   ########.fr       */
+/*   Updated: 2018/01/05 07:10:12 by nbeny            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_cmd		*ast_newcmd(t_list *av, t_ast *redir, t_envent *t)
 		return (NULL);
 	tt = get_avs(av);
 	ast_lstfree(av);
-//	ft_print_tab(tt);
 	new->av = tt;
 	new->next = NULL;
 	new->sin = 0;
