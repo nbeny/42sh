@@ -1,7 +1,7 @@
 # Project 42sh
 >>>> ##### exploration project.
 `janvier 2018`
-##### Grade ``(/100)`` ``(/125)*``
+##### Grade ``(93/100)`` ``(93/125)*``
 --------  -----------------------
 
 - [X] créer un shell et afficher un prompt a l'aide des termcaps
